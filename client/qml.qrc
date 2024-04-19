@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+    </qresource>
+    <qresource prefix="/image">
+        <file>assets/usbIcon.svg</file>
+        <file>assets/wifiIcon.svg</file>
+    </qresource>
+</RCC>
