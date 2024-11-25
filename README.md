@@ -9,13 +9,10 @@ AudioShare是一款音频流传输应用，它能够实现实时从电脑向手�
    转到 [AudioShare的GitHub发布页面](https://github.com/ysbing/AudioShare/releases) 查看最新发布的版本。
 
 2. **下载软件**  
-   点击下载最新版本的文件，例如 `AudioShare-1.0.0-win64.7z`。
+   点击下载最新版本的文件，例如 `AudioShare-1.0.1.exe`。
 
-3. **解压文件**  
-   下载后，使用合适的压缩文件管理器（如7-Zip）解压文件。
-
-4. **运行软件**  
-   解压后，双击 `AudioShare.exe` 来启动程序。
+3. **运行软件**  
+   双击 `AudioShare-1.0.1.exe` 来启动程序。
 
 ## 主要功能
 

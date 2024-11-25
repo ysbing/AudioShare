@@ -3,8 +3,9 @@
 #include <QCoreApplication>
 #include <QRegularExpression>
 #include "threadpools.h"
-
+#include <QFile>
 #include <QThreadPool>
+#include <QStandardPaths>
 
 Adb::Adb()
 {
@@ -98,7 +99,12 @@ QString Adb::exec( const QStringList &arguments)
 
 QString Adb::adbExecPath()
 {
-    return QCoreApplication::applicationDirPath().append("/adb.exe");
+    QFile file = QFile("./adb.exe");
+    if(file.exists()){
+        return file.fileName();
+    }
+    QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+    return tempDir.append("./adb.exe");
 }
 
 QPair<QString, QString> Adb::getIpPort(const QString &deviceId)
