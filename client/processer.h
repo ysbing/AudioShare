@@ -2,8 +2,9 @@
 #ifndef PROCESSER_H
 #define PROCESSER_H
 
-#include<Windows.h>
-#include<Mmdeviceapi.h>
+#include <Mmdeviceapi.h>
+#include <Windows.h>
+
 #include <QThread>
 
 #include "socket.h"
@@ -18,10 +19,9 @@ protected:
     void run();
 
 private:
-    IMMDevice* getDevice(const TCHAR *pId);
+    IMMDevice* getDevice(const TCHAR* pId);
     IMMDeviceCollection* getAudioDevices();
-    HRESULT recordAudioStream(IMMDevice *pDevice);
+    HRESULT recordAudioStream(IMMDevice* pDevice);
     WorkSocket* workSocket = nullptr;
-
 };
 #endif // PROCESSER_H

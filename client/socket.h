@@ -4,13 +4,12 @@
 
 #include <QtNetwork>
 
-class WorkSocket:public QObject
-{
+class WorkSocket : public QObject {
     Q_OBJECT
 public:
     explicit WorkSocket();
     ~WorkSocket();
-    void write(const char *data, int len);
+    void write(const char* data, int len);
     int findAvailablePort();
     void disconnect();
 

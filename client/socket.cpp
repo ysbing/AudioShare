@@ -4,19 +4,19 @@
 WorkSocket::WorkSocket()
 {
     ThreadPools::instance()->initMainThread();
-    connect(this, &WorkSocket::listen, this, [=](int port){
-        if(server && server->isListening() && connectPort == port){
+    connect(this, &WorkSocket::listen, this, [=](int port) {
+        if (server && server->isListening() && connectPort == port) {
             return;
         }
-        if(server){
+        if (server) {
             server->close();
         }
-        if(clientSocket){
+        if (clientSocket) {
             clientSocket->close();
             clientSocket = nullptr;
         }
         server = new QTcpServer;
-        if(server->listen(QHostAddress::Any, port)){
+        if (server->listen(QHostAddress::Any, port)) {
             connectPort = port;
             connect(server, &QTcpServer::newConnection, this, &WorkSocket::newClientHandler);
         } else {
@@ -30,15 +30,15 @@ WorkSocket::WorkSocket()
 WorkSocket::~WorkSocket()
 {
     disconnect();
-    if(server){
+    if (server) {
         server->close();
         server = nullptr;
     }
 }
 
-void WorkSocket::write(const char *data, int len)
+void WorkSocket::write(const char* data, int len)
 {
-    if(data && clientSocket && clientSocket->isValid() && clientSocket->isWritable()){
+    if (data && clientSocket && clientSocket->isValid() && clientSocket->isWritable()) {
         clientSocket->write(data, len);
         clientSocket->flush();
     }
@@ -46,16 +46,16 @@ void WorkSocket::write(const char *data, int len)
 
 int WorkSocket::findAvailablePort()
 {
-    if(connectPort>0){
+    if (connectPort > 0) {
         return connectPort;
     }
     int port = 11794;
-    for(int i = port; i<port+10000;i++){
+    for (int i = port; i < port + 10000; i++) {
         QTcpSocket socket;
-        socket.connectToHost(QHostAddress::LocalHost,i);
+        socket.connectToHost(QHostAddress::LocalHost, i);
         bool result = socket.waitForConnected(500);
-        qDebug()<<"findAvailablePort"<<i<<result;
-        if(!result){
+        qDebug() << "findAvailablePort" << i << result;
+        if (!result) {
             return i;
         }
     }
@@ -64,23 +64,21 @@ int WorkSocket::findAvailablePort()
 
 void WorkSocket::disconnect()
 {
-    if(clientSocket){
+    if (clientSocket) {
         clientSocket->close();
         clientSocket = nullptr;
     }
     emit clientDisconnect();
 }
 
-
 void WorkSocket::newClientHandler()
 {
     clientSocket = server->nextPendingConnection();
-    connect(clientSocket, &QTcpSocket::readyRead, this, [=](){
+    connect(clientSocket, &QTcpSocket::readyRead, this, [=]() {
         QString connectCode = QString::fromUtf8(clientSocket->readAll());
         emit connected(connectCode);
     });
-    connect(clientSocket, &QTcpSocket::disconnected, this, [=](){
+    connect(clientSocket, &QTcpSocket::disconnected, this, [=]() {
         disconnect();
     });
 }
-

@@ -9,10 +9,10 @@ AudioShare是一款音频流传输应用，它能够实现实时从电脑向手�
    转到 [AudioShare的GitHub发布页面](https://github.com/ysbing/AudioShare/releases) 查看最新发布的版本。
 
 2. **下载软件**  
-   点击下载最新版本的文件，例如 `AudioShare-1.0.1.exe`。
+   点击下载最新版本的文件，例如 `AudioShare-1.0.2.exe`。
 
 3. **运行软件**  
-   双击 `AudioShare-1.0.1.exe` 来启动程序。
+   双击 `AudioShare-1.0.2.exe` 来启动程序。
 
 ## 主要功能
 
@@ -32,29 +32,29 @@ AudioShare是一款音频流传输应用，它能够实现实时从电脑向手�
 #### 配置步骤：
 
 1. **安装必要工具**：
-   - **Qt SDK**：下载并安装[Qt 6.6 for MSVC2019 64-bit](https://download.qt.io/archive/qt/6.6/)，确保其中包含了Qt Creator IDE。
-   - **Windows SDK**：根据项目需求安装相应的Windows SDK版本。
-   - **CMake**：下载并安装与项目兼容的[CMake](https://cmake.org/download/)版本。
+   - **Qt SDK**：下载并安装最新版本的 [Qt SDK](https://download.qt.io/archive/online_installers/)，确保安装了 Qt Creator IDE。
+   - **Windows SDK**：根据项目需求安装相应的 Windows SDK 版本。
+   - **CMake**：CMake 已包含在 Qt 安装包中，无需单独下载。但需要将 CMake 的路径添加到环境变量中。通常路径为 `Qt 安装目录\Tools\CMake_64\bin`。
 
 2. **打开CMake项目**：
    - 在Qt Creator中直接打开项目根目录下的`CMakeLists.txt`文件。
-   - Qt Creator将自动检测CMakeLists.txt并配置相应的构建套件（Kit），采用Qt 6.6 MSVC2019 64-bit编译器进行构建。
+   - Qt Creator将自动检测CMakeLists.txt并配置相应的构建套件（Kit），使用 MSVC 64 位编译器进行构建。
 
-### 使用Visual Studio 2019
+### 使用Visual Studio 2022
 
 #### 配置步骤：
 
 1. **安装必备组件**：
-   - **Visual Studio 2019**：安装Visual Studio 2019，并确保安装了"C++桌面开发"工作负载以及CMake工具支持。
-   - **Qt 6.6 for MSVC2019 64-bit**：安装与VS 2019兼容的Qt 6.6 MSVC2019 64-bit版本。
+   - **Visual Studio 2022**：安装Visual Studio 2022，并确保安装了"C++桌面开发"工作负载以及CMake工具支持。
+   - **Qt for MSVC2022 64-bit**：安装与VS 2022兼容的Qt MSVC2022 64-bit版本。
    - **Windows SDK**与**CMake**：按项目需求安装合适的Windows SDK和CMake版本。
 
 2. **生成Visual Studio解决方案**：
-   - 在项目根目录下运行`gen_msvs_cmake.bat`批处理脚本，该脚本会自动生成Visual Studio 2019可用的CMake解决方案。
+   - 在项目根目录下运行`gen_msvs_cmake.bat`批处理脚本，该脚本会自动生成Visual Studio 2022可用的CMake解决方案。
 
 3. **启动开发**：
    - 打开生成的`msvs_cmake`目录内的`AudioShare.sln`解决方案文件。
-   - 在Visual Studio 2019中加载项目，即可进行构建、调试和开发工作。
+   - 在Visual Studio 2022中加载项目，即可进行构建、调试和开发工作。
 
 ## Android开发环境配置
 

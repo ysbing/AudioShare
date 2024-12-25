@@ -1,52 +1,57 @@
 #include "data_source.h"
+
 #include "threadpools.h"
 
 DataSource::DataSource()
 {
     processer->start();
     connect(socket, &WorkSocket::connected, this, &DataSource::onConnected);
-    connect(socket, &WorkSocket::clientDisconnect, this, &DataSource::onClientDisconnect);
+    connect(socket, &WorkSocket::clientDisconnect, this,
+        &DataSource::onClientDisconnect);
     // 每个3秒轮训一次连接的设备
-    QObject::connect(&timer, &QTimer::timeout, this, [this](){
-        adb.devices();
-    });
+    QObject::connect(&timer, &QTimer::timeout, this, [this]() { adb.devices(); });
     adb.devices();
     timer.start(3000);
-    QObject::connect(&adb, &Adb::devicesChanged, this, [this](const QList<DeviceModel*>& devices){
-        beginResetModel();
-        datas.clear();
-        datas.append(devices);
-        endResetModel();
-        if(datas.isEmpty())
-        {
-            deviceState_ = 1;
-            resetConnectState();
-        }
-        else
-        {
-            deviceState_ = 2;
-            QList<QString> connectKeys = connectStateMap.keys();
-            for(int i = 0; i < connectKeys.count(); i++)
-            {
-                QString connectKey = connectKeys.at(i);
-                bool has = false;
-                for(int j = 0; j < devices.count(); j++)
-                {
-                    DeviceModel* device = devices.at(j);
-                    if(device->deviceId == connectKey)
-                    {
-                        has = true;
-                        break;
+    QObject::connect(
+        &adb, &Adb::devicesChanged, this,
+        [this](const QList<DeviceModel*>& devices) {
+            beginResetModel();
+            datas.clear();
+            datas.append(devices);
+            endResetModel();
+            if (datas.isEmpty()) {
+                deviceState_ = 1;
+                resetConnectState();
+            } else {
+                deviceState_ = 2;
+                QList<QString> connectKeys = connectStateMap.keys();
+                bool hasLast = false;
+                for (int i = 0; i < connectKeys.count(); i++) {
+                    QString connectKey = connectKeys.at(i);
+                    bool has = false;
+                    for (int j = 0; j < devices.count(); j++) {
+                        DeviceModel* device = devices.at(j);
+                        if (device->deviceId == connectKey) {
+                            has = true;
+                        }
+                        if (!lastDeviceId.isEmpty() && device->deviceId == lastDeviceId) {
+                            hasLast = true;
+                        }
+                    }
+                    if (!has) {
+                        connectStateMap[connectKey] = 0;
                     }
                 }
-                if(!has)
-                {
-                    connectStateMap[connectKey] = 0;
+                if (hasLast) {
+                    if (lastCheck_ && !lastDeviceId.isEmpty() && connectStateMap[lastDeviceId] == 0 && lastDeviceId != lastAutoDeviceId) {
+                        connectDevice(lastDeviceId);
+                    }
+                } else {
+                    lastAutoDeviceId = "";
                 }
             }
-        }
-        emit deviceStateChanged();
-    });
+            emit deviceStateChanged();
+        });
 }
 
 DataSource::~DataSource()
@@ -58,43 +63,35 @@ DataSource::~DataSource()
     processer->deleteLater();
 }
 
-int DataSource::rowCount(const QModelIndex &parent) const
+int DataSource::rowCount(const QModelIndex& parent) const
 {
     return datas.size();
 }
 
-QVariant DataSource::data(const QModelIndex &index, int role) const
+QVariant DataSource::data(const QModelIndex& index, int role) const
 {
     DeviceModel* data = datas[index.row()];
-    if (role == DeviceIdRole){
+    if (role == DeviceIdRole) {
         return data->deviceId;
-        }
-   else if (role == UsbTypeRole){
+    } else if (role == UsbTypeRole) {
         return data->usb;
-    }
-    else if (role == ModelRole) {
+    } else if (role == ModelRole) {
         return data->model;
-    } else if (role == ManufacturerRole){
+    } else if (role == ManufacturerRole) {
         return data->manufacturer;
-        }
-    else if (role == AndroidVersionRole){
+    } else if (role == AndroidVersionRole) {
         return data->androidVersion;
-        }
-    else if (role == ApiLevelRole) {
+    } else if (role == ApiLevelRole) {
         return data->apiLevel;
-    }
-    else if (role == IpRole) {
+    } else if (role == IpRole) {
         return data->ipPort.first;
-    }
-    else if (role == PortRole) {
+    } else if (role == PortRole) {
         return data->ipPort.second;
-    }
-    else if (role == ConnectStateRole) {
+    } else if (role == ConnectStateRole) {
         return connectStateMap[data->deviceId];
-    }
-    else if (role == ConnectEnableRole) {
+    } else if (role == ConnectEnableRole) {
         for (QString key : connectStateMap.keys()) {
-            if(connectStateMap[key]==1){
+            if (connectStateMap[key] == 1) {
                 return false;
             }
         }
@@ -127,16 +124,14 @@ void DataSource::updateConnectState(const QString& deviceId, int state)
     endResetModel();
 }
 
-void DataSource::resetConnectState()
-{
-    connectStateMap.clear();
-}
+void DataSource::resetConnectState() { connectStateMap.clear(); }
 
-void DataSource::connectDevice(const QString &deviceId)
+void DataSource::connectDevice(const QString& deviceId)
 {
+    lastAutoDeviceId = lastDeviceId = deviceId;
     disconnectAllDevice();
     updateConnectState(deviceId, 1);
-    ThreadPools::instance()->exec([=]{
+    ThreadPools::instance()->exec([=] {
         // 查询可用端口
         int port = socket->findAvailablePort();
         // 端口映射
@@ -148,11 +143,11 @@ void DataSource::connectDevice(const QString &deviceId)
         emit socket->listen(port);
         // 启动服务
         adb.launchServer(deviceId, socketName);
-        qDebug()<< "connect:"<<deviceId << port;
+        qDebug() << "connect:" << deviceId << port;
     });
 }
 
-void DataSource::disconnectDevice(const QString &deviceId)
+void DataSource::disconnectDevice(const QString& deviceId)
 {
     adb.stopServer();
     socket->disconnect();
@@ -166,17 +161,19 @@ void DataSource::disconnectAllDevice()
     resetConnectState();
 }
 
-int DataSource::deviceState()
+int DataSource::deviceState() { return deviceState_; }
+
+bool DataSource::lastCheck() { return lastCheck_; }
+
+void DataSource::setLastCheck(bool check)
 {
-    return deviceState_;
+    lastAutoDeviceId = lastDeviceId = "";
+    lastCheck_ = check;
 }
 
-void DataSource::onConnected(const QString &connectCode)
+void DataSource::onConnected(const QString& connectCode)
 {
     updateConnectState(connectCode, 2);
 }
 
-void DataSource::onClientDisconnect()
-{
-    adb.devices();
-}
+void DataSource::onClientDisconnect() { adb.devices(); }

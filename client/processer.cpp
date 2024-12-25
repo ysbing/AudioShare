@@ -1,30 +1,31 @@
 #include "processer.h"
 
+#include <Audioclient.h>
 #include <QAudioDevice>
 #include <QMediaDevices>
-#include <Audioclient.h>
 
-
-#define EXIT_ON_ERROR(hres)  \
-if (FAILED(hres)) { goto Exit; }
-#define SAFE_RELEASE(punk)  \
-if ((punk) != NULL)  \
-    { (punk)->Release(); (punk) = NULL; }
-
+#define EXIT_ON_ERROR(hres) \
+    if (FAILED(hres)) {     \
+        goto Exit;          \
+    }
+#define SAFE_RELEASE(punk) \
+    if ((punk) != NULL) {  \
+        (punk)->Release(); \
+        (punk) = NULL;     \
+    }
 
 const CLSID CLSID_MMDeviceEnumerator = __uuidof(MMDeviceEnumerator);
 const IID IID_IMMDeviceEnumerator = __uuidof(IMMDeviceEnumerator);
 const IID IID_IAudioClient = __uuidof(IAudioClient);
 const IID IID_IAudioCaptureClient = __uuidof(IAudioCaptureClient);
 
-
-AudioProcesser::AudioProcesser(WorkSocket *socket):workSocket(socket)
+AudioProcesser::AudioProcesser(WorkSocket* socket)
+    : workSocket(socket)
 {
 }
 
 AudioProcesser::~AudioProcesser()
 {
-
 }
 
 void AudioProcesser::run()
@@ -36,23 +37,23 @@ void AudioProcesser::run()
     recordAudioStream(pDevice);
 }
 
-IMMDevice *AudioProcesser::getDevice(const TCHAR *pId)
+IMMDevice* AudioProcesser::getDevice(const TCHAR* pId)
 {
     IMMDeviceCollection* pDevices = getAudioDevices();
-    IMMDevice *pDevice;
-    WCHAR *pName;
-    IPropertyStore *pProps = NULL;
+    IMMDevice* pDevice;
+    WCHAR* pName;
+    IPropertyStore* pProps = NULL;
     UINT count;
     HRESULT hr = NULL;
     if (pDevices == NULL)
         return 0;
     pDevices->GetCount(&count);
-    for (UINT i = 0; i < count; i++){
+    for (UINT i = 0; i < count; i++) {
         hr = pDevices->Item(i, &pDevice);
         EXIT_ON_ERROR(hr);
         hr = pDevice->GetId(&pName);
         EXIT_ON_ERROR(hr);
-        if (lstrcmp(pName, pId) == 0){
+        if (lstrcmp(pName, pId) == 0) {
             goto Exit;
         }
         CoTaskMemFree(pName);
@@ -63,11 +64,11 @@ Exit:
     return pDevice;
 }
 
-IMMDeviceCollection *AudioProcesser::getAudioDevices()
+IMMDeviceCollection* AudioProcesser::getAudioDevices()
 {
     HRESULT hr;
-    IMMDeviceEnumerator *pEnumerator = NULL;
-    IMMDeviceCollection *pDevices;
+    IMMDeviceEnumerator* pEnumerator = NULL;
+    IMMDeviceCollection* pDevices;
     hr = CoCreateInstance(CLSID_MMDeviceEnumerator, NULL, CLSCTX_ALL, IID_IMMDeviceEnumerator, (void**)&pEnumerator);
     EXIT_ON_ERROR(hr);
     hr = pEnumerator->EnumAudioEndpoints(eRender, DEVICE_STATE_ACTIVE, &pDevices);
@@ -79,17 +80,17 @@ Exit:
     return 0;
 }
 
-HRESULT AudioProcesser::recordAudioStream(IMMDevice *pDevice)
+HRESULT AudioProcesser::recordAudioStream(IMMDevice* pDevice)
 {
     HRESULT hr;
     UINT32 bufferFrameCount;
     UINT32 numFramesAvailable;
-    IAudioClient *pAudioClient = NULL;
-    IAudioCaptureClient *pCaptureClient = NULL;
-    WAVEFORMATEX *pwfx = NULL;
+    IAudioClient* pAudioClient = NULL;
+    IAudioCaptureClient* pCaptureClient = NULL;
+    WAVEFORMATEX* pwfx = NULL;
     UINT32 packetLength = 0;
     BOOL bDone = FALSE;
-    BYTE *pData;
+    BYTE* pData;
     DWORD flags;
 
     // hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
@@ -122,7 +123,7 @@ HRESULT AudioProcesser::recordAudioStream(IMMDevice *pDevice)
     hr = pAudioClient->GetService(IID_IAudioCaptureClient, (void**)&pCaptureClient);
     EXIT_ON_ERROR(hr)
 
-    hr = pAudioClient->Start();  // Start recording.
+    hr = pAudioClient->Start(); // Start recording.
     EXIT_ON_ERROR(hr)
 
     // Each loop fills about half of the shared buffer.
@@ -140,7 +141,7 @@ HRESULT AudioProcesser::recordAudioStream(IMMDevice *pDevice)
             EXIT_ON_ERROR(hr)
 
             if (flags & AUDCLNT_BUFFERFLAGS_SILENT) {
-                pData = NULL;  // Tell CopyData to write silence.
+                pData = NULL; // Tell CopyData to write silence.
             }
 
             workSocket->write(reinterpret_cast<const char*>(pData), numFramesAvailable * pwfx->nChannels * pwfx->wBitsPerSample / 8);
@@ -155,7 +156,7 @@ HRESULT AudioProcesser::recordAudioStream(IMMDevice *pDevice)
         }
     }
 
-    hr = pAudioClient->Stop();  // Stop recording.
+    hr = pAudioClient->Stop(); // Stop recording.
     EXIT_ON_ERROR(hr)
 
 Exit:
@@ -165,4 +166,3 @@ Exit:
 
     return hr;
 }
-

@@ -1,9 +1,9 @@
 ﻿#ifndef TASKWRAPPER_CPP
 #define TASKWRAPPER_CPP
 
+#include <QDebug>
 #include <QThreadPool>
 #include <QTimer>
-#include <QDebug>
 
 class RunnableFuncWrapper : public QRunnable {
 public:
@@ -18,15 +18,15 @@ private:
 class TaskWrapper : public QObject {
     Q_OBJECT
 public:
-    explicit TaskWrapper(QRunnable *task, QObject *parent = nullptr);
-    explicit TaskWrapper(std::function<void()> task, QObject *parent = nullptr);
+    explicit TaskWrapper(QRunnable* task, QObject* parent = nullptr);
+    explicit TaskWrapper(std::function<void()> task, QObject* parent = nullptr);
     ~TaskWrapper();
     void run();
 signals:
-    void finish(QObject *object);
+    void finish(QObject* object);
 
 private:
-    QRunnable *m_task = nullptr;
+    QRunnable* m_task = nullptr;
     std::function<void()> m_funTask = nullptr;
 };
 

@@ -2,17 +2,18 @@
 #ifndef DATASOURCE_H
 #define DATASOURCE_H
 
-#include <QObject>
 #include <QAbstractListModel>
+#include <QObject>
 #include <QTimer>
-#include "adb.h"
-#include "socket.h"
-#include "processer.h"
 
-class DataSource:public QAbstractListModel
-{
+#include "adb.h"
+#include "processer.h"
+#include "socket.h"
+
+class DataSource : public QAbstractListModel {
     Q_OBJECT
     Q_PROPERTY(int deviceState READ deviceState NOTIFY deviceStateChanged)
+    Q_PROPERTY(bool lastCheck READ lastCheck WRITE setLastCheck)
 public:
     enum DevicesModelRole {
         DeviceIdRole = Qt::UserRole + 1,
@@ -29,8 +30,8 @@ public:
 
     explicit DataSource();
     ~DataSource();
-    int rowCount(const QModelIndex &parent) const;
-    QVariant data(const QModelIndex &index, int role) const;
+    int rowCount(const QModelIndex& parent) const;
+    QVariant data(const QModelIndex& index, int role) const;
     QHash<int, QByteArray> roleNames() const;
     void updateConnectState(const QString& deviceId, int state);
     void resetConnectState();
@@ -41,6 +42,8 @@ public slots:
     void disconnectDevice(const QString& deviceId);
     void disconnectAllDevice();
     int deviceState();
+    bool lastCheck();
+    void setLastCheck(bool check);
     void onClientDisconnect();
 
 signals:
@@ -54,6 +57,9 @@ private:
     QList<DeviceModel*> datas;
     QMap<QString, int> connectStateMap;
     int deviceState_ = 0;
+    bool lastCheck_ = true;
+    QString lastDeviceId = "";
+    QString lastAutoDeviceId = "";
 };
 
 #endif // DATASOURCE_H

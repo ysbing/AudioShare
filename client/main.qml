@@ -16,8 +16,12 @@ Window {
     }
 
     Rectangle {
-        anchors.fill: parent
-        color: "grey"
+        id: content
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: lastCheck.top
+
         BusyIndicator {
             anchors.centerIn: parent
             running: visible
@@ -47,22 +51,33 @@ Window {
                 }
                 Column {
                     anchors.left: typeIcon.right
+                    anchors.right: connectBtn.left
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 10
+                    anchors.rightMargin: 10
                     spacing: 6
                     Text {
                         id: deviceName
                         text: `${manufacturer} ${deviceModel}`
                         font.pixelSize: 14
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        elide: Text.ElideRight
                     }
                     Text {
                         id: deviceVersion
                         text: `Android ${androidVersion}(API ${apiLevel})`
                               + (usbType ? "" : ` - ${ip}:${port}`)
                         font.pixelSize: 12
+                        elide: Text.ElideRight
                     }
                 }
                 Button {
+                    id: connectBtn
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: 10
+                    enabled: connectEnable
                     text: {
                         switch (connectState) {
                         case 0:
@@ -73,10 +88,6 @@ Window {
                             return "断开"
                         }
                     }
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.rightMargin: 10
-                    enabled: connectEnable
                     onClicked: {
                         if (connectState === 0) {
                             dataSource.connectDevice(deviceId)
@@ -86,6 +97,19 @@ Window {
                     }
                 }
             }
+        }
+    }
+    CheckBox {
+        id: lastCheck
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: 10
+        anchors.bottomMargin: 10
+        text: "自动连接上次使用的设备"
+        checked: dataSource.lastCheck
+        onCheckedChanged: {
+            dataSource.lastCheck = checked
         }
     }
 }

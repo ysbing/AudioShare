@@ -7,17 +7,16 @@
 
 class ThreadPools {
 public:
-    static ThreadPools *instance();
+    static ThreadPools* instance();
 
-    void exec(QRunnable *task);
+    void exec(QRunnable* task);
     void exec(std::function<void()> task);
 
-    void exec(QRunnable *task, int delay = 0);
-
+    void exec(QRunnable* task, int delay = 0);
 
     void initMainThread();
 
-    void mainThread(QRunnable *task, int delay = 0);
+    void mainThread(QRunnable* task, int delay = 0);
     void mainThread(std::function<void()> task, int delay = 0);
 
     bool isMainThread();
@@ -26,9 +25,9 @@ private:
     ThreadPools();
 
 private:
-    static ThreadPools *s_instance;
+    static ThreadPools* s_instance;
 
-    QThread *m_mainThread;
+    QThread* m_mainThread;
 };
 
 #endif // THREADPOOLS_H

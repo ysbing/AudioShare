@@ -1,36 +1,43 @@
 ﻿#include "threadpools.h"
 
+#include "task_wrapper.h"
 #include <QDebug>
 #include <QThreadPool>
 #include <QTimer>
-#include "task_wrapper.h"
 
-ThreadPools *ThreadPools::s_instance = nullptr;
+ThreadPools* ThreadPools::s_instance = nullptr;
 
-ThreadPools::ThreadPools() {
+ThreadPools::ThreadPools()
+{
 }
 
-void ThreadPools::initMainThread() {
+void ThreadPools::initMainThread()
+{
     m_mainThread = QThread::currentThread();
 }
 
-void ThreadPools::exec(QRunnable *task) {
+void ThreadPools::exec(QRunnable* task)
+{
     QThreadPool::globalInstance()->start(task);
 }
 
-void ThreadPools::exec(std::function<void()> task) {
+void ThreadPools::exec(std::function<void()> task)
+{
     QThreadPool::globalInstance()->start(new RunnableFuncWrapper(task));
 }
 
-void ThreadPools::exec(QRunnable *task, int delay) {
+void ThreadPools::exec(QRunnable* task, int delay)
+{
     mainThread([task] {
-       QThreadPool::globalInstance()->start(task);
-    },delay);
+        QThreadPool::globalInstance()->start(task);
+    },
+        delay);
 }
 
-void ThreadPools::mainThread(QRunnable *task, int delay) {
+void ThreadPools::mainThread(QRunnable* task, int delay)
+{
     exec([this, task, delay] {
-        TaskWrapper *mainTask = new TaskWrapper(task);
+        TaskWrapper* mainTask = new TaskWrapper(task);
         mainTask->moveToThread(m_mainThread);
         QTimer::singleShot(delay, mainTask, &TaskWrapper::run);
         QObject::connect(mainTask, &TaskWrapper::finish, [=, mainTask = mainTask] {
@@ -39,9 +46,10 @@ void ThreadPools::mainThread(QRunnable *task, int delay) {
     });
 }
 
-void ThreadPools::mainThread(std::function<void()> task, int delay) {
+void ThreadPools::mainThread(std::function<void()> task, int delay)
+{
     exec([this, task, delay] {
-        TaskWrapper *mainTask = new TaskWrapper(task);
+        TaskWrapper* mainTask = new TaskWrapper(task);
         mainTask->moveToThread(m_mainThread);
         QTimer::singleShot(delay, mainTask, &TaskWrapper::run);
         QObject::connect(mainTask, &TaskWrapper::finish, [=, mainTask = mainTask] {
@@ -50,11 +58,13 @@ void ThreadPools::mainThread(std::function<void()> task, int delay) {
     });
 }
 
-bool ThreadPools::isMainThread() {
+bool ThreadPools::isMainThread()
+{
     return QThread::currentThread() == m_mainThread;
 }
 
-ThreadPools *ThreadPools::instance() {
+ThreadPools* ThreadPools::instance()
+{
     if (s_instance == nullptr) {
         s_instance = new ThreadPools();
     }

@@ -7,7 +7,11 @@
 
 class DeviceModel {
 public:
-    explicit DeviceModel(const QString& deviceId, bool usb, const QString& serialNumber, const QString& model, const QString& manufacturer, const QString& androidVersion, const QString& apiLevel, const QPair<QString, QString>& ipPort);
+    explicit DeviceModel(const QString& deviceId, bool usb,
+        const QString& serialNumber, const QString& model,
+        const QString& manufacturer,
+        const QString& androidVersion, const QString& apiLevel,
+        const QPair<QString, QString>& ipPort);
 
     QString deviceId;
     bool usb;
@@ -19,15 +23,15 @@ public:
     QPair<QString, QString> ipPort;
 };
 
-class Adb:public QObject
-{
+class Adb : public QObject {
     Q_OBJECT
 public:
     explicit Adb();
     ~Adb();
 
     void devices();
-    void reverse(const QString& deviceId, const QString& socketname, const QString& port);
+    void reverse(const QString& deviceId, const QString& socketname,
+        const QString& port);
     void pushServer(const QString& deviceId);
     void launchServer(const QString& deviceId, const QString& socketname);
     void stopServer();
@@ -36,7 +40,7 @@ signals:
     void devicesChanged(const QList<DeviceModel*>& devices);
 
 private:
-    QString exec(const QStringList & arguments);
+    QString exec(const QStringList& arguments);
     QString adbExecPath();
     QPair<QString, QString> getIpPort(const QString& deviceId);
     QString getSerialNumber(const QString& deviceId);
