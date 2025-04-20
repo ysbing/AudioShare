@@ -21,11 +21,11 @@ DataSource::DataSource()
             endResetModel();
             if (datas.isEmpty()) {
                 deviceState_ = 1;
+                lastAutoDeviceId = "";
                 resetConnectState();
             } else {
                 deviceState_ = 2;
                 QList<QString> connectKeys = connectStateMap.keys();
-                bool hasLast = false;
                 for (int i = 0; i < connectKeys.count(); i++) {
                     QString connectKey = connectKeys.at(i);
                     bool has = false;
@@ -34,12 +34,16 @@ DataSource::DataSource()
                         if (device->deviceId == connectKey) {
                             has = true;
                         }
-                        if (!lastDeviceId.isEmpty() && device->deviceId == lastDeviceId) {
-                            hasLast = true;
-                        }
                     }
                     if (!has) {
                         connectStateMap[connectKey] = 0;
+                    }
+                }
+                bool hasLast = false;
+                for (int j = 0; j < devices.count(); j++) {
+                    DeviceModel* device = devices.at(j);
+                    if (!lastDeviceId.isEmpty() && device->deviceId == lastDeviceId) {
+                        hasLast = true;
                     }
                 }
                 if (hasLast) {
@@ -124,7 +128,9 @@ void DataSource::updateConnectState(const QString& deviceId, int state)
     endResetModel();
 }
 
-void DataSource::resetConnectState() { connectStateMap.clear(); }
+void DataSource::resetConnectState() {
+    connectStateMap.clear();
+}
 
 void DataSource::connectDevice(const QString& deviceId)
 {
@@ -151,6 +157,7 @@ void DataSource::disconnectDevice(const QString& deviceId)
 {
     adb.stopServer();
     socket->disconnect();
+    lastAutoDeviceId = lastDeviceId = "";
     updateConnectState(deviceId, 0);
 }
 

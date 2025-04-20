@@ -40,7 +40,9 @@ void WorkSocket::write(const char* data, int len)
 {
     if (data && clientSocket && clientSocket->isValid() && clientSocket->isWritable()) {
         clientSocket->write(data, len);
-        clientSocket->flush();
+        if(clientSocket && clientSocket->isValid() && clientSocket->isWritable()) {
+            clientSocket->flush();
+        }
     }
 }
 
