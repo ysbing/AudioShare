@@ -10,11 +10,17 @@ android {
         minSdk 23
         targetSdk 34
         versionCode 1
-        versionName "1.0"
+        versionName "2.0"
     }
-//    applicationVariants.configureEach { variant ->
-//        variant.outputs.configureEach {
-//            outputFileName = "${outputFile.relativePath(project.buildDir)}/../client/utils/server.apk"
-//        }
-//    }
+    applicationVariants.configureEach { variant ->
+        variant.assembleProvider.get().doLast {
+            def apk = variant.outputs.first().outputFile
+            def dest = file("${rootProject.projectDir}/client/assets/server")
+            copy {
+                from apk
+                into dest.parentFile
+                rename { dest.name }
+            }
+        }
+    }
 }

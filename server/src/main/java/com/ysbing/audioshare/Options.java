@@ -25,6 +25,10 @@ public class Options {
                     break;
             }
         }
+
+        if (options.socketName == null) throw new IllegalArgumentException("Missing required argument: socketName");
+        if (options.connectCode == null) throw new IllegalArgumentException("Missing required argument: connectCode");
+
         return options;
     }
 }
