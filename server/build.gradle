@@ -4,23 +4,46 @@ plugins {
 
 android {
     namespace 'com.ysbing.audioshare'
-    compileSdk 34
+    compileSdk 36
     defaultConfig {
         applicationId "com.ysbing.audioshare"
         minSdk 23
-        targetSdk 34
+        targetSdk 36
         versionCode 1
         versionName "2.0"
     }
-    applicationVariants.configureEach { variant ->
-        variant.assembleProvider.get().doLast {
-            def apk = variant.outputs.first().outputFile
-            def dest = file("${rootProject.projectDir}/client/assets/server")
-            copy {
-                from apk
-                into dest.parentFile
-                rename { dest.name }
+    signingConfigs {
+        signing {
+            storeFile file("default.keystore")
+            storePassword 'android'
+            keyAlias 'default'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.signing
+        }
+        release {
+            signingConfig signingConfigs.signing
+        }
+    }
+}
+
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        def assembleTaskName = "assemble${variant.name.capitalize()}"
+        tasks.matching { it.name == assembleTaskName }.configureEach {
+            finalizedBy "copy${variant.name.capitalize()}Apk"
+        }
+        tasks.register("copy${variant.name.capitalize()}Apk", Copy) {
+            def outputDir = layout.buildDirectory.dir("outputs/apk/${variant.name}").get().asFile
+            from(outputDir) {
+                include "*.apk"
             }
+            def dest = file("${rootProject.projectDir}/client/assets/server")
+            into dest.parentFile
+            rename { dest.name }
         }
     }
 }

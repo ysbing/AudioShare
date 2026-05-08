@@ -1,0 +1,8 @@
+// Application-level settings for the Runner target.
+//
+// This may be replaced with a customized copy of this file when Flutter
+// builds the target. For now it is left blank.
+PRODUCT_NAME = AudioShare
+PRODUCT_BUNDLE_IDENTIFIER = com.ysbing.audioshare
+PRODUCT_COPYRIGHT =
+MACOSX_DEPLOYMENT_TARGET = 13.0

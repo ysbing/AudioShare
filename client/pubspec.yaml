@@ -1,5 +1,5 @@
 name: audioshare
-description: Stream Windows system audio to Android via ADB.
+description: Stream system audio (Windows/macOS) to Android via ADB.
 publish_to: none
 
 version: 2.0.0+1
@@ -19,5 +19,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/

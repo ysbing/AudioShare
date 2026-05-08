@@ -60,7 +60,8 @@ class AudioCaptureService {
   void _loadLibrary() {
     try {
       final exeDir = File(Platform.resolvedExecutable).parent.path;
-      final dllPath = '$exeDir${Platform.pathSeparator}audio_capture.dll';
+      final libName = Platform.isMacOS ? 'audio_capture.dylib' : 'audio_capture.dll';
+      final dllPath = '$exeDir${Platform.pathSeparator}$libName';
       _lib = DynamicLibrary.open(dllPath);
       _initialize = _lib!
           .lookupFunction<AudioCaptureInitializeNative, AudioCaptureInitializeDart>(
@@ -80,7 +81,7 @@ class AudioCaptureService {
     } catch (_) {}
   }
 
-  /// Initialize WASAPI audio capture
+  /// Initialize system audio capture (WASAPI on Windows, ScreenCaptureKit on macOS).
   bool initialize() {
     if (_initialize == null) return false;
     _activeService = this;

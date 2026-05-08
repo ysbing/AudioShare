@@ -5,11 +5,20 @@ class Prefs {
   static Map<String, dynamic> _cache = {};
 
   static File _file() {
-    final appData =
-        Platform.environment['APPDATA'] ?? Directory.systemTemp.path;
-    final dir = Directory('$appData${Platform.pathSeparator}ysbing${Platform.pathSeparator}AudioShare');
+    String base;
+    if (Platform.isWindows) {
+      base = Platform.environment['APPDATA'] ?? Directory.systemTemp.path;
+    } else if (Platform.isMacOS) {
+      final home = Platform.environment['HOME'] ?? Directory.systemTemp.path;
+      base = '$home/Library/Application Support';
+    } else {
+      final home = Platform.environment['HOME'] ?? Directory.systemTemp.path;
+      base = '$home/.config';
+    }
+    final sep = Platform.pathSeparator;
+    final dir = Directory('$base${sep}ysbing${sep}AudioShare');
     if (!dir.existsSync()) dir.createSync(recursive: true);
-    return File('${dir.path}${Platform.pathSeparator}prefs.json');
+    return File('${dir.path}${sep}prefs.json');
   }
 
   static void load() {

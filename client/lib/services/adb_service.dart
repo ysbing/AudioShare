@@ -13,41 +13,47 @@ class AdbService {
   void _initAdbPath() {
     final sep = Platform.pathSeparator;
     final exeDir = File(Platform.resolvedExecutable).parent.path;
-    final tempDir = '${Directory.systemTemp.path}${sep}ysbing${sep}AudioShare${sep}adb';
-    final tempAdb = '$tempDir${sep}adb.exe';
 
-    try {
-      Directory(tempDir).createSync(recursive: true);
-      // Copy adb.exe and its Win32 DLL dependencies to temp so the daemon
-      // runs outside the program directory and persists between app restarts.
-      for (final name in ['adb.exe', 'AdbWinApi.dll', 'AdbWinUsbApi.dll']) {
-        final src = File('$exeDir$sep$name');
-        if (src.existsSync()) {
-          try {
-            src.copySync('$tempDir$sep$name');
-          } catch (_) {
-            // File may be locked if the daemon is already running from temp.
-            // The existing copy is still valid — keep going.
+    if (Platform.isWindows) {
+      // Windows: copy adb.exe + Win32 DLLs to temp so the daemon persists
+      // across restarts (the bundle dir may be read-only when installed).
+      final tempDir = '${Directory.systemTemp.path}${sep}ysbing${sep}AudioShare${sep}adb';
+      final tempAdb = '$tempDir${sep}adb.exe';
+      try {
+        Directory(tempDir).createSync(recursive: true);
+        for (final name in ['adb.exe', 'AdbWinApi.dll', 'AdbWinUsbApi.dll']) {
+          final src = File('$exeDir$sep$name');
+          if (src.existsSync()) {
+            try { src.copySync('$tempDir$sep$name'); } catch (_) {}
           }
         }
-      }
-      if (File(tempAdb).existsSync()) {
-        _adbPath = tempAdb;
-        return;
-      }
-    } catch (_) {}
+        if (File(tempAdb).existsSync()) {
+          _adbPath = tempAdb;
+          return;
+        }
+      } catch (_) {}
+      _adbPath = '$exeDir${sep}adb.exe';
+      return;
+    }
 
-    // Fallback: run from the exe directory directly.
-    _adbPath = '$exeDir${sep}adb.exe';
+    // macOS / Linux: adb is bundled next to the executable by the build phase.
+    _adbPath = '$exeDir${sep}adb';
+
+    // Ensure the bundled binary is executable (it may lose the bit after copy).
+    try { Process.runSync('chmod', ['+x', _adbPath]); } catch (_) {}
   }
 
   Future<String> _exec(List<String> arguments) async {
-    final result = await Process.run(_adbPath, arguments);
-    final stdout = result.stdout as String;
-    final stderr = result.stderr as String;
-    if (stdout.isNotEmpty) return stdout;
-    if (stderr.isNotEmpty) return stderr;
-    return '';
+    try {
+      final result = await Process.run(_adbPath, arguments);
+      final stdout = result.stdout as String;
+      final stderr = result.stderr as String;
+      if (stdout.isNotEmpty) return stdout;
+      if (stderr.isNotEmpty) return stderr;
+      return '';
+    } catch (_) {
+      return '';
+    }
   }
 
   // Cache device properties: they never change while connected.
@@ -120,22 +126,26 @@ class AdbService {
     return ('', '');
   }
 
+  Future<void> removeAllReverse(String deviceId) async {
+    await _exec(['-s', deviceId, 'reverse', '--remove-all']);
+  }
+
   Future<void> reverse(String deviceId, String socketName, String port) async {
-    final result = await _exec(['-s', deviceId, 'reverse', 'localabstract:$socketName', 'tcp:$port']);
-    print('ADB reverse result: "$result"');
+    await _exec(['-s', deviceId, 'reverse', 'localabstract:$socketName', 'tcp:$port']);
   }
 
   Future<void> pushServer(String deviceId) async {
     final exeDir = File(Platform.resolvedExecutable).parent.path;
-    final serverPath = '$exeDir${Platform.pathSeparator}server';
-    print('Pushing server from: $serverPath');
-    final result = await _exec(['-s', deviceId, 'push', serverPath, '/data/local/tmp/audioshare']);
-    print('ADB push result: "$result"');
+    // macOS: server APK lives in Contents/Resources/ to avoid codesign failures.
+    // Windows: server is placed next to the exe by CMakeLists.txt.
+    final serverPath = Platform.isMacOS
+        ? '$exeDir/../Resources/server'
+        : '$exeDir${Platform.pathSeparator}server';
+    await _exec(['-s', deviceId, 'push', serverPath, '/data/local/tmp/audioshare']);
   }
 
   Future<void> launchServer(String deviceId, String socketName) async {
     stopServer();
-    print('Launching server: socketName=$socketName, connectCode=$deviceId');
     _launchProcess = await Process.start(_adbPath, [
       '-s', deviceId, 'shell', 'app_process',
       '-Djava.class.path=/data/local/tmp/audioshare',
@@ -144,12 +154,8 @@ class AdbService {
       'socketName=$socketName',
       'connectCode=$deviceId',
     ]);
-    _launchProcess!.stdout.transform(utf8.decoder).listen((data) {
-      print('Server stdout: $data');
-    });
-    _launchProcess!.stderr.transform(utf8.decoder).listen((data) {
-      print('Server stderr: $data');
-    });
+    _launchProcess!.stdout.transform(utf8.decoder).listen((_) {});
+    _launchProcess!.stderr.transform(utf8.decoder).listen((_) {});
   }
 
   void stopServer() {

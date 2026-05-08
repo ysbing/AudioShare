@@ -50,8 +50,7 @@ class DataSource extends ChangeNotifier {
     _lastDeviceId = Prefs.getString('lastDeviceId');
     _lastCheck = Prefs.getBool('lastCheck', defaultValue: true);
 
-    final initOk = _audioCapture.initialize();
-    print('AudioCapture initialize: $initOk');
+    _audioCapture.initialize();
     _pollDevices();
     _pollTimer = Timer.periodic(const Duration(seconds: 3), (_) => _pollDevices());
   }
@@ -115,7 +114,10 @@ class DataSource extends ChangeNotifier {
   Future<int> _findAvailablePort() async {
     for (int port = 11794; port < 11794 + 10000; port++) {
       try {
-        final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, port);
+        // Bind to anyIPv4 (0.0.0.0) — same address the native TCP server uses,
+        // so the availability check is accurate and avoids false positives from
+        // loopback-vs-wildcard mismatches (e.g. leftover ADB reverse tunnels).
+        final server = await ServerSocket.bind(InternetAddress.anyIPv4, port);
         await server.close();
         return port;
       } catch (_) {
@@ -126,7 +128,6 @@ class DataSource extends ChangeNotifier {
   }
 
   void connectDevice(String deviceId) {
-    print('connectDevice called with $deviceId');
     try {
       _lastAutoDeviceId = deviceId;
       _setLastDeviceId(deviceId);
@@ -138,23 +139,20 @@ class DataSource extends ChangeNotifier {
       _connectStateMap.clear();
       _connectStateMap[deviceId] = 1;
       notifyListeners();
-      print('State updated to connecting');
 
       () async {
         try {
-          print('Step 4: finding port');
+          // Clear any leftover reverse tunnels from previous sessions so their
+          // port reservations don't block our new binding.
+          await _adb.removeAllReverse(deviceId);
           final port = await _findAvailablePort();
-          print('Found port: $port');
           final socketName = 'audioshare_$port';
 
-          print('Step 5: calling listenOnPort');
           final listenOk = _audioCapture.listenOnPort(port, (connectCode) {
-            print('=== CALLBACK FIRED: $connectCode ===');
             _audioCapture.start();
             _connectStateMap[deviceId] = 2;
             notifyListeners();
           });
-          print('Step 6: listenOnPort result: $listenOk');
 
           if (!listenOk) {
             _connectStateMap[deviceId] = 0;
@@ -162,13 +160,9 @@ class DataSource extends ChangeNotifier {
             return;
           }
 
-          print('Step 7: ADB reverse');
           await _adb.reverse(deviceId, socketName, port.toString());
-          print('Step 8: Push server');
           await _adb.pushServer(deviceId);
-          print('Step 9: Launch server');
           await _adb.launchServer(deviceId, socketName);
-          print('Step 10: Server launched');
         } catch (e, s) {
           print('Connection error: $e\n$s');
           _connectStateMap[deviceId] = 0;
@@ -176,7 +170,7 @@ class DataSource extends ChangeNotifier {
         }
       }();
     } catch (e, s) {
-      print('connectDevice outer error: $e\n$s');
+      print('Connection error: $e\n$s');
     }
   }
 
