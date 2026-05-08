@@ -1,4 +1,7 @@
-# AudioShare
+<div align="center">
+  <img src="tools/logo.png" alt="AudioShare Logo" width="128" height="128">
+  <h1>AudioShare</h1>
+</div>
 
 实时将 Windows / macOS 系统音频流传输到 Android 设备，通过 ADB（USB 或 Wi-Fi）无需额外硬件，让手机扬声器/耳机播放电脑声音。
 
