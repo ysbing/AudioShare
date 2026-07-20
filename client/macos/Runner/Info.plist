@@ -30,6 +30,6 @@
 	<string>NSApplication</string>
 	<!-- Required for ScreenCaptureKit (system audio loopback) -->
 	<key>NSScreenCaptureDescription</key>
-	<string>AudioShare needs screen recording permission to capture system audio and stream it to your Android device.</string>
+	<string>AudioShare 需要“屏幕与系统音频录制”权限，才能将系统音频传输到 Android 设备。</string>
 </dict>
 </plist>

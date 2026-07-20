@@ -346,7 +346,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nSRC=\"$SRCROOT/../native/audio_capture_mac.mm\"\nOUT=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH/audio_capture.dylib\"\nclang++ \\\n  -dynamiclib \\\n  -o \"$OUT\" \\\n  \"$SRC\" \\\n  -framework ScreenCaptureKit \\\n  -framework CoreAudio \\\n  -framework CoreMedia \\\n  -framework Foundation \\\n  -framework AudioToolbox \\\n  -fobjc-arc \\\n  -std=c++17 \\\n  -mmacosx-version-min=13.0 \\\n  -install_name @executable_path/audio_capture.dylib\n";
+			shellScript = "set -e\nSRC=\"$SRCROOT/../native/audio_capture_mac.mm\"\nOUT=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH/audio_capture.dylib\"\nARCH_FLAGS=\"\"\nfor ARCH in $ARCHS; do\n  ARCH_FLAGS=\"$ARCH_FLAGS -arch $ARCH\"\ndone\nclang++ $ARCH_FLAGS \\\n  -dynamiclib \\\n  -o \"$OUT\" \\\n  \"$SRC\" \\\n  -framework ScreenCaptureKit \\\n  -framework CoreGraphics \\\n  -framework CoreAudio \\\n  -framework CoreMedia \\\n  -framework Foundation \\\n  -framework AudioToolbox \\\n  -fobjc-arc \\\n  -std=c++17 \\\n  -mmacosx-version-min=13.0 \\\n  -install_name @executable_path/audio_capture.dylib\nIDENTITY=\"${EXPANDED_CODE_SIGN_IDENTITY:-${CODE_SIGN_IDENTITY:--}}\"\nif [ \"$IDENTITY\" = \"-\" ]; then\n  /usr/bin/codesign --force --options runtime --sign \"$IDENTITY\" --timestamp=none \"$OUT\"\nelse\n  /usr/bin/codesign --force --options runtime --sign \"$IDENTITY\" \"$OUT\"\nfi\n";
 		};
 		AABB000000000002000AA001 /* Copy ADB + server assets */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -361,7 +361,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nASSETS=\"$SRCROOT/../assets\"\nDST_MACOS=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\nDST_RESOURCES=\"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Resources\"\nmkdir -p \"$DST_RESOURCES\"\n# adb is a macOS binary — place next to the executable\nif [ -f \"$ASSETS/adb\" ]; then\n  cp -f \"$ASSETS/adb\" \"$DST_MACOS/adb\"\n  chmod +x \"$DST_MACOS/adb\"\nfi\n# server is an Android APK (non-Mach-O) — place in Resources to avoid codesign failure\nif [ -f \"$ASSETS/server\" ]; then\n  cp -f \"$ASSETS/server\" \"$DST_RESOURCES/server\"\nfi\n";
+			shellScript = "set -e\nASSETS=\"$SRCROOT/../assets\"\nDST_MACOS=\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH\"\nDST_RESOURCES=\"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Resources\"\nmkdir -p \"$DST_RESOURCES\"\n# adb is a macOS binary; sign it with the same identity as the app.\nif [ -f \"$ASSETS/adb\" ]; then\n  cp -f \"$ASSETS/adb\" \"$DST_MACOS/adb\"\n  chmod +x \"$DST_MACOS/adb\"\n  IDENTITY=\"${EXPANDED_CODE_SIGN_IDENTITY:-${CODE_SIGN_IDENTITY:--}}\"\n  if [ \"$IDENTITY\" = \"-\" ]; then\n    /usr/bin/codesign --force --options runtime --sign \"$IDENTITY\" --timestamp=none \"$DST_MACOS/adb\"\n  else\n    /usr/bin/codesign --force --options runtime --sign \"$IDENTITY\" \"$DST_MACOS/adb\"\n  fi\nfi\n# server is an Android APK (non-Mach-O); keep it in Resources.\nif [ -f \"$ASSETS/server\" ]; then\n  cp -f \"$ASSETS/server\" \"$DST_RESOURCES/server\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

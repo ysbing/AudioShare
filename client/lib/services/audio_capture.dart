@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -22,6 +23,19 @@ typedef AudioCaptureStopDart = void Function();
 typedef AudioCaptureCleanupNative = Void Function();
 typedef AudioCaptureCleanupDart = void Function();
 
+typedef AudioCaptureBoolNative = Int32 Function();
+typedef AudioCaptureBoolDart = int Function();
+
+typedef AudioCaptureGetErrorMessageNative = Pointer<Int8> Function();
+typedef AudioCaptureGetErrorMessageDart = Pointer<Int8> Function();
+
+class AudioCaptureError {
+  const AudioCaptureError(this.code, this.message);
+
+  final int code;
+  final String message;
+}
+
 AudioCaptureService? _activeService;
 
 void _handleConnect(Pointer<Int8> connectCodePtr) {
@@ -35,7 +49,7 @@ void _handleConnect(Pointer<Int8> connectCodePtr) {
       bytes.add(byte);
       i++;
     }
-    final connectCode = String.fromCharCodes(bytes);
+    final connectCode = utf8.decode(bytes, allowMalformed: true);
     service.onConnected!(connectCode);
   }
 }
@@ -47,8 +61,14 @@ class AudioCaptureService {
   AudioCaptureStartDart? _start;
   AudioCaptureStopDart? _stop;
   AudioCaptureCleanupDart? _cleanup;
+  AudioCaptureBoolDart? _hasPermission;
+  AudioCaptureBoolDart? _requestPermission;
+  AudioCaptureBoolDart? _getLastErrorCode;
+  AudioCaptureGetErrorMessageDart? _getLastErrorMessage;
+  AudioCaptureCleanupDart? _clearLastError;
 
   bool _initialized = false;
+  String? _libraryLoadError;
   void Function(String connectCode)? onConnected;
 
   NativeCallable<ConnectCallbackNative>? _connectCallback;
@@ -60,12 +80,12 @@ class AudioCaptureService {
   void _loadLibrary() {
     try {
       final exeDir = File(Platform.resolvedExecutable).parent.path;
-      final libName = Platform.isMacOS ? 'audio_capture.dylib' : 'audio_capture.dll';
+      final libName =
+          Platform.isMacOS ? 'audio_capture.dylib' : 'audio_capture.dll';
       final dllPath = '$exeDir${Platform.pathSeparator}$libName';
       _lib = DynamicLibrary.open(dllPath);
-      _initialize = _lib!
-          .lookupFunction<AudioCaptureInitializeNative, AudioCaptureInitializeDart>(
-              'AudioCapture_Initialize');
+      _initialize = _lib!.lookupFunction<AudioCaptureInitializeNative,
+          AudioCaptureInitializeDart>('AudioCapture_Initialize');
       _listen = _lib!
           .lookupFunction<AudioCaptureListenNative, AudioCaptureListenDart>(
               'AudioCapture_Listen');
@@ -78,11 +98,42 @@ class AudioCaptureService {
       _cleanup = _lib!
           .lookupFunction<AudioCaptureCleanupNative, AudioCaptureCleanupDart>(
               'AudioCapture_Cleanup');
-    } catch (_) {}
+      if (Platform.isMacOS) {
+        _hasPermission = _lib!
+            .lookupFunction<AudioCaptureBoolNative, AudioCaptureBoolDart>(
+                'AudioCapture_HasPermission');
+        _requestPermission = _lib!
+            .lookupFunction<AudioCaptureBoolNative, AudioCaptureBoolDart>(
+                'AudioCapture_RequestPermission');
+        _getLastErrorCode = _lib!
+            .lookupFunction<AudioCaptureBoolNative, AudioCaptureBoolDart>(
+                'AudioCapture_GetLastErrorCode');
+        _getLastErrorMessage = _lib!.lookupFunction<
+            AudioCaptureGetErrorMessageNative, AudioCaptureGetErrorMessageDart>(
+          'AudioCapture_GetLastErrorMessage',
+        );
+        _clearLastError = _lib!
+            .lookupFunction<AudioCaptureCleanupNative, AudioCaptureCleanupDart>(
+                'AudioCapture_ClearLastError');
+      }
+    } catch (error) {
+      _libraryLoadError = error.toString();
+    }
+  }
+
+  bool get hasScreenCapturePermission {
+    if (!Platform.isMacOS) return true;
+    return _hasPermission?.call() != 0;
+  }
+
+  bool requestScreenCapturePermission() {
+    if (!Platform.isMacOS) return true;
+    return _requestPermission?.call() != 0;
   }
 
   /// Initialize system audio capture (WASAPI on Windows, ScreenCaptureKit on macOS).
   bool initialize() {
+    if (_initialized) return true;
     if (_initialize == null) return false;
     _activeService = this;
     _initialized = _initialize!() != 0;
@@ -107,6 +158,44 @@ class AudioCaptureService {
   bool start() {
     if (!_initialized || _start == null) return false;
     return _start!() != 0;
+  }
+
+  AudioCaptureError? takeLastError({
+    int fallbackCode = -1,
+    String fallbackMessage = 'Unknown audio capture error',
+  }) {
+    if (_libraryLoadError != null) {
+      final message = _libraryLoadError!;
+      _libraryLoadError = null;
+      return AudioCaptureError(-1000, message);
+    }
+
+    final code = _getLastErrorCode?.call() ?? 0;
+    var message = '';
+    final messagePtr = _getLastErrorMessage?.call();
+    if (messagePtr != null && messagePtr.address != 0) {
+      final bytes = <int>[];
+      for (var i = 0; i < 4096; i++) {
+        final byte = (messagePtr + i).value;
+        if (byte == 0) break;
+        bytes.add(byte & 0xff);
+      }
+      message = utf8.decode(bytes, allowMalformed: true);
+    }
+    _clearLastError?.call();
+
+    if (code == 0 && message.isEmpty) {
+      return AudioCaptureError(fallbackCode, fallbackMessage);
+    }
+    return AudioCaptureError(
+      code == 0 ? fallbackCode : code,
+      message.isEmpty ? fallbackMessage : message,
+    );
+  }
+
+  AudioCaptureError? pollLastError() {
+    if ((_getLastErrorCode?.call() ?? 0) == 0) return null;
+    return takeLastError();
   }
 
   void stop() {

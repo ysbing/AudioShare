@@ -38,9 +38,6 @@ class AdbService {
 
     // macOS / Linux: adb is bundled next to the executable by the build phase.
     _adbPath = '$exeDir${sep}adb';
-
-    // Ensure the bundled binary is executable (it may lose the bit after copy).
-    try { Process.runSync('chmod', ['+x', _adbPath]); } catch (_) {}
   }
 
   Future<String> _exec(List<String> arguments) async {

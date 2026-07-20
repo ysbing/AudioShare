@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <ScreenCaptureKit/ScreenCaptureKit.h>
+#import <CoreGraphics/CoreGraphics.h>
 #include <AudioToolbox/AudioToolbox.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -39,7 +40,37 @@ static int g_listenReady = 0;  // 0=pending, 1=ok, -1=error
 static __strong id g_stream   = nil;
 static __strong id g_delegate = nil;
 
+static pthread_mutex_t g_errorMutex = PTHREAD_MUTEX_INITIALIZER;
+static int  g_lastErrorCode = 0;
+static char g_lastErrorMessage[1024] = {0};
+static thread_local char g_errorMessageSnapshot[1024] = {0};
+
 // ---- Helpers ----
+static void ClearCaptureError() {
+    pthread_mutex_lock(&g_errorMutex);
+    g_lastErrorCode = 0;
+    g_lastErrorMessage[0] = '\0';
+    pthread_mutex_unlock(&g_errorMutex);
+}
+
+static void SetCaptureError(int code, NSString* message) {
+    const char* utf8 = message ? message.UTF8String : "Unknown native capture error";
+    pthread_mutex_lock(&g_errorMutex);
+    g_lastErrorCode = code;
+    snprintf(g_lastErrorMessage, sizeof(g_lastErrorMessage), "%s", utf8);
+    pthread_mutex_unlock(&g_errorMutex);
+}
+
+static void SetNSErrorCaptureError(int code, NSString* operation, NSError* error) {
+    if (error) {
+        SetCaptureError(code, [NSString stringWithFormat:
+            @"%@: %@ (domain=%@, code=%ld)", operation,
+            error.localizedDescription, error.domain, (long)error.code]);
+    } else {
+        SetCaptureError(code, operation);
+    }
+}
+
 static void SendAll(int fd, const void* data, size_t len) {
     const uint8_t* ptr = (const uint8_t*)data;
     while (len > 0) {
@@ -57,7 +88,11 @@ static void* ListenThread(void* arg) {
     int port = (int)(intptr_t)arg;
 
     int fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (fd < 0) goto fail;
+    if (fd < 0) {
+        SetCaptureError(1101, [NSString stringWithFormat:
+            @"Failed to create listening socket: %s", strerror(errno)]);
+        goto fail;
+    }
     g_listenFd = fd;
 
     {
@@ -69,8 +104,16 @@ static void* ListenThread(void* arg) {
         addr.sin_port        = htons((uint16_t)port);
         addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-        if (bind(fd, (struct sockaddr*)&addr, sizeof(addr)) < 0) goto fail;
-        if (listen(fd, 1) < 0) goto fail;
+        if (bind(fd, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
+            SetCaptureError(1102, [NSString stringWithFormat:
+                @"Failed to bind listening socket: %s", strerror(errno)]);
+            goto fail;
+        }
+        if (listen(fd, 1) < 0) {
+            SetCaptureError(1103, [NSString stringWithFormat:
+                @"Failed to listen on socket: %s", strerror(errno)]);
+            goto fail;
+        }
     }
 
     g_bListening = 1;
@@ -83,7 +126,13 @@ static void* ListenThread(void* arg) {
         struct sockaddr_in clientAddr = {};
         socklen_t addrLen = sizeof(clientAddr);
         int cfd = accept(fd, (struct sockaddr*)&clientAddr, &addrLen);
-        if (cfd < 0) return NULL;
+        if (cfd < 0) {
+            if (g_bListening) {
+                SetCaptureError(1106, [NSString stringWithFormat:
+                    @"Failed to accept Android connection: %s", strerror(errno)]);
+            }
+            return NULL;
+        }
         g_clientFd = cfd;
 
         int sndbuf = 256 * 1024;
@@ -96,6 +145,9 @@ static void* ListenThread(void* arg) {
             memcpy(g_connectCodeBuf, buf, (size_t)n + 1);
             g_bConnected = 1;
             if (g_connectCallback) g_connectCallback(g_connectCodeBuf);
+        } else if (g_bListening) {
+            SetCaptureError(1107, [NSString stringWithFormat:
+                @"Failed to read Android connection code: %s", strerror(errno)]);
         }
     }
     return NULL;
@@ -208,6 +260,7 @@ API_AVAILABLE(macos(13.0))
 
 - (void)stream:(SCStream*)stream didStopWithError:(NSError*)error {
     g_bRunning = 0;
+    SetNSErrorCaptureError(1205, @"ScreenCaptureKit stream stopped", error);
 }
 
 @end
@@ -218,15 +271,40 @@ API_AVAILABLE(macos(13.0))
 
 extern "C" __attribute__((visibility("default")))
 int AudioCapture_Initialize() {
+    ClearCaptureError();
     // ScreenCaptureKit requires macOS 13.0.
     if (@available(macOS 13.0, *)) {
         return 1;
+    }
+    SetCaptureError(1001, @"ScreenCaptureKit requires macOS 13.0 or later");
+    return 0;
+}
+
+extern "C" __attribute__((visibility("default")))
+int AudioCapture_HasPermission() {
+    if (@available(macOS 13.0, *)) {
+        return CGPreflightScreenCaptureAccess() ? 1 : 0;
     }
     return 0;
 }
 
 extern "C" __attribute__((visibility("default")))
+int AudioCapture_RequestPermission() {
+    ClearCaptureError();
+    if (@available(macOS 13.0, *)) {
+        if (CGPreflightScreenCaptureAccess()) return 1;
+        if (CGRequestScreenCaptureAccess()) return 1;
+        SetCaptureError(1002,
+            @"Screen and system audio recording permission was not granted");
+        return 0;
+    }
+    SetCaptureError(1001, @"ScreenCaptureKit requires macOS 13.0 or later");
+    return 0;
+}
+
+extern "C" __attribute__((visibility("default")))
 int AudioCapture_Listen(int port, ConnectCallback callback) {
+    ClearCaptureError();
     g_connectCallback = callback;
     g_bListening = 0;
 
@@ -244,7 +322,13 @@ int AudioCapture_Listen(int port, ConnectCallback callback) {
     g_listenReady = 0;
     pthread_mutex_unlock(&g_listenReadyMutex);
 
-    pthread_create(&g_listenThread, NULL, ListenThread, (void*)(intptr_t)port);
+    int createResult = pthread_create(
+        &g_listenThread, NULL, ListenThread, (void*)(intptr_t)port);
+    if (createResult != 0) {
+        SetCaptureError(1104, [NSString stringWithFormat:
+            @"Failed to create listening thread: %s", strerror(createResult)]);
+        return 0;
+    }
 
     // Wait up to 5 s for ListenThread to bind and listen.
     struct timespec ts;
@@ -258,20 +342,38 @@ int AudioCapture_Listen(int port, ConnectCallback callback) {
     int ready = g_listenReady;
     pthread_mutex_unlock(&g_listenReadyMutex);
 
+    if (ready == 0) {
+        SetCaptureError(1105, @"Timed out while starting the listening socket");
+    }
     return (ready == 1) ? 1 : 0;
 }
 
 extern "C" __attribute__((visibility("default")))
 int AudioCapture_Start() {
+    ClearCaptureError();
     if (@available(macOS 13.0, *)) {
+        if (!CGPreflightScreenCaptureAccess()) {
+            SetCaptureError(1002,
+                @"Screen and system audio recording permission is not available");
+            return 0;
+        }
         __block int success = 0;
+        __block BOOL timedOut = NO;
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
         [SCShareableContent
             getShareableContentExcludingDesktopWindows:NO
             onScreenWindowsOnly:NO
             completionHandler:^(SCShareableContent* content, NSError* error) {
+                if (timedOut) return;
                 if (error || !content || content.displays.count == 0) {
+                    if (error) {
+                        SetNSErrorCaptureError(
+                            1201, @"Failed to obtain shareable content", error);
+                    } else {
+                        SetCaptureError(1202,
+                            @"No display is available for system audio capture");
+                    }
                     dispatch_semaphore_signal(sema);
                     return;
                 }
@@ -305,6 +407,8 @@ int AudioCapture_Start() {
                      sampleHandlerQueue:q
                                   error:&addErr];
                 if (addErr) {
+                    SetNSErrorCaptureError(
+                        1203, @"Failed to add ScreenCaptureKit audio output", addErr);
                     dispatch_semaphore_signal(sema);
                     return;
                 }
@@ -323,30 +427,48 @@ int AudioCapture_Start() {
                     SendAll(cfd, hdr, 8);
                 }
 
-                g_bRunning = 1;
                 g_stream   = stream;
 
                 [stream startCaptureWithCompletionHandler:^(NSError* startErr) {
-                    if (startErr) {
+                    if (startErr || timedOut) {
                         g_bRunning = 0;
                         g_stream   = nil;
+                        if (startErr) {
+                            SetNSErrorCaptureError(
+                                1204, @"Failed to start ScreenCaptureKit capture", startErr);
+                        } else {
+                            [stream stopCaptureWithCompletionHandler:^(NSError*) {}];
+                        }
                     } else {
+                        g_bRunning = 1;
                         success = 1;
                     }
                     dispatch_semaphore_signal(sema);
                 }];
             }];
 
-        dispatch_semaphore_wait(sema,
+        long waitResult = dispatch_semaphore_wait(sema,
             dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC));
+        if (waitResult != 0) {
+            timedOut = YES;
+            g_bRunning = 0;
+            __strong SCStream* stream = (SCStream*)g_stream;
+            if (stream) {
+                [stream stopCaptureWithCompletionHandler:^(NSError*) {}];
+                g_stream = nil;
+            }
+            SetCaptureError(1206, @"Timed out while starting ScreenCaptureKit capture");
+        }
         return success;
     }
+    SetCaptureError(1001, @"ScreenCaptureKit requires macOS 13.0 or later");
     return 0;
 }
 
 extern "C" __attribute__((visibility("default")))
 void AudioCapture_Stop() {
     g_bRunning = 0;
+    g_bListening = 0;
 
     int cfd = g_clientFd;
     if (cfd >= 0) { close(cfd); g_clientFd = -1; }
@@ -370,6 +492,28 @@ void AudioCapture_Cleanup() {
     g_connectCallback  = NULL;
     g_bConnected       = 0;
     g_connectCodeBuf[0] = '\0';
+}
+
+extern "C" __attribute__((visibility("default")))
+int AudioCapture_GetLastErrorCode() {
+    pthread_mutex_lock(&g_errorMutex);
+    int code = g_lastErrorCode;
+    pthread_mutex_unlock(&g_errorMutex);
+    return code;
+}
+
+extern "C" __attribute__((visibility("default")))
+const char* AudioCapture_GetLastErrorMessage() {
+    pthread_mutex_lock(&g_errorMutex);
+    snprintf(g_errorMessageSnapshot, sizeof(g_errorMessageSnapshot), "%s",
+        g_lastErrorMessage);
+    pthread_mutex_unlock(&g_errorMutex);
+    return g_errorMessageSnapshot;
+}
+
+extern "C" __attribute__((visibility("default")))
+void AudioCapture_ClearLastError() {
+    ClearCaptureError();
 }
 
 extern "C" __attribute__((visibility("default")))

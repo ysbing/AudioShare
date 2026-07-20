@@ -6,6 +6,13 @@ import 'services/adb_service.dart';
 import 'services/audio_capture.dart';
 import 'utils/prefs.dart';
 
+class UiError {
+  const UiError({required this.title, required this.message});
+
+  final String title;
+  final String message;
+}
+
 class DataSource extends ChangeNotifier {
   final AdbService _adb = AdbService();
   final AudioCaptureService _audioCapture = AudioCaptureService();
@@ -16,6 +23,7 @@ class DataSource extends ChangeNotifier {
   bool _lastCheck = true;
   String _lastDeviceId = '';
   String _lastAutoDeviceId = '';
+  UiError? _pendingError;
   late final DateTime _startTime;
 
   void _setLastDeviceId(String id) {
@@ -28,6 +36,11 @@ class DataSource extends ChangeNotifier {
   List<DeviceModel> get devices => _devices;
   int get deviceState => _deviceState;
   bool get lastCheck => _lastCheck;
+  UiError? takePendingError() {
+    final error = _pendingError;
+    _pendingError = null;
+    return error;
+  }
 
   set lastCheck(bool value) {
     if (value) {
@@ -50,9 +63,9 @@ class DataSource extends ChangeNotifier {
     _lastDeviceId = Prefs.getString('lastDeviceId');
     _lastCheck = Prefs.getBool('lastCheck', defaultValue: true);
 
-    _audioCapture.initialize();
     _pollDevices();
-    _pollTimer = Timer.periodic(const Duration(seconds: 3), (_) => _pollDevices());
+    _pollTimer =
+        Timer.periodic(const Duration(seconds: 3), (_) => _pollDevices());
   }
 
   int getConnectState(String deviceId) => _connectStateMap[deviceId] ?? 0;
@@ -108,7 +121,67 @@ class DataSource extends ChangeNotifier {
         _lastAutoDeviceId = '';
       }
     }
+    _pollNativeCaptureError();
     notifyListeners();
+  }
+
+  bool _prepareAudioCapture({required bool userInitiated}) {
+    if (Platform.isMacOS && !_audioCapture.hasScreenCapturePermission) {
+      if (!userInitiated) return false;
+      if (!_audioCapture.requestScreenCapturePermission()) {
+        _reportNativeError(
+          '未获得“屏幕与系统音频录制”权限。请在“系统设置 > 隐私与安全性 > 屏幕与系统音频录制”中允许 AudioShare，然后重新连接。',
+          _audioCapture.takeLastError(
+            fallbackCode: 1002,
+            fallbackMessage:
+                'Screen and system audio recording permission was not granted',
+          ),
+          title: '需要录制权限',
+        );
+        return false;
+      }
+    }
+
+    if (!_audioCapture.initialize()) {
+      _reportNativeError(
+        '无法初始化系统音频捕获。',
+        _audioCapture.takeLastError(
+          fallbackCode: 1000,
+          fallbackMessage: 'Audio capture initialization failed',
+        ),
+      );
+      return false;
+    }
+    return true;
+  }
+
+  void _reportNativeError(
+    String description,
+    AudioCaptureError? error, {
+    String title = '连接失败',
+  }) {
+    final detail = error ??
+        const AudioCaptureError(-1, 'No native error information was returned');
+    _pendingError = UiError(
+      title: title,
+      message: '$description\n\n错误码：${detail.code}\n错误信息：${detail.message}',
+    );
+    notifyListeners();
+  }
+
+  void _pollNativeCaptureError() {
+    final hasSession =
+        _connectStateMap.values.any((state) => state == 1 || state == 2);
+    if (!hasSession) return;
+    final error = _audioCapture.pollLastError();
+    if (error == null) return;
+
+    _adb.stopServer();
+    _audioCapture.stop();
+    for (final deviceId in _connectStateMap.keys.toList()) {
+      _connectStateMap[deviceId] = 0;
+    }
+    _reportNativeError('系统音频捕获已停止。', error);
   }
 
   Future<int> _findAvailablePort() async {
@@ -127,9 +200,11 @@ class DataSource extends ChangeNotifier {
     return 0;
   }
 
-  void connectDevice(String deviceId) {
+  void connectDevice(String deviceId, {bool userInitiated = false}) {
     try {
       _lastAutoDeviceId = deviceId;
+      if (!_prepareAudioCapture(userInitiated: userInitiated)) return;
+
       _setLastDeviceId(deviceId);
       // Stop existing connection and set state=1 atomically in a single
       // notifyListeners so the button never flickers back to "连接" between
@@ -146,17 +221,39 @@ class DataSource extends ChangeNotifier {
           // port reservations don't block our new binding.
           await _adb.removeAllReverse(deviceId);
           final port = await _findAvailablePort();
+          if (port == 0) {
+            throw const SocketException('没有可用的本地监听端口');
+          }
           final socketName = 'audioshare_$port';
 
           final listenOk = _audioCapture.listenOnPort(port, (connectCode) {
-            _audioCapture.start();
+            final startOk = _audioCapture.start();
+            if (!startOk) {
+              _adb.stopServer();
+              _audioCapture.stop();
+              _connectStateMap[deviceId] = 0;
+              _reportNativeError(
+                '无法开始捕获系统音频。',
+                _audioCapture.takeLastError(
+                  fallbackCode: 1200,
+                  fallbackMessage: 'Audio capture failed to start',
+                ),
+              );
+              return;
+            }
             _connectStateMap[deviceId] = 2;
             notifyListeners();
           });
 
           if (!listenOk) {
             _connectStateMap[deviceId] = 0;
-            notifyListeners();
+            _reportNativeError(
+              '无法启动本地音频传输服务。',
+              _audioCapture.takeLastError(
+                fallbackCode: 1100,
+                fallbackMessage: 'Audio capture listener failed to start',
+              ),
+            );
             return;
           }
 
@@ -166,11 +263,21 @@ class DataSource extends ChangeNotifier {
         } catch (e, s) {
           print('Connection error: $e\n$s');
           _connectStateMap[deviceId] = 0;
+          _pendingError = UiError(
+            title: '连接失败',
+            message: '连接 Android 设备时发生错误。\n\n错误信息：$e',
+          );
           notifyListeners();
         }
       }();
     } catch (e, s) {
       print('Connection error: $e\n$s');
+      _connectStateMap[deviceId] = 0;
+      _pendingError = UiError(
+        title: '连接失败',
+        message: '连接设备时发生错误。\n\n错误信息：$e',
+      );
+      notifyListeners();
     }
   }
 
@@ -193,8 +300,8 @@ class DataSource extends ChangeNotifier {
   @override
   void dispose() {
     _pollTimer?.cancel();
-    _audioCapture.dispose();
     disconnectAllDevice();
+    _audioCapture.dispose();
     _adb.dispose();
     super.dispose();
   }

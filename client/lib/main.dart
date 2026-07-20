@@ -40,6 +40,7 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
     with WidgetsBindingObserver {
   late final DataSource _dataSource;
   bool _dataSourceDisposed = false;
+  bool _showingError = false;
 
   @override
   void initState() {
@@ -67,7 +68,35 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
   }
 
   void _onDataSourceChanged() {
-    if (mounted) setState(() {});
+    if (!mounted) return;
+    setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showPendingError());
+  }
+
+  Future<void> _showPendingError() async {
+    if (!mounted || _showingError) return;
+    _showingError = true;
+    try {
+      while (mounted) {
+        final error = _dataSource.takePendingError();
+        if (error == null) break;
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(error.title),
+            content: SelectableText(error.message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('确定'),
+              ),
+            ],
+          ),
+        );
+      }
+    } finally {
+      _showingError = false;
+    }
   }
 
   @override
@@ -112,8 +141,7 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
           itemBuilder: (context, index) {
             final device = _dataSource.devices[index];
             final connectState = _dataSource.getConnectState(device.deviceId);
-            final connectEnable =
-                _dataSource.getConnectEnable(device.deviceId);
+            final connectEnable = _dataSource.getConnectEnable(device.deviceId);
             return SizedBox(
               height: 60,
               child: Row(
@@ -154,7 +182,10 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
                       onPressed: connectEnable
                           ? () {
                               if (connectState == 0) {
-                                _dataSource.connectDevice(device.deviceId);
+                                _dataSource.connectDevice(
+                                  device.deviceId,
+                                  userInitiated: true,
+                                );
                               } else if (connectState == 2) {
                                 _dataSource.disconnectDevice(device.deviceId);
                               }
