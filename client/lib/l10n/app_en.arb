@@ -1,0 +1,68 @@
+{
+  "@@locale": "en",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "noDevices": "No devices found",
+  "connect": "Connect",
+  "connecting": "Connecting",
+  "disconnect": "Disconnect",
+  "autoConnectLastDevice": "Automatically connect to the last used device",
+  "language": "Language",
+  "languageEnglish": "English",
+  "languageChinese": "Chinese (Simplified)",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Recording permission required",
+  "recordingPermissionDescription": "Screen and system audio recording permission was not granted. In System Settings, go to Privacy & Security > Screen & System Audio Recording, allow AudioShare, then connect again.",
+  "connectionFailedTitle": "Connection failed",
+  "captureInitializationFailed": "System audio capture could not be initialized.",
+  "captureStopped": "System audio capture stopped.",
+  "captureStartFailed": "System audio capture could not be started.",
+  "listenerStartFailed": "The local audio streaming service could not be started.",
+  "noAvailablePort": "No local listening port is available.",
+  "connectAndroidDeviceFailed": "An error occurred while connecting to the Android device.",
+  "connectDeviceFailed": "An error occurred while connecting to the device.",
+  "nativeErrorDetails": "Error code: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Audio capture initialization failed.",
+  "nativeError1001": "This macOS version does not support system audio capture.",
+  "nativeError1002": "Screen and system audio recording permission is unavailable.",
+  "nativeError1100": "The local audio listener could not be started.",
+  "nativeError1101": "The local listening socket could not be created.",
+  "nativeError1102": "The local listening socket could not be bound.",
+  "nativeError1103": "The local listening socket could not start listening.",
+  "nativeError1104": "The local listener thread could not be created.",
+  "nativeError1105": "Starting the local listener timed out.",
+  "nativeError1106": "The Android connection could not be accepted.",
+  "nativeError1107": "The Android connection code could not be read.",
+  "nativeError1200": "System audio capture could not be started.",
+  "nativeError1201": "Screen sharing content could not be obtained.",
+  "nativeError1202": "No display is available for system audio capture.",
+  "nativeError1203": "ScreenCaptureKit audio output could not be configured.",
+  "nativeError1204": "ScreenCaptureKit audio capture could not be started.",
+  "nativeError1205": "ScreenCaptureKit audio capture stopped unexpectedly.",
+  "nativeError1206": "Starting ScreenCaptureKit audio capture timed out.",
+  "nativeErrorUnknown": "An unknown system audio capture error occurred.",
+  "exceptionDetails": "Diagnostic: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

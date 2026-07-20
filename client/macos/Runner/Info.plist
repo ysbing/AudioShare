@@ -14,6 +14,11 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>AudioShare</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh-Hans</string>
+	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -30,6 +35,6 @@
 	<string>NSApplication</string>
 	<!-- Required for ScreenCaptureKit (system audio loopback) -->
 	<key>NSScreenCaptureDescription</key>
-	<string>AudioShare 需要“屏幕与系统音频录制”权限，才能将系统音频传输到 Android 设备。</string>
+	<string>AudioShare needs Screen &amp; System Audio Recording permission to stream system audio to an Android device.</string>
 </dict>
 </plist>

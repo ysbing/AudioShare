@@ -1,0 +1,68 @@
+{
+  "@@locale": "zh",
+  "appTitle": "AudioShare",
+  "ok": "确定",
+  "noDevices": "未找到设备",
+  "connect": "连接",
+  "connecting": "连接中",
+  "disconnect": "断开",
+  "autoConnectLastDevice": "自动连接上次使用的设备",
+  "language": "语言",
+  "languageEnglish": "English",
+  "languageChinese": "简体中文",
+  "deviceAndroidVersion": "Android {version}（API {apiLevel}）",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "需要录制权限",
+  "recordingPermissionDescription": "未获得“屏幕与系统音频录制”权限。请在“系统设置 > 隐私与安全性 > 屏幕与系统音频录制”中允许 AudioShare，然后重新连接。",
+  "connectionFailedTitle": "连接失败",
+  "captureInitializationFailed": "无法初始化系统音频捕获。",
+  "captureStopped": "系统音频捕获已停止。",
+  "captureStartFailed": "无法开始捕获系统音频。",
+  "listenerStartFailed": "无法启动本地音频传输服务。",
+  "noAvailablePort": "没有可用的本地监听端口。",
+  "connectAndroidDeviceFailed": "连接 Android 设备时发生错误。",
+  "connectDeviceFailed": "连接设备时发生错误。",
+  "nativeErrorDetails": "错误码：{code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "系统音频捕获初始化失败。",
+  "nativeError1001": "当前 macOS 版本不支持系统音频捕获。",
+  "nativeError1002": "屏幕与系统音频录制权限不可用。",
+  "nativeError1100": "本地音频监听服务无法启动。",
+  "nativeError1101": "无法创建本地监听套接字。",
+  "nativeError1102": "无法绑定本地监听套接字。",
+  "nativeError1103": "本地监听套接字无法开始监听。",
+  "nativeError1104": "无法创建本地监听线程。",
+  "nativeError1105": "启动本地监听服务超时。",
+  "nativeError1106": "无法接受 Android 设备连接。",
+  "nativeError1107": "无法读取 Android 设备连接码。",
+  "nativeError1200": "无法开始系统音频捕获。",
+  "nativeError1201": "无法获取屏幕共享内容。",
+  "nativeError1202": "没有可用于系统音频捕获的显示器。",
+  "nativeError1203": "无法配置 ScreenCaptureKit 音频输出。",
+  "nativeError1204": "无法启动 ScreenCaptureKit 音频捕获。",
+  "nativeError1205": "ScreenCaptureKit 音频捕获意外停止。",
+  "nativeError1206": "启动 ScreenCaptureKit 音频捕获超时。",
+  "nativeErrorUnknown": "发生未知系统音频捕获错误。",
+  "exceptionDetails": "诊断信息：{message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

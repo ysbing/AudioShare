@@ -2,7 +2,7 @@ name: audioshare
 description: Stream system audio (Windows/macOS) to Android via ADB.
 publish_to: none
 
-version: 2.0.0+1
+version: 2.1.0+1
 
 environment:
   sdk: ^3.6.2
@@ -10,7 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   ffi: ^2.1.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -18,4 +21,5 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
+  generate: true
   uses-material-design: true

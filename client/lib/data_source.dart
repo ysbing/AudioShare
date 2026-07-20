@@ -6,11 +6,27 @@ import 'services/adb_service.dart';
 import 'services/audio_capture.dart';
 import 'utils/prefs.dart';
 
-class UiError {
-  const UiError({required this.title, required this.message});
+enum UiErrorType {
+  recordingPermissionRequired,
+  captureInitializationFailed,
+  captureStopped,
+  captureStartFailed,
+  listenerStartFailed,
+  noAvailablePort,
+  connectAndroidDeviceFailed,
+  connectDeviceFailed,
+}
 
-  final String title;
-  final String message;
+class UiError {
+  const UiError({
+    required this.type,
+    this.nativeError,
+    this.exception,
+  });
+
+  final UiErrorType type;
+  final AudioCaptureError? nativeError;
+  final Object? exception;
 }
 
 class DataSource extends ChangeNotifier {
@@ -130,13 +146,11 @@ class DataSource extends ChangeNotifier {
       if (!userInitiated) return false;
       if (!_audioCapture.requestScreenCapturePermission()) {
         _reportNativeError(
-          '未获得“屏幕与系统音频录制”权限。请在“系统设置 > 隐私与安全性 > 屏幕与系统音频录制”中允许 AudioShare，然后重新连接。',
+          UiErrorType.recordingPermissionRequired,
           _audioCapture.takeLastError(
             fallbackCode: 1002,
-            fallbackMessage:
-                'Screen and system audio recording permission was not granted',
+            fallbackMessage: '',
           ),
-          title: '需要录制权限',
         );
         return false;
       }
@@ -144,10 +158,10 @@ class DataSource extends ChangeNotifier {
 
     if (!_audioCapture.initialize()) {
       _reportNativeError(
-        '无法初始化系统音频捕获。',
+        UiErrorType.captureInitializationFailed,
         _audioCapture.takeLastError(
           fallbackCode: 1000,
-          fallbackMessage: 'Audio capture initialization failed',
+          fallbackMessage: '',
         ),
       );
       return false;
@@ -156,15 +170,12 @@ class DataSource extends ChangeNotifier {
   }
 
   void _reportNativeError(
-    String description,
-    AudioCaptureError? error, {
-    String title = '连接失败',
-  }) {
-    final detail = error ??
-        const AudioCaptureError(-1, 'No native error information was returned');
+    UiErrorType type,
+    AudioCaptureError? error,
+  ) {
     _pendingError = UiError(
-      title: title,
-      message: '$description\n\n错误码：${detail.code}\n错误信息：${detail.message}',
+      type: type,
+      nativeError: error ?? const AudioCaptureError(-1, ''),
     );
     notifyListeners();
   }
@@ -181,7 +192,7 @@ class DataSource extends ChangeNotifier {
     for (final deviceId in _connectStateMap.keys.toList()) {
       _connectStateMap[deviceId] = 0;
     }
-    _reportNativeError('系统音频捕获已停止。', error);
+    _reportNativeError(UiErrorType.captureStopped, error);
   }
 
   Future<int> _findAvailablePort() async {
@@ -222,7 +233,10 @@ class DataSource extends ChangeNotifier {
           await _adb.removeAllReverse(deviceId);
           final port = await _findAvailablePort();
           if (port == 0) {
-            throw const SocketException('没有可用的本地监听端口');
+            _connectStateMap[deviceId] = 0;
+            _pendingError = const UiError(type: UiErrorType.noAvailablePort);
+            notifyListeners();
+            return;
           }
           final socketName = 'audioshare_$port';
 
@@ -233,10 +247,10 @@ class DataSource extends ChangeNotifier {
               _audioCapture.stop();
               _connectStateMap[deviceId] = 0;
               _reportNativeError(
-                '无法开始捕获系统音频。',
+                UiErrorType.captureStartFailed,
                 _audioCapture.takeLastError(
                   fallbackCode: 1200,
-                  fallbackMessage: 'Audio capture failed to start',
+                  fallbackMessage: '',
                 ),
               );
               return;
@@ -248,10 +262,10 @@ class DataSource extends ChangeNotifier {
           if (!listenOk) {
             _connectStateMap[deviceId] = 0;
             _reportNativeError(
-              '无法启动本地音频传输服务。',
+              UiErrorType.listenerStartFailed,
               _audioCapture.takeLastError(
                 fallbackCode: 1100,
-                fallbackMessage: 'Audio capture listener failed to start',
+                fallbackMessage: '',
               ),
             );
             return;
@@ -264,8 +278,8 @@ class DataSource extends ChangeNotifier {
           print('Connection error: $e\n$s');
           _connectStateMap[deviceId] = 0;
           _pendingError = UiError(
-            title: '连接失败',
-            message: '连接 Android 设备时发生错误。\n\n错误信息：$e',
+            type: UiErrorType.connectAndroidDeviceFailed,
+            exception: e,
           );
           notifyListeners();
         }
@@ -274,8 +288,8 @@ class DataSource extends ChangeNotifier {
       print('Connection error: $e\n$s');
       _connectStateMap[deviceId] = 0;
       _pendingError = UiError(
-        title: '连接失败',
-        message: '连接设备时发生错误。\n\n错误信息：$e',
+        type: UiErrorType.connectDeviceFailed,
+        exception: e,
       );
       notifyListeners();
     }

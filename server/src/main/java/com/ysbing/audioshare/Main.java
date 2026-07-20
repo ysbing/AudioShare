@@ -48,7 +48,7 @@ public class Main {
         int offset = 0;
         while (offset < len) {
             int n = in.read(buf, offset, len - offset);
-            if (n == -1) throw new IOException("Stream ended before format header was complete");
+            if (n == -1) throw new IOException("FORMAT_HEADER_INCOMPLETE");
             offset += n;
         }
         return buf;
