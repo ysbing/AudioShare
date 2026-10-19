@@ -4,9 +4,10 @@ Packages the built Windows client into a release archive.
 
 .DESCRIPTION
 Validates that the build output contains every file AudioShare loads at runtime
-and then zips the whole Release directory. It refuses to produce an archive
-when something is missing, because a package without the bundled adb files or
-the Android server stalls on "Connecting" (issue #8).
+and then archives the whole Release directory as audioshare-<version>-win.7z
+(.zip when 7-Zip is not installed). It refuses to produce an archive when
+something is missing, because a package without the bundled adb files or the
+Android server stalls on "Connecting" (issue #8).
 
 .EXAMPLE
 ./tools/package_windows.ps1
@@ -20,11 +21,17 @@ Under the default Restricted execution policy, start it with
 [CmdletBinding()]
 param(
   [string]$Version = '',
-  [string]$ReleaseDir = (Join-Path $PSScriptRoot '..\client\build\windows\x64\runner\Release'),
-  [string]$OutputDir = (Join-Path $PSScriptRoot '..\dist')
+  [string]$ReleaseDir = '',
+  [string]$OutputDir = ''
 )
 
 $ErrorActionPreference = 'Stop'
+
+# $PSScriptRoot is not available while evaluating param() defaults, so resolve
+# the repository defaults here.
+$repoRoot = Split-Path -Parent $PSScriptRoot
+if (-not $ReleaseDir) { $ReleaseDir = Join-Path $repoRoot 'client\build\windows\x64\runner\Release' }
+if (-not $OutputDir) { $OutputDir = Join-Path $repoRoot 'dist' }
 
 # Loaded from the directory next to the executable by adb_service.dart and
 # audio_capture.dart; the rest of the bundle is copied as-is.
@@ -57,11 +64,24 @@ if ($missing) {
 }
 
 New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
-$zipPath = Join-Path (Resolve-Path -LiteralPath $OutputDir).Path "audioshare-$Version-win.zip"
-Remove-Item -LiteralPath $zipPath -Force -ErrorAction SilentlyContinue
+$outPath = (Resolve-Path -LiteralPath $OutputDir).Path
 
-# Existing release assets are .7z; zip keeps this script dependency-free, so
-# swap in 7z here if the old asset naming has to be kept.
-Compress-Archive -Path (Join-Path $releasePath '*') -DestinationPath $zipPath -CompressionLevel Optimal
+# Release assets are .7z, so use 7-Zip when it is installed and fall back to the
+# built-in zip support otherwise.
+$sevenZip = @(
+  "$env:ProgramFiles\7-Zip\7z.exe",
+  "${env:ProgramFiles(x86)}\7-Zip\7z.exe"
+) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
 
-Write-Host "Packaged $(Split-Path -Leaf $zipPath) ($([math]::Round((Get-Item -LiteralPath $zipPath).Length / 1MB, 1)) MB)"
+if ($sevenZip) {
+  $archive = Join-Path $outPath "audioshare-$Version-win.7z"
+  Remove-Item -LiteralPath $archive -Force -ErrorAction SilentlyContinue
+  & $sevenZip a -t7z -mx=9 -bso0 -bsp0 $archive (Join-Path $releasePath '*')
+  if ($LASTEXITCODE -ne 0) { throw "7-Zip failed with exit code $LASTEXITCODE." }
+} else {
+  $archive = Join-Path $outPath "audioshare-$Version-win.zip"
+  Remove-Item -LiteralPath $archive -Force -ErrorAction SilentlyContinue
+  Compress-Archive -Path (Join-Path $releasePath '*') -DestinationPath $archive -CompressionLevel Optimal
+}
+
+Write-Host "Packaged $(Split-Path -Leaf $archive) ($([math]::Round((Get-Item -LiteralPath $archive).Length / 1MB, 1)) MB)"
