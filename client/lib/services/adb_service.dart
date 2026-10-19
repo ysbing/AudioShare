@@ -185,7 +185,16 @@ class AdbService {
         serverPath,
       );
     }
-    await _execOrThrow(['-s', deviceId, 'push', serverPath, '/data/local/tmp/audioshare']);
+    // adb runs as a separate process, so it cannot read a file that only exists
+    // in a virtual file system (single-file exe built with Enigma Virtual Box,
+    // issue #8). Push a real copy from the temp directory, the same way
+    // _initAdbPath() handles adb itself.
+    final tempDir = '${Directory.systemTemp.path}${Platform.pathSeparator}'
+        'ysbing${Platform.pathSeparator}AudioShare';
+    Directory(tempDir).createSync(recursive: true);
+    final pushPath = '$tempDir${Platform.pathSeparator}server';
+    serverFile.copySync(pushPath);
+    await _execOrThrow(['-s', deviceId, 'push', pushPath, '/data/local/tmp/audioshare']);
   }
 
   Future<void> launchServer(String deviceId, String socketName) async {
