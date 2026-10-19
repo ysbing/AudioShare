@@ -26,6 +26,8 @@ AudioShare 把你电脑上正在播放的声音通过 ADB（Android 调试桥）
 | 自带 `adb` 及其库的临时副本 | `%TEMP%\ysbing\AudioShare\adb\` | 不使用（文件保留在应用包内） |
 | 安卓端服务端程序的临时副本 | `%TEMP%\ysbing\AudioShare\server` | 不使用（文件保留在应用包内） |
 
+从微软商店安装 AudioShare 时，Windows 可能会把上述位置重定向到应用自己的包数据目录（`%LOCALAPPDATA%\Packages\<包名>\LocalCache\Roaming\ysbing\AudioShare` 与 `...\AC\Temp`）。数据仍然只保存在你自己的电脑上，只是目录位置不同。
+
 在安卓设备上，AudioShare 会把服务端程序复制到设备的临时目录 `/data/local/tmp/audioshare`，并在会话期间以普通进程启动它。手机上不会安装任何应用，不会修改其他文件，除上面列出的设备属性外也不会读取设备上的其他数据。该文件会一直保留在 `/data/local/tmp` 中，直到你手动删除（例如执行 `adb shell rm /data/local/tmp/audioshare`）或设备被重置。
 
 ## 三、AudioShare 不会做的事

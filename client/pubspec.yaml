@@ -19,7 +19,20 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  msix: ^3.18.0
 
 flutter:
   generate: true
   uses-material-design: true
+
+# Microsoft Store packaging (tools/package_store.ps1). identity_name and
+# publisher must match the values on the product's Identity page in Partner
+# Center; the packaging script refuses to run while they are placeholders.
+msix_config:
+  display_name: AudioShare
+  publisher_display_name: ysbing
+  identity_name: 12345ysbing.AudioShare
+  publisher: CN=00000000-0000-0000-0000-000000000000
+  logo_path: ../tools/logo.png
+  languages: en-us, zh-cn
+  store: true

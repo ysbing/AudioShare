@@ -26,6 +26,8 @@ All of the information above stays on your computer. Nothing is uploaded.
 | Temporary copies of the bundled `adb` executable and its libraries | `%TEMP%\ysbing\AudioShare\adb\` | not used (files stay in the app bundle) |
 | Temporary copy of the Android server binary | `%TEMP%\ysbing\AudioShare\server` | not used (files stay in the app bundle) |
 
+When AudioShare is installed from the Microsoft Store, Windows may redirect these locations into the application's own package data folder (`%LOCALAPPDATA%\Packages\<package>\LocalCache\Roaming\ysbing\AudioShare` and `...\AC\Temp`). The data still stays on your computer; only the folder changes.
+
 On the Android device, AudioShare copies its server binary to the temporary directory `/data/local/tmp/audioshare` and starts it as a normal process while a session is active. No application is installed on the device, no other files are modified, and no data is read from the device beyond the device properties listed above. The copied file stays in `/data/local/tmp` until you remove it (for example with `adb shell rm /data/local/tmp/audioshare`) or the device is reset.
 
 ## 3. What AudioShare does not do
