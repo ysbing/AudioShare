@@ -49,7 +49,13 @@ cd client
 flutter build windows --release
 ```
 
-Output: `client/build/windows/x64/runner/Release/audioshare.exe`
+Output: `client/build/windows/x64/runner/Release/audioshare.exe`. AudioShare loads `adb.exe`, `AdbWinApi.dll`, `AdbWinUsbApi.dll`, `audio_capture.dll`, and the `server` asset from that directory at runtime, so the whole `Release` directory has to be shipped; a package that only contains `audioshare.exe` stays stuck on "Connecting".
+
+Package the build output with `./tools/package_windows.ps1 [-Version <version>]`, which validates those files and writes `dist/audioshare-<version>-win.zip`:
+
+```powershell
+./tools/package_windows.ps1
+```
 
 Build the macOS client:
 

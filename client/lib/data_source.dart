@@ -279,6 +279,10 @@ class DataSource extends ChangeNotifier {
           await _adb.launchServer(deviceId, socketName);
         } catch (e, s) {
           print('Connection error: $e\n$s');
+          // Match the cleanup used by _pollNativeCaptureError so a failed
+          // push/launch does not leave the local audio listener bound.
+          _adb.stopServer();
+          _audioCapture.stop();
           _connectStateMap[deviceId] = 0;
           _pendingError = UiError(
             type: UiErrorType.connectAndroidDeviceFailed,

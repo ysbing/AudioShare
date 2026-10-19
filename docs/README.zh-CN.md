@@ -47,7 +47,13 @@ cd client
 flutter build windows --release
 ```
 
-产物：`client/build/windows/x64/runner/Release/audioshare.exe`
+产物：`client/build/windows/x64/runner/Release/audioshare.exe`。AudioShare 运行时会从该目录加载 `adb.exe`、`AdbWinApi.dll`、`AdbWinUsbApi.dll`、`audio_capture.dll` 以及 `server` 资源文件，因此必须发布整个 `Release` 目录；只包含 `audioshare.exe` 的包会一直卡在"连接中"。
+
+使用 `./tools/package_windows.ps1 [-Version <版本号>]` 打包，脚本会校验上述文件并生成 `dist/audioshare-<版本号>-win.zip`：
+
+```powershell
+./tools/package_windows.ps1
+```
 
 构建 macOS 客户端：
 

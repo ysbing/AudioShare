@@ -53,6 +53,43 @@ class AdbService {
     }
   }
 
+  /// Runs adb and throws a [ProcessException] when the process exits non-zero
+  /// or fails to launch. Used for operations whose failure must reach the UI
+  /// (e.g. pushing the Android server bundle) instead of being silently
+  /// swallowed by [_exec].
+  Future<void> _execOrThrow(List<String> arguments) async {
+    ProcessResult result;
+    try {
+      result = await Process.run(_adbPath, arguments);
+    } on ProcessException catch (e, stackTrace) {
+      // Keep the OS error (e.g. "Access is denied") instead of replacing it, so
+      // an unrelated launch failure is not always reported as a missing bundle.
+      // The hint is appended because a package without the bundled adb is the
+      // common cause of a failed push (issue #8).
+      const hint = 'Make sure the bundled adb executable is present next to the app.';
+      Error.throwWithStackTrace(
+        ProcessException(
+          _adbPath,
+          arguments,
+          e.message.isEmpty ? hint : '${e.message} $hint',
+          e.errorCode,
+        ),
+        stackTrace,
+      );
+    }
+    if (result.exitCode != 0) {
+      final stderr = (result.stderr as String).trim();
+      final stdout = (result.stdout as String).trim();
+      final detail = stderr.isNotEmpty ? stderr : stdout;
+      throw ProcessException(
+        _adbPath,
+        arguments,
+        detail.isNotEmpty ? detail : 'adb exited with code ${result.exitCode}',
+        result.exitCode,
+      );
+    }
+  }
+
   // Cache device properties: they never change while connected.
   final Map<String, DeviceModel> _deviceCache = {};
 
@@ -138,7 +175,17 @@ class AdbService {
     final serverPath = Platform.isMacOS
         ? '$exeDir/../Resources/server'
         : '$exeDir${Platform.pathSeparator}server';
-    await _exec(['-s', deviceId, 'push', serverPath, '/data/local/tmp/audioshare']);
+    final serverFile = File(serverPath);
+    if (!serverFile.existsSync()) {
+      // Reached when a release archive was packaged without the bundled
+      // server asset (e.g. issue #8). Failing fast surfaces the problem
+      // instead of letting the connection silently stall on Connecting.
+      throw FileSystemException(
+        'AudioShare server bundle not found alongside the executable.',
+        serverPath,
+      );
+    }
+    await _execOrThrow(['-s', deviceId, 'push', serverPath, '/data/local/tmp/audioshare']);
   }
 
   Future<void> launchServer(String deviceId, String socketName) async {

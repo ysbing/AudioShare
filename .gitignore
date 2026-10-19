@@ -27,6 +27,9 @@ client/.flutter-plugins-dependencies
 # macOS system
 .DS_Store
 
+# Release archives produced by tools/package_windows.ps1
+/dist/
+
 # Editor
 .directory
 *.swp

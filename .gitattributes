@@ -1,0 +1,5 @@
+# The Flutter tool rewrites these files with LF line endings on every build.
+# Forcing LF in the working tree keeps Windows checkouts (core.autocrlf=true)
+# from reporting phantom modifications and rewriting them as CRLF.
+client/windows/flutter/generated_* text eol=lf
+client/macos/Flutter/GeneratedPluginRegistrant.swift text eol=lf
