@@ -66,11 +66,23 @@ flutter build macos --release
 
 Output: `client/build/macos/Build/Products/Release/AudioShare.app`
 
+Package the build output with `./tools/package_macos.sh [--version <version>]`, which validates those files, ad-hoc signs the bundle, and writes `dist/audioshare-<version>-macos.zip`:
+
+```bash
+./tools/package_macos.sh
+```
+
 Build the Android server. The output is copied to `client/assets/server`:
 
 ```bash
 ./gradlew :server:assembleRelease
 ```
+
+## Continuous Integration
+
+[`.github/workflows/build.yml`](.github/workflows/build.yml) builds the Android server and both desktop clients on every push and pull request. Each run uploads `audioshare-<version>-win.7z` and `audioshare-<version>-macos.zip` as artifacts; pushing a `v*` tag also attaches both packages to the GitHub release.
+
+The macOS job runs without an Apple Developer certificate and ad-hoc signs the bundle, so its packages are not notarized.
 
 ## Project Structure
 

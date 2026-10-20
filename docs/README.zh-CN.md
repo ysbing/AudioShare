@@ -64,11 +64,23 @@ flutter build macos --release
 
 产物：`client/build/macos/Build/Products/Release/AudioShare.app`
 
+使用 `./tools/package_macos.sh [--version <版本号>]` 打包，脚本会校验运行所需文件、对应用进行 ad-hoc 签名，并生成 `dist/audioshare-<版本号>-macos.zip`：
+
+```bash
+./tools/package_macos.sh
+```
+
 构建 Android 服务端，产物会复制到 `client/assets/server`：
 
 ```bash
 ./gradlew :server:assembleRelease
 ```
+
+## 持续集成
+
+[`.github/workflows/build.yml`](../.github/workflows/build.yml) 会在每次推送和拉取请求时构建 Android 服务端以及两个桌面客户端，并以构建产物形式上传 `audioshare-<版本号>-win.7z` 和 `audioshare-<版本号>-macos.zip`；推送 `v*` 标签时还会把这两个包附加到 GitHub Release。
+
+macOS 任务没有 Apple 开发者证书，只对应用做 ad-hoc 签名，因此产物未经公证。
 
 ## 项目结构
 

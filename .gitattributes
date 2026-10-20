@@ -3,3 +3,6 @@
 # from reporting phantom modifications and rewriting them as CRLF.
 client/windows/flutter/generated_* text eol=lf
 client/macos/Flutter/GeneratedPluginRegistrant.swift text eol=lf
+
+# Shell scripts run on the macOS runners and need LF endings.
+*.sh text eol=lf
