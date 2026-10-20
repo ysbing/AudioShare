@@ -62,7 +62,7 @@ required=(
   "Contents/MacOS/adb"
   "Contents/MacOS/audio_capture.dylib"
   "Contents/Resources/server"
-  "Contents/Resources/flutter_assets"
+  "Contents/Frameworks/App.framework/Resources/flutter_assets"
 )
 
 missing=""
@@ -74,6 +74,7 @@ done
 if [[ -n "$missing" ]]; then
   echo "Incomplete app bundle at '$app'. Missing: $missing" >&2
   echo "Run the gradle :server:assembleRelease task to refresh client/assets, then rebuild the client." >&2
+  find "$app" -maxdepth 4 -print | sort >&2
   exit 1
 fi
 
