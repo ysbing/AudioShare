@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:audioshare/l10n/generated/app_localizations.dart';
 import 'package:audioshare/l10n/language_dialog.dart';
 import 'package:audioshare/l10n/supported_languages.dart';
+import 'package:audioshare/utils/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Map<String, dynamic> _readArb(String path) =>
@@ -15,16 +17,19 @@ Set<String> _messageKeys(Map<String, dynamic> arb) =>
     arb.keys.where((key) => !key.startsWith('@')).toSet();
 
 Widget _localizedApp({required Widget home, Locale? locale}) {
-  return MaterialApp(
-    locale: locale ?? const Locale('en'),
-    supportedLocales: supportedLocales,
-    localizationsDelegates: const [
-      AppLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
-    home: home,
+  return ScreenUtilInit(
+    designSize: designSize,
+    child: MaterialApp(
+      locale: locale ?? const Locale('en'),
+      supportedLocales: supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: home,
+    ),
   );
 }
 

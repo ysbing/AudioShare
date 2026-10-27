@@ -3,12 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'data_source.dart';
 import 'l10n/app_localizations_extensions.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'l10n/language_dialog.dart';
 import 'l10n/supported_languages.dart';
+import 'utils/design.dart';
 import 'utils/prefs.dart';
 
 const _languagePreferenceKey = 'locale';
@@ -16,7 +18,10 @@ const _languagePreferenceKey = 'locale';
 void main() {
   Prefs.load();
   runZonedGuarded(
-    () => runApp(const AudioShareApp()),
+    () => runApp(const ScreenUtilInit(
+      designSize: designSize,
+      child: AudioShareApp(),
+    )),
     (error, stack) {
       debugPrint('Uncaught error: $error\n$stack');
     },
@@ -252,8 +257,8 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
         ],
       ),
       body: SizedBox(
-        width: 360,
-        height: 540,
+        width: designSize.width.w,
+        height: designSize.height.h,
         child: Column(children: [
           Expanded(child: _buildContent(l10n)),
           _buildCheckBox(l10n)
@@ -271,7 +276,7 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
       case 2:
         return ListView.separated(
           itemCount: _dataSource.devices.length,
-          separatorBuilder: (_, __) => const Divider(height: 1),
+          separatorBuilder: (_, __) => Divider(height: 1.h),
           itemBuilder: (context, index) {
             final device = _dataSource.devices[index];
             final connectState = _dataSource.getConnectState(device.deviceId);
@@ -285,26 +290,26 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
               _ => l10n.connect,
             };
             return SizedBox(
-              height: 60,
+              height: 60.h,
               child: Row(children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Icon(device.usb ? Icons.usb : Icons.wifi, size: 24),
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: Icon(device.usb ? Icons.usb : Icons.wifi, size: 24.w),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('${device.manufacturer} ${device.model}',
-                            style: const TextStyle(fontSize: 14),
+                            style: TextStyle(fontSize: 14.sp),
                             overflow: TextOverflow.ellipsis),
-                        const SizedBox(height: 6),
+                        SizedBox(height: 6.h),
                         Text(
                           '${l10n.deviceAndroidVersionFormatted(device.androidVersion, apiLevel)}${device.usb ? '' : l10n.deviceNetworkAddressFormatted(device.ip, port)}',
-                          style: const TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12.sp),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -312,7 +317,7 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10),
+                  padding: EdgeInsets.only(right: 10.w),
                   child: ElevatedButton(
                     onPressed: connectEnable
                         ? () {
@@ -338,7 +343,7 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
 
   Widget _buildCheckBox(AppLocalizations l10n) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
       child: Row(children: [
         Checkbox(
             value: _dataSource.lastCheck,
@@ -346,7 +351,7 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
         Expanded(
             child: Text(
           l10n.autoConnectLastDevice,
-          style: TextStyle(fontSize: 13),
+          style: TextStyle(fontSize: 14.sp),
         )),
       ]),
     );

@@ -13,6 +13,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   ffi: ^2.1.0
+  flutter_screenutil: ^5.9.3
   intl: ^0.20.2
 
 dev_dependencies:

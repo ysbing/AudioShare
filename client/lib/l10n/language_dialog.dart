@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../utils/design.dart';
 import 'generated/app_localizations.dart';
 import 'supported_languages.dart';
 
@@ -100,15 +102,14 @@ class _LanguageDialogState extends State<LanguageDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final size = MediaQuery.sizeOf(context);
     final matches = _options(l10n)
         .where((option) => option.matches(_query))
         .toList(growable: false);
     return AlertDialog(
       title: Text(l10n.language),
       content: SizedBox(
-        width: (size.width - 80).clamp(240.0, 340.0),
-        height: (size.height * 0.5).clamp(200.0, 360.0),
+        width: (designSize.width - 80).w,
+        height: (designSize.height * 0.5).h,
         child: Column(
           children: [
             TextField(
@@ -121,7 +122,7 @@ class _LanguageDialogState extends State<LanguageDialog> {
               ),
               onChanged: (value) => setState(() => _query = value),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Expanded(
               child: matches.isEmpty
                   ? Center(child: Text(l10n.noLanguageMatch))
