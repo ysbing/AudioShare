@@ -1,0 +1,69 @@
+{
+  "@@locale": "hu",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Rendszerbeállítások megnyitása",
+  "noDevices": "Nem található eszköz",
+  "connect": "Csatlakozás",
+  "connecting": "Csatlakozás",
+  "disconnect": "Leválasztás",
+  "autoConnectLastDevice": "Automatikus csatlakozás az utoljára használt eszközhöz",
+  "language": "Nyelv",
+  "followSystem": "Rendszer szerint",
+  "noLanguageMatch": "Nincs találat",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Rögzítési engedély szükséges",
+  "recordingPermissionDescription": "A Rendszerbeállításokban lépjen az Adatvédelem és biztonság > Képernyőrögzítés és rendszerhang rögzítése pontba, és engedélyezze az AudioShare alkalmazást. A macOS az új engedély érvénybelépéséhez újraindítja az alkalmazást: zárja be az AudioShare-t, nyissa meg újra, majd csatlakozzon ismét.",
+  "connectionFailedTitle": "A csatlakozás nem sikerült",
+  "captureInitializationFailed": "A rendszerhang rögzítése nem inicializálható.",
+  "captureStopped": "A rendszerhang rögzítése leállt.",
+  "captureStartFailed": "A rendszerhang rögzítése nem indítható el.",
+  "listenerStartFailed": "A helyi hangfolyam-szolgáltatás nem indítható el.",
+  "noAvailablePort": "Nincs elérhető helyi figyelő port.",
+  "connectAndroidDeviceFailed": "Hiba történt az Android-eszközhöz való csatlakozáskor.",
+  "connectDeviceFailed": "Hiba történt az eszközhöz való csatlakozáskor.",
+  "nativeErrorDetails": "Hibakód: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "A hangrögzítés inicializálása nem sikerült.",
+  "nativeError1001": "A macOS ezen verziója nem támogatja a rendszerhang rögzítését.",
+  "nativeError1002": "A képernyőrögzítés és rendszerhang engedélye nem érhető el.",
+  "nativeError1100": "A helyi hangfigyelő nem indítható el.",
+  "nativeError1101": "A helyi figyelő foglaló nem hozható létre.",
+  "nativeError1102": "A helyi figyelő foglaló nem köthető le.",
+  "nativeError1103": "A helyi figyelő foglaló nem tudott figyelni kezdeni.",
+  "nativeError1104": "A helyi figyelő szál nem hozható létre.",
+  "nativeError1105": "A helyi figyelő indítása időtúllépést szenvedett.",
+  "nativeError1106": "Az Android-eszköz csatlakozása nem fogadható el.",
+  "nativeError1107": "Az Android-eszköz csatlakozási kódja nem olvasható.",
+  "nativeError1200": "A rendszerhang rögzítése nem indítható el.",
+  "nativeError1201": "A képernyőmegosztás tartalma nem kérhető le.",
+  "nativeError1202": "Nincs elérhető kijelző a rendszerhang rögzítéséhez.",
+  "nativeError1203": "A ScreenCaptureKit hangkimenete nem konfigurálható.",
+  "nativeError1204": "A ScreenCaptureKit hangrögzítése nem indítható el.",
+  "nativeError1205": "A ScreenCaptureKit hangrögzítése váratlanul leállt.",
+  "nativeError1206": "A ScreenCaptureKit hangrögzítésének indítása időtúllépést szenvedett.",
+  "nativeErrorUnknown": "Ismeretlen rendszerhang-rögzítési hiba történt.",
+  "exceptionDetails": "Diagnosztika: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

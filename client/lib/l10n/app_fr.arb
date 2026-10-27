@@ -1,0 +1,69 @@
+{
+  "@@locale": "fr",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Ouvrir les réglages Système",
+  "noDevices": "Aucun appareil trouvé",
+  "connect": "Connecter",
+  "connecting": "Connexion",
+  "disconnect": "Déconnecter",
+  "autoConnectLastDevice": "Se connecter automatiquement au dernier appareil utilisé",
+  "language": "Langue",
+  "followSystem": "Suivre le système",
+  "noLanguageMatch": "Aucune langue correspondante",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Autorisation d'enregistrement requise",
+  "recordingPermissionDescription": "Dans les réglages Système, accédez à Confidentialité et sécurité > Enregistrement de l'écran et du son du système, puis autorisez AudioShare. macOS exige un redémarrage de l'application pour que la nouvelle autorisation prenne effet : quittez AudioShare, rouvrez-la, puis reconnectez-vous.",
+  "connectionFailedTitle": "Échec de la connexion",
+  "captureInitializationFailed": "Impossible d'initialiser la capture du son du système.",
+  "captureStopped": "La capture du son du système s'est arrêtée.",
+  "captureStartFailed": "Impossible de démarrer la capture du son du système.",
+  "listenerStartFailed": "Impossible de démarrer le service local de streaming audio.",
+  "noAvailablePort": "Aucun port d'écoute local n'est disponible.",
+  "connectAndroidDeviceFailed": "Une erreur s'est produite lors de la connexion à l'appareil Android.",
+  "connectDeviceFailed": "Une erreur s'est produite lors de la connexion à l'appareil.",
+  "nativeErrorDetails": "Code d'erreur : {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Échec de l'initialisation de la capture audio.",
+  "nativeError1001": "Cette version de macOS ne prend pas en charge la capture du son du système.",
+  "nativeError1002": "L'autorisation d'enregistrement de l'écran et du son du système n'est pas disponible.",
+  "nativeError1100": "Impossible de démarrer l'écoute audio locale.",
+  "nativeError1101": "Impossible de créer le socket d'écoute local.",
+  "nativeError1102": "Impossible de lier le socket d'écoute local.",
+  "nativeError1103": "Le socket d'écoute local n'a pas pu commencer à écouter.",
+  "nativeError1104": "Impossible de créer le thread d'écoute local.",
+  "nativeError1105": "Le démarrage de l'écoute locale a expiré.",
+  "nativeError1106": "Impossible d'accepter la connexion de l'appareil Android.",
+  "nativeError1107": "Impossible de lire le code de connexion de l'appareil Android.",
+  "nativeError1200": "Impossible de démarrer la capture du son du système.",
+  "nativeError1201": "Impossible d'obtenir le contenu du partage d'écran.",
+  "nativeError1202": "Aucun écran n'est disponible pour la capture du son du système.",
+  "nativeError1203": "Impossible de configurer la sortie audio de ScreenCaptureKit.",
+  "nativeError1204": "Impossible de démarrer la capture audio de ScreenCaptureKit.",
+  "nativeError1205": "La capture audio de ScreenCaptureKit s'est arrêtée de manière inattendue.",
+  "nativeError1206": "Le démarrage de la capture audio de ScreenCaptureKit a expiré.",
+  "nativeErrorUnknown": "Une erreur inconnue de capture du son du système s'est produite.",
+  "exceptionDetails": "Diagnostic : {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

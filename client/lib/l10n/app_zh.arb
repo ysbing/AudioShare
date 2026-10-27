@@ -9,8 +9,8 @@
   "disconnect": "断开",
   "autoConnectLastDevice": "自动连接上次使用的设备",
   "language": "语言",
-  "languageEnglish": "English",
-  "languageChinese": "简体中文",
+  "followSystem": "跟随系统",
+  "noLanguageMatch": "没有匹配的语言",
   "deviceAndroidVersion": "Android {version}（API {apiLevel}）",
   "@deviceAndroidVersion": {
     "placeholders": {

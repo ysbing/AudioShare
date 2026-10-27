@@ -1,0 +1,69 @@
+{
+  "@@locale": "zh_TW",
+  "appTitle": "AudioShare",
+  "ok": "確定",
+  "openSystemSettings": "打開系統設定",
+  "noDevices": "找不到裝置",
+  "connect": "連線",
+  "connecting": "連線中",
+  "disconnect": "中斷連線",
+  "autoConnectLastDevice": "自動連線到上次使用的裝置",
+  "language": "語言",
+  "followSystem": "跟隨系統",
+  "noLanguageMatch": "沒有符合的語言",
+  "deviceAndroidVersion": "Android {version}（API {apiLevel}）",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "需要錄製權限",
+  "recordingPermissionDescription": "請在「系統設定 > 隱私權與安全性 > 螢幕與系統音訊錄製」中允許 AudioShare。macOS 需要重新啟動應用程式才能讓新權限生效；請結束 AudioShare，重新開啟後再連線一次。",
+  "connectionFailedTitle": "連線失敗",
+  "captureInitializationFailed": "無法初始化系統音訊擷取。",
+  "captureStopped": "系統音訊擷取已停止。",
+  "captureStartFailed": "無法開始擷取系統音訊。",
+  "listenerStartFailed": "無法啟動本機音訊串流服務。",
+  "noAvailablePort": "沒有可用的本機監聽連接埠。",
+  "connectAndroidDeviceFailed": "連線 Android 裝置時發生錯誤。",
+  "connectDeviceFailed": "連線裝置時發生錯誤。",
+  "nativeErrorDetails": "錯誤碼：{code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "系統音訊擷取初始化失敗。",
+  "nativeError1001": "目前的 macOS 版本不支援系統音訊擷取。",
+  "nativeError1002": "螢幕與系統音訊錄製權限無法使用。",
+  "nativeError1100": "本機音訊監聽服務無法啟動。",
+  "nativeError1101": "無法建立本機監聽通訊端。",
+  "nativeError1102": "無法繫結本機監聽通訊端。",
+  "nativeError1103": "本機監聽通訊端無法開始監聽。",
+  "nativeError1104": "無法建立本機監聽執行緒。",
+  "nativeError1105": "啟動本機監聽服務逾時。",
+  "nativeError1106": "無法接受 Android 裝置連線。",
+  "nativeError1107": "無法讀取 Android 裝置連線碼。",
+  "nativeError1200": "無法開始擷取系統音訊。",
+  "nativeError1201": "無法取得螢幕分享內容。",
+  "nativeError1202": "沒有可用於系統音訊擷取的顯示器。",
+  "nativeError1203": "無法設定 ScreenCaptureKit 音訊輸出。",
+  "nativeError1204": "無法啟動 ScreenCaptureKit 音訊擷取。",
+  "nativeError1205": "ScreenCaptureKit 音訊擷取意外停止。",
+  "nativeError1206": "啟動 ScreenCaptureKit 音訊擷取逾時。",
+  "nativeErrorUnknown": "發生未知的系統音訊擷取錯誤。",
+  "exceptionDetails": "診斷資訊：{message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

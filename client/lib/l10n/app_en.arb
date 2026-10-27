@@ -9,8 +9,8 @@
   "disconnect": "Disconnect",
   "autoConnectLastDevice": "Automatically connect to the last used device",
   "language": "Language",
-  "languageEnglish": "English",
-  "languageChinese": "Chinese (Simplified)",
+  "followSystem": "Follow system",
+  "noLanguageMatch": "No matching language",
   "deviceAndroidVersion": "Android {version} (API {apiLevel})",
   "@deviceAndroidVersion": {
     "placeholders": {

@@ -45,6 +45,7 @@ jobs:
           flutter pub get
           flutter gen-l10n
           flutter analyze --no-fatal-infos
+          flutter test
 
       - name: Build Windows client
         working-directory: client
@@ -106,6 +107,7 @@ jobs:
           flutter pub get
           flutter gen-l10n
           flutter analyze --no-fatal-infos
+          flutter test
 
       - name: Build macOS client
         working-directory: client

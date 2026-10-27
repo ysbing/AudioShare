@@ -18,6 +18,32 @@
 	<array>
 		<string>en</string>
 		<string>zh-Hans</string>
+		<string>zh-Hant</string>
+		<string>es</string>
+		<string>pt</string>
+		<string>ru</string>
+		<string>ja</string>
+		<string>ko</string>
+		<string>de</string>
+		<string>fr</string>
+		<string>it</string>
+		<string>hi</string>
+		<string>ar</string>
+		<string>tr</string>
+		<string>vi</string>
+		<string>id</string>
+		<string>pl</string>
+		<string>th</string>
+		<string>nl</string>
+		<string>sv</string>
+		<string>cs</string>
+		<string>he</string>
+		<string>uk</string>
+		<string>ro</string>
+		<string>hu</string>
+		<string>da</string>
+		<string>fi</string>
+		<string>el</string>
 	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>

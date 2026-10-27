@@ -1,0 +1,69 @@
+{
+  "@@locale": "ar",
+  "appTitle": "AudioShare",
+  "ok": "موافق",
+  "openSystemSettings": "فتح إعدادات النظام",
+  "noDevices": "لم يتم العثور على أي أجهزة",
+  "connect": "اتصال",
+  "connecting": "جارٍ الاتصال",
+  "disconnect": "قطع الاتصال",
+  "autoConnectLastDevice": "الاتصال تلقائيًا بآخر جهاز استُخدم",
+  "language": "اللغة",
+  "followSystem": "اتّباع النظام",
+  "noLanguageMatch": "لا توجد لغة مطابقة",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "مطلوب إذن التسجيل",
+  "recordingPermissionDescription": "في إعدادات النظام، انتقل إلى الخصوصية والأمان > تسجيل الشاشة وصوت النظام واسمح لـ AudioShare. يتطلب macOS إعادة تشغيل التطبيق حتى يسري الإذن الجديد؛ quit AudioShare ثم افتحه مرة أخرى واتصل به من جديد.",
+  "connectionFailedTitle": "فشل الاتصال",
+  "captureInitializationFailed": "تعذّرت تهيئة التقاط صوت النظام.",
+  "captureStopped": "توقف التقاط صوت النظام.",
+  "captureStartFailed": "تعذّر بدء التقاط صوت النظام.",
+  "listenerStartFailed": "تعذّر تشغيل خدمة بث الصوت المحلية.",
+  "noAvailablePort": "لا يوجد منفذ استماع محلي متاح.",
+  "connectAndroidDeviceFailed": "حدث خطأ أثناء الاتصال بجهاز Android.",
+  "connectDeviceFailed": "حدث خطأ أثناء الاتصال بالجهاز.",
+  "nativeErrorDetails": "رمز الخطأ: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "فشلت تهيئة التقاط الصوت.",
+  "nativeError1001": "إصدار macOS هذا لا يدعم التقاط صوت النظام.",
+  "nativeError1002": "إذن تسجيل الشاشة وصوت النظام غير متاح.",
+  "nativeError1100": "تعذّر تشغيل مستمع الصوت المحلي.",
+  "nativeError1101": "تعذّر إنشاء مقبس الاستماع المحلي.",
+  "nativeError1102": "تعذّر ربط مقبس الاستماع المحلي.",
+  "nativeError1103": "تعذّر على مقبس الاستماع المحلي بدء الاستماع.",
+  "nativeError1104": "تعذّر إنشاء خيط الاستماع المحلي.",
+  "nativeError1105": "انتهت المهلة أثناء بدء المستمع المحلي.",
+  "nativeError1106": "تعذّر قبول الاتصال من جهاز Android.",
+  "nativeError1107": "تعذّرت قراءة رمز الاتصال الخاص بجهاز Android.",
+  "nativeError1200": "تعذّر بدء التقاط صوت النظام.",
+  "nativeError1201": "تعذّر الحصول على محتوى مشاركة الشاشة.",
+  "nativeError1202": "لا تتوفر أي شاشة لالتقاط صوت النظام.",
+  "nativeError1203": "تعذّر ضبط إخراج الصوت في ScreenCaptureKit.",
+  "nativeError1204": "تعذّر بدء التقاط الصوت في ScreenCaptureKit.",
+  "nativeError1205": "توقف التقاط الصوت في ScreenCaptureKit بشكل غير متوقع.",
+  "nativeError1206": "انتهت المهلة أثناء بدء التقاط الصوت في ScreenCaptureKit.",
+  "nativeErrorUnknown": "حدث خطأ غير معروف في التقاط صوت النظام.",
+  "exceptionDetails": "التشخيص: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "@@locale": "hi",
+  "appTitle": "AudioShare",
+  "ok": "ठीक है",
+  "openSystemSettings": "सिस्टम सेटिंग खोलें",
+  "noDevices": "कोई डिवाइस नहीं मिला",
+  "connect": "कनेक्ट करें",
+  "connecting": "कनेक्ट हो रहा है",
+  "disconnect": "डिस्कनेक्ट करें",
+  "autoConnectLastDevice": "पिछली बार उपयोग किए गए डिवाइस से स्वतः कनेक्ट करें",
+  "language": "भाषा",
+  "followSystem": "सिस्टम के अनुसार",
+  "noLanguageMatch": "कोई मेल खाती भाषा नहीं मिली",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "रिकॉर्डिंग की अनुमति आवश्यक है",
+  "recordingPermissionDescription": "सिस्टम सेटिंग में Privacy & Security > Screen & System Audio Recording पर जाएँ और AudioShare को अनुमति दें। नई अनुमति लागू होने के लिए macOS को ऐप को फिर से शुरू करना पड़ता है; AudioShare से बाहर निकलें, उसे दोबारा खोलें, फिर कनेक्ट करें।",
+  "connectionFailedTitle": "कनेक्ट करना विफल रहा",
+  "captureInitializationFailed": "सिस्टम ऑडियो कैप्चर प्रारंभ नहीं किया जा सका।",
+  "captureStopped": "सिस्टम ऑडियो कैप्चर रोक दिया गया।",
+  "captureStartFailed": "सिस्टम ऑडियो कैप्चर शुरू नहीं किया जा सका।",
+  "listenerStartFailed": "स्थानीय ऑडियो स्ट्रीमिंग सेवा शुरू नहीं की जा सकी।",
+  "noAvailablePort": "कोई स्थानीय लिसनिंग पोर्ट उपलब्ध नहीं है।",
+  "connectAndroidDeviceFailed": "Android डिवाइस से कनेक्ट करते समय एक त्रुटि हुई।",
+  "connectDeviceFailed": "डिवाइस से कनेक्ट करते समय एक त्रुटि हुई।",
+  "nativeErrorDetails": "त्रुटि कोड: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "ऑडियो कैप्चर प्रारंभ करना विफल रहा।",
+  "nativeError1001": "macOS का यह संस्करण सिस्टम ऑडियो कैप्चर का समर्थन नहीं करता।",
+  "nativeError1002": "स्क्रीन और सिस्टम ऑडियो रिकॉर्डिंग की अनुमति उपलब्ध नहीं है।",
+  "nativeError1100": "स्थानीय ऑडियो लिसनर शुरू नहीं किया जा सका।",
+  "nativeError1101": "स्थानीय लिसनिंग सॉकेट बनाया नहीं जा सका।",
+  "nativeError1102": "स्थानीय लिसनिंग सॉकेट को बाइंड नहीं किया जा सका।",
+  "nativeError1103": "स्थानीय लिसनिंग सॉकेट सुनना शुरू नहीं कर सका।",
+  "nativeError1104": "स्थानीय लिसनर थ्रेड बनाया नहीं जा सका।",
+  "nativeError1105": "स्थानीय लिसनर शुरू करने में समय समाप्त हो गया।",
+  "nativeError1106": "Android डिवाइस का कनेक्शन स्वीकार नहीं किया जा सका।",
+  "nativeError1107": "Android डिवाइस का कनेक्शन कोड पढ़ा नहीं जा सका।",
+  "nativeError1200": "सिस्टम ऑडियो कैप्चर शुरू नहीं किया जा सका।",
+  "nativeError1201": "स्क्रीन साझा करने की सामग्री प्राप्त नहीं की जा सकी।",
+  "nativeError1202": "सिस्टम ऑडियो कैप्चर के लिए कोई डिस्प्ले उपलब्ध नहीं है।",
+  "nativeError1203": "ScreenCaptureKit ऑडियो आउटपुट कॉन्फ़िगर नहीं किया जा सका।",
+  "nativeError1204": "ScreenCaptureKit ऑडियो कैप्चर शुरू नहीं किया जा सका।",
+  "nativeError1205": "ScreenCaptureKit ऑडियो कैप्चर अचानक रुक गया।",
+  "nativeError1206": "ScreenCaptureKit ऑडियो कैप्चर शुरू करने में समय समाप्त हो गया।",
+  "nativeErrorUnknown": "सिस्टम ऑडियो कैप्चर की एक अज्ञात त्रुटि हुई।",
+  "exceptionDetails": "निदान: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

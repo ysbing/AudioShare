@@ -1,0 +1,69 @@
+{
+  "@@locale": "da",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Åbn systemindstillinger",
+  "noDevices": "Ingen enheder blev fundet",
+  "connect": "Opret forbindelse",
+  "connecting": "Opretter forbindelse",
+  "disconnect": "Afbryd forbindelsen",
+  "autoConnectLastDevice": "Opret automatisk forbindelse til den senest brugte enhed",
+  "language": "Sprog",
+  "followSystem": "Følg systemet",
+  "noLanguageMatch": "Ingen matchende sprog fundet",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Optagelsestilladelse påkrævet",
+  "recordingPermissionDescription": "Gå til Systemindstillinger > Privatliv og sikkerhed > Optagelse af skærm og systemlyd, og tillad AudioShare. macOS kræver, at appen genstarter, før den nye tilladelse træder i kraft: luk AudioShare, åbn den igen, og opret forbindelse på ny.",
+  "connectionFailedTitle": "Forbindelsen mislykkedes",
+  "captureInitializationFailed": "Optagelsen af systemlyd kunne ikke initialiseres.",
+  "captureStopped": "Optagelsen af systemlyd blev stoppet.",
+  "captureStartFailed": "Optagelsen af systemlyd kunne ikke startes.",
+  "listenerStartFailed": "Den lokale lydstreamingtjeneste kunne ikke startes.",
+  "noAvailablePort": "Der er ingen tilgængelig lokal lytteport.",
+  "connectAndroidDeviceFailed": "Der opstod en fejl under forbindelse til Android-enheden.",
+  "connectDeviceFailed": "Der opstod en fejl under forbindelse til enheden.",
+  "nativeErrorDetails": "Fejlkode: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Initialisering af lydoptagelse mislykkedes.",
+  "nativeError1001": "Denne version af macOS understøtter ikke optagelse af systemlyd.",
+  "nativeError1002": "Tilladelse til optagelse af skærm og systemlyd er ikke tilgængelig.",
+  "nativeError1100": "Den lokale lydlytter kunne ikke startes.",
+  "nativeError1101": "Den lokale lyttersocket kunne ikke oprettes.",
+  "nativeError1102": "Den lokale lyttersocket kunne ikke bindes.",
+  "nativeError1103": "Den lokale lyttersocket kunne ikke begynde at lytte.",
+  "nativeError1104": "Den lokale lyttertråd kunne ikke oprettes.",
+  "nativeError1105": "Start af den lokale lytter fik timeout.",
+  "nativeError1106": "Forbindelsen fra Android-enheden kunne ikke accepteres.",
+  "nativeError1107": "Forbindelseskoden for Android-enheden kunne ikke læses.",
+  "nativeError1200": "Optagelsen af systemlyd kunne ikke startes.",
+  "nativeError1201": "Indholdet af skærmdelingen kunne ikke hentes.",
+  "nativeError1202": "Der er ingen skærm tilgængelig til optagelse af systemlyd.",
+  "nativeError1203": "Lydudgangen for ScreenCaptureKit kunne ikke konfigureres.",
+  "nativeError1204": "Lydoptagelsen i ScreenCaptureKit kunne ikke startes.",
+  "nativeError1205": "Lydoptagelsen i ScreenCaptureKit stoppede uventet.",
+  "nativeError1206": "Start af lydoptagelsen i ScreenCaptureKit fik timeout.",
+  "nativeErrorUnknown": "Der opstod en ukendt fejl under optagelse af systemlyd.",
+  "exceptionDetails": "Diagnose: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

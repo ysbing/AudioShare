@@ -1,0 +1,69 @@
+{
+  "@@locale": "id",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Buka Pengaturan Sistem",
+  "noDevices": "Tidak ada perangkat ditemukan",
+  "connect": "Hubungkan",
+  "connecting": "Menghubungkan",
+  "disconnect": "Putuskan",
+  "autoConnectLastDevice": "Hubungkan otomatis ke perangkat terakhir yang digunakan",
+  "language": "Bahasa",
+  "followSystem": "Ikuti sistem",
+  "noLanguageMatch": "Tidak ada bahasa yang cocok",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Izin perekaman diperlukan",
+  "recordingPermissionDescription": "Di Pengaturan Sistem, buka Privasi & Keamanan > Perekaman Layar & Audio Sistem dan izinkan AudioShare. macOS memerlukan aplikasi dimulai ulang agar izin baru berlaku; keluarlah dari AudioShare, buka kembali, lalu hubungkan lagi.",
+  "connectionFailedTitle": "Koneksi gagal",
+  "captureInitializationFailed": "Tidak dapat menginisialisasi perekaman audio sistem.",
+  "captureStopped": "Perekaman audio sistem berhenti.",
+  "captureStartFailed": "Tidak dapat memulai perekaman audio sistem.",
+  "listenerStartFailed": "Tidak dapat memulai layanan streaming audio lokal.",
+  "noAvailablePort": "Tidak ada porta listener lokal yang tersedia.",
+  "connectAndroidDeviceFailed": "Terjadi kesalahan saat menghubungkan ke perangkat Android.",
+  "connectDeviceFailed": "Terjadi kesalahan saat menghubungkan ke perangkat.",
+  "nativeErrorDetails": "Kode kesalahan: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Gagal menginisialisasi perekaman audio.",
+  "nativeError1001": "Versi macOS ini tidak mendukung perekaman audio sistem.",
+  "nativeError1002": "Izin perekaman layar dan audio sistem tidak tersedia.",
+  "nativeError1100": "Tidak dapat memulai listener audio lokal.",
+  "nativeError1101": "Tidak dapat membuat socket listener lokal.",
+  "nativeError1102": "Tidak dapat mengikat socket listener lokal.",
+  "nativeError1103": "Socket listener lokal tidak dapat mulai mendengarkan.",
+  "nativeError1104": "Tidak dapat membuat thread listener lokal.",
+  "nativeError1105": "Waktu tunggu untuk memulai listener lokal habis.",
+  "nativeError1106": "Tidak dapat menerima koneksi dari perangkat Android.",
+  "nativeError1107": "Tidak dapat membaca kode koneksi perangkat Android.",
+  "nativeError1200": "Tidak dapat memulai perekaman audio sistem.",
+  "nativeError1201": "Tidak dapat mengambil konten berbagi layar.",
+  "nativeError1202": "Tidak ada layar yang tersedia untuk perekaman audio sistem.",
+  "nativeError1203": "Tidak dapat mengonfigurasi output audio ScreenCaptureKit.",
+  "nativeError1204": "Tidak dapat memulai perekaman audio ScreenCaptureKit.",
+  "nativeError1205": "Perekaman audio ScreenCaptureKit berhenti secara tidak terduga.",
+  "nativeError1206": "Waktu tunggu untuk memulai perekaman audio ScreenCaptureKit habis.",
+  "nativeErrorUnknown": "Terjadi kesalahan perekaman audio sistem yang tidak dikenal.",
+  "exceptionDetails": "Diagnosis: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

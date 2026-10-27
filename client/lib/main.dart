@@ -7,9 +7,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'data_source.dart';
 import 'l10n/app_localizations_extensions.dart';
 import 'l10n/generated/app_localizations.dart';
+import 'l10n/language_dialog.dart';
+import 'l10n/supported_languages.dart';
 import 'utils/prefs.dart';
 
-const _supportedLocales = [Locale('en'), Locale('zh')];
 const _languagePreferenceKey = 'locale';
 
 void main() {
@@ -33,28 +34,41 @@ class AudioShareApp extends StatefulWidget {
 }
 
 class _AudioShareAppState extends State<AudioShareApp> {
-  Locale? _locale;
+  /// Whether the app follows the device language instead of a fixed one.
+  late bool _followSystem;
+
+  /// The language currently in use.
+  late AppLanguage _language;
 
   @override
   void initState() {
     super.initState();
     final savedLanguage = Prefs.getString(_languagePreferenceKey);
-    if (_supportedLocales.any((locale) => locale.languageCode == savedLanguage)) {
-      _locale = Locale(savedLanguage);
-    }
+    final pinned = savedLanguage == followSystemLanguageId
+        ? null
+        : languageById(savedLanguage);
+    _followSystem = pinned == null;
+    _language = pinned ?? _deviceLanguage;
   }
 
-  void _setLocale(Locale locale) {
-    Prefs.setString(_languagePreferenceKey, locale.languageCode);
-    setState(() => _locale = locale);
-  }
+  /// The language the device reports, or English when the app has no
+  /// translation for it.
+  AppLanguage get _deviceLanguage =>
+      resolveLanguage(WidgetsBinding.instance.platformDispatcher.locale) ??
+      fallbackLanguage;
 
-  Locale _resolveLocale(Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-    final languageCode = deviceLocale?.languageCode;
-    return supportedLocales.firstWhere(
-      (locale) => locale.languageCode == languageCode,
-      orElse: () => const Locale('en'),
-    );
+  /// The id of the selected language entry.
+  String get _currentLanguageId =>
+      _followSystem ? followSystemLanguageId : _language.id;
+
+  void _setLanguage(String id) {
+    final pinned = id == followSystemLanguageId ? null : languageById(id);
+    if (pinned == null && id != followSystemLanguageId) return;
+    Prefs.setString(_languagePreferenceKey, id);
+    setState(() {
+      _followSystem = pinned == null;
+      _language = pinned ?? _deviceLanguage;
+    });
   }
 
   @override
@@ -62,24 +76,38 @@ class _AudioShareAppState extends State<AudioShareApp> {
     return MaterialApp(
       title: 'AudioShare',
       debugShowCheckedModeBanner: false,
-      locale: _locale,
-      supportedLocales: _supportedLocales,
+      locale: _language.locale,
+      supportedLocales: supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      localeResolutionCallback: _resolveLocale,
-      home: AudioShareHomePage(onLocaleChanged: _setLocale),
+      home: AudioShareHomePage(
+        onLanguageChanged: _setLanguage,
+        currentLanguageId: _currentLanguageId,
+        deviceLanguage: _deviceLanguage,
+      ),
     );
   }
 }
 
 class AudioShareHomePage extends StatefulWidget {
-  const AudioShareHomePage({super.key, required this.onLocaleChanged});
+  const AudioShareHomePage({
+    super.key,
+    required this.onLanguageChanged,
+    required this.currentLanguageId,
+    required this.deviceLanguage,
+  });
 
-  final ValueChanged<Locale> onLocaleChanged;
+  final ValueChanged<String> onLanguageChanged;
+
+  /// The id of the selected language entry.
+  final String currentLanguageId;
+
+  /// The language the device reports.
+  final AppLanguage deviceLanguage;
 
   @override
   State<AudioShareHomePage> createState() => _AudioShareHomePageState();
@@ -119,8 +147,10 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
 
   String _errorDescription(AppLocalizations l10n, UiError error) {
     final description = switch (error.type) {
-      UiErrorType.recordingPermissionRequired => l10n.recordingPermissionDescription,
-      UiErrorType.captureInitializationFailed => l10n.captureInitializationFailed,
+      UiErrorType.recordingPermissionRequired =>
+        l10n.recordingPermissionDescription,
+      UiErrorType.captureInitializationFailed =>
+        l10n.captureInitializationFailed,
       UiErrorType.captureStopped => l10n.captureStopped,
       UiErrorType.captureStartFailed => l10n.captureStartFailed,
       UiErrorType.listenerStartFailed => l10n.listenerStartFailed,
@@ -207,21 +237,27 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
-          PopupMenuButton<Locale>(
-            tooltip: l10n.language,
+          IconButton(
             icon: const Icon(Icons.language),
-            onSelected: widget.onLocaleChanged,
-            itemBuilder: (context) => [
-              PopupMenuItem(value: const Locale('en'), child: Text(l10n.languageEnglish)),
-              PopupMenuItem(value: const Locale('zh'), child: Text(l10n.languageChinese)),
-            ],
+            tooltip: l10n.language,
+            onPressed: () async {
+              final selected = await LanguageDialog.show(
+                context,
+                currentId: widget.currentLanguageId,
+                deviceLanguage: widget.deviceLanguage,
+              );
+              if (selected != null) widget.onLanguageChanged(selected);
+            },
           ),
         ],
       ),
       body: SizedBox(
         width: 360,
         height: 540,
-        child: Column(children: [Expanded(child: _buildContent(l10n)), _buildCheckBox(l10n)]),
+        child: Column(children: [
+          Expanded(child: _buildContent(l10n)),
+          _buildCheckBox(l10n)
+        ]),
       ),
     );
   }
@@ -262,7 +298,9 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('${device.manufacturer} ${device.model}', style: const TextStyle(fontSize: 14), overflow: TextOverflow.ellipsis),
+                        Text('${device.manufacturer} ${device.model}',
+                            style: const TextStyle(fontSize: 14),
+                            overflow: TextOverflow.ellipsis),
                         const SizedBox(height: 6),
                         Text(
                           '${l10n.deviceAndroidVersionFormatted(device.androidVersion, apiLevel)}${device.usb ? '' : l10n.deviceNetworkAddressFormatted(device.ip, port)}',
@@ -279,7 +317,8 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
                     onPressed: connectEnable
                         ? () {
                             if (connectState == 0) {
-                              _dataSource.connectDevice(device.deviceId, userInitiated: true);
+                              _dataSource.connectDevice(device.deviceId,
+                                  userInitiated: true);
                             } else if (connectState == 2) {
                               _dataSource.disconnectDevice(device.deviceId);
                             }
@@ -299,10 +338,16 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
 
   Widget _buildCheckBox(AppLocalizations l10n) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Row(children: [
-        Checkbox(value: _dataSource.lastCheck, onChanged: (value) => _dataSource.lastCheck = value ?? false),
-        Expanded(child: Text(l10n.autoConnectLastDevice)),
+        Checkbox(
+            value: _dataSource.lastCheck,
+            onChanged: (value) => _dataSource.lastCheck = value ?? false),
+        Expanded(
+            child: Text(
+          l10n.autoConnectLastDevice,
+          style: TextStyle(fontSize: 13),
+        )),
       ]),
     );
   }

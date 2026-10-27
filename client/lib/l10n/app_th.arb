@@ -1,0 +1,69 @@
+{
+  "@@locale": "th",
+  "appTitle": "AudioShare",
+  "ok": "ตกลง",
+  "openSystemSettings": "เปิดการตั้งค่าระบบ",
+  "noDevices": "ไม่พบอุปกรณ์",
+  "connect": "เชื่อมต่อ",
+  "connecting": "กำลังเชื่อมต่อ",
+  "disconnect": "ตัดการเชื่อมต่อ",
+  "autoConnectLastDevice": "เชื่อมต่ออุปกรณ์ที่ใช้ล่าสุดโดยอัตโนมัติ",
+  "language": "ภาษา",
+  "followSystem": "ตามระบบ",
+  "noLanguageMatch": "ไม่พบภาษาที่ตรงกัน",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "ต้องได้รับสิทธิ์บันทึก",
+  "recordingPermissionDescription": "ในการตั้งค่าระบบ ให้ไปที่ ความเป็นส่วนตัวและความปลอดภัย > การบันทึกหน้าจอและเสียงระบบ แล้วอนุญาตให้ AudioShare เมื่อเปลี่ยนสิทธิ์ใหม่ macOS ต้องให้รีสตาร์ตแอปเพื่อให้มีผล จึงออกจาก AudioShare เปิดใหม่ แล้วเชื่อมต่ออีกครั้ง",
+  "connectionFailedTitle": "เชื่อมต่อไม่สำเร็จ",
+  "captureInitializationFailed": "ไม่สามารถเริ่มต้นการจับเสียงระบบได้",
+  "captureStopped": "การจับเสียงระบบหยุดแล้ว",
+  "captureStartFailed": "ไม่สามารถเริ่มการจับเสียงระบบได้",
+  "listenerStartFailed": "ไม่สามารถเริ่มบริการสตรีมเสียงในเครื่องได้",
+  "noAvailablePort": "ไม่มีพอร์ตฟังในเครื่องที่ใช้ได้",
+  "connectAndroidDeviceFailed": "เกิดข้อผิดพลาดขณะเชื่อมต่อกับอุปกรณ์ Android",
+  "connectDeviceFailed": "เกิดข้อผิดพลาดขณะเชื่อมต่อกับอุปกรณ์",
+  "nativeErrorDetails": "รหัสข้อผิดพลาด: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "การเริ่มต้นการจับเสียงล้มเหลว",
+  "nativeError1001": "macOS เวอร์ชันนี้ไม่รองรับการจับเสียงระบบ",
+  "nativeError1002": "ไม่มีสิทธิ์บันทึกหน้าจอและเสียงระบบ",
+  "nativeError1100": "ไม่สามารถเริ่มตัวฟังเสียงในเครื่องได้",
+  "nativeError1101": "ไม่สามารถสร้างซ็อกเก็ตฟังในเครื่องได้",
+  "nativeError1102": "ไม่สามารถผูกซ็อกเก็ตฟังในเครื่องได้",
+  "nativeError1103": "ซ็อกเก็ตฟังในเครื่องไม่สามารถเริ่มฟังได้",
+  "nativeError1104": "ไม่สามารถสร้างเธรดตัวฟังในเครื่องได้",
+  "nativeError1105": "การเริ่มตัวฟังในเครื่องหมดเวลา",
+  "nativeError1106": "ไม่สามารถยอมรับการเชื่อมต่อจากอุปกรณ์ Android ได้",
+  "nativeError1107": "ไม่สามารถอ่านรหัสการเชื่อมต่อของอุปกรณ์ Android ได้",
+  "nativeError1200": "ไม่สามารถเริ่มการจับเสียงระบบได้",
+  "nativeError1201": "ไม่สามารถรับเนื้อหาการแชร์หน้าจอได้",
+  "nativeError1202": "ไม่มีจอแสดงผลที่ใช้ได้สำหรับการจับเสียงระบบ",
+  "nativeError1203": "ไม่สามารถกำหนดค่าเอาต์พุตเสียงของ ScreenCaptureKit ได้",
+  "nativeError1204": "ไม่สามารถเริ่มการจับเสียงของ ScreenCaptureKit ได้",
+  "nativeError1205": "การจับเสียงของ ScreenCaptureKit หยุดโดยไม่คาดคิด",
+  "nativeError1206": "การเริ่มการจับเสียงของ ScreenCaptureKit หมดเวลา",
+  "nativeErrorUnknown": "เกิดข้อผิดพลาดที่ไม่รู้จักในการจับเสียงระบบ",
+  "exceptionDetails": "การวินิจฉัย: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

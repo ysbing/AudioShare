@@ -1,0 +1,69 @@
+{
+  "@@locale": "he",
+  "appTitle": "AudioShare",
+  "ok": "אישור",
+  "openSystemSettings": "פתיחת הגדרות המערכת",
+  "noDevices": "לא נמצאו מכשירים",
+  "connect": "התחברות",
+  "connecting": "מתחבר",
+  "disconnect": "ניתוק",
+  "autoConnectLastDevice": "התחברות אוטומטית למכשיר ששימש לאחרונה",
+  "language": "שפה",
+  "followSystem": "בהתאם למערכת",
+  "noLanguageMatch": "לא נמצאה שפה מתאימה",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "נדרשת הרשאת הקלטה",
+  "recordingPermissionDescription": "בהגדרות המערכת עברו אל Privacy & Security > Screen & System Audio Recording ואשרו ל-AudioShare. ב-macOS נדרשת הפעלה מחדש של היישום כדי שההרשאה החדשה תיכנס לתוקף; סגרו את AudioShare, פתחו אותו מחדש ולאחר מכן התחברו שוב.",
+  "connectionFailedTitle": "ההתחברות נכשלה",
+  "captureInitializationFailed": "לא ניתן לאתחל את לכידת השמע המערכת.",
+  "captureStopped": "לכידת השמע המערכת נעצרה.",
+  "captureStartFailed": "לא ניתן להתחיל את לכידת השמע המערכת.",
+  "listenerStartFailed": "לא ניתן להפעיל את שירות הזרימת השמע המקומי.",
+  "noAvailablePort": "אין פורט האזנה מקומי זמין.",
+  "connectAndroidDeviceFailed": "אירעה שגיאה בעת ההתחברות למכשיר Android.",
+  "connectDeviceFailed": "אירעה שגיאה בעת ההתחברות למכשיר.",
+  "nativeErrorDetails": "קוד שגיאה: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "אתחול לכידת השמע נכשל.",
+  "nativeError1001": "גרסת macOS זו אינה תומכת בלכידת שמע מערכת.",
+  "nativeError1002": "הרשאת הקלטת מסך ושמע מערכת אינה זמינה.",
+  "nativeError1100": "לא ניתן להפעיל את מאזין השמע המקומי.",
+  "nativeError1101": "לא ניתן ליצור את שק ההאזנה המקומי.",
+  "nativeError1102": "לא ניתן לקשור את שק ההאזנה המקומי.",
+  "nativeError1103": "שק ההאזנה המקומי לא הצליח להתחיל להאזין.",
+  "nativeError1104": "לא ניתן ליצור את תת ההאזנה המקומי.",
+  "nativeError1105": "הפעלת המאזין המקומי התמהמהה.",
+  "nativeError1106": "לא ניתן לקבל את החיבור ממכשיר Android.",
+  "nativeError1107": "לא ניתן לקרוא את קוד החיבור של מכשיר Android.",
+  "nativeError1200": "לא ניתן להתחיל את לכידת השמע המערכת.",
+  "nativeError1201": "לא ניתן לקבל את תוכן שיתוף המסך.",
+  "nativeError1202": "אין תצוגה זמינה ללכידת שמע מערכת.",
+  "nativeError1203": "לא ניתן להגדיר את פלט השמע של ScreenCaptureKit.",
+  "nativeError1204": "לא ניתן להתחיל את לכידת השמע של ScreenCaptureKit.",
+  "nativeError1205": "לכידת השמע של ScreenCaptureKit נעצרה באופן לא צפוי.",
+  "nativeError1206": "הפעלת לכידת השמע של ScreenCaptureKit התמהמהה.",
+  "nativeErrorUnknown": "אירעה שגיאה לא ידועה בלכידת שמע המערכת.",
+  "exceptionDetails": "אבחון: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

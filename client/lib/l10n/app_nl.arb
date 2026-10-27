@@ -1,0 +1,69 @@
+{
+  "@@locale": "nl",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Systeeminstellingen openen",
+  "noDevices": "Geen apparaten gevonden",
+  "connect": "Verbinden",
+  "connecting": "Verbinden",
+  "disconnect": "Verbinding verbreken",
+  "autoConnectLastDevice": "Automatisch verbinden met het laatst gebruikte apparaat",
+  "language": "Taal",
+  "followSystem": "Systeeminstelling volgen",
+  "noLanguageMatch": "Geen overeenkomende taal gevonden",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Opnametoestemming vereist",
+  "recordingPermissionDescription": "Ga in Systeeminstellingen naar Privacy en beveiliging > Scherm- en systeemaudio opnemen en geef AudioShare toestemming. macOS vereist dat de app opnieuw wordt gestart voordat de nieuwe toestemming geldt: sluit AudioShare af, open het opnieuw en verbind daarna opnieuw.",
+  "connectionFailedTitle": "Verbinding mislukt",
+  "captureInitializationFailed": "De opname van systeemaudio kon niet worden geïnitialiseerd.",
+  "captureStopped": "De opname van systeemaudio is gestopt.",
+  "captureStartFailed": "De opname van systeemaudio kon niet worden gestart.",
+  "listenerStartFailed": "De lokale audiostreamingservice kon niet worden gestart.",
+  "noAvailablePort": "Er is geen lokale luisterpoort beschikbaar.",
+  "connectAndroidDeviceFailed": "Er is een fout opgetreden bij het verbinden met het Android-apparaat.",
+  "connectDeviceFailed": "Er is een fout opgetreden bij het verbinden met het apparaat.",
+  "nativeErrorDetails": "Foutcode: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Initialisatie van de audio-opname is mislukt.",
+  "nativeError1001": "Deze macOS-versie ondersteunt geen opname van systeemaudio.",
+  "nativeError1002": "Toestemming voor het opnemen van scherm en systeemaudio is niet beschikbaar.",
+  "nativeError1100": "De lokale audioluister kon niet worden gestart.",
+  "nativeError1101": "De lokale luister-socket kon niet worden aangemaakt.",
+  "nativeError1102": "De lokale luister-socket kon niet worden gebonden.",
+  "nativeError1103": "De lokale luister-socket kon niet beginnen met luisteren.",
+  "nativeError1104": "De luisterthread kon niet worden aangemaakt.",
+  "nativeError1105": "Het starten van de lokale luister is verlopen.",
+  "nativeError1106": "De verbinding van het Android-apparaat kon niet worden geaccepteerd.",
+  "nativeError1107": "De verbindingscode van het Android-apparaat kon niet worden gelezen.",
+  "nativeError1200": "De opname van systeemaudio kon niet worden gestart.",
+  "nativeError1201": "De inhoud van de schermdeling kon niet worden opgehaald.",
+  "nativeError1202": "Er is geen scherm beschikbaar voor de opname van systeemaudio.",
+  "nativeError1203": "De audio-uitvoer van ScreenCaptureKit kon niet worden geconfigureerd.",
+  "nativeError1204": "De audio-opname van ScreenCaptureKit kon niet worden gestart.",
+  "nativeError1205": "De audio-opname van ScreenCaptureKit is onverwacht gestopt.",
+  "nativeError1206": "Het starten van de audio-opname van ScreenCaptureKit is verlopen.",
+  "nativeErrorUnknown": "Er is een onbekende fout opgetreden bij de opname van systeemaudio.",
+  "exceptionDetails": "Diagnose: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

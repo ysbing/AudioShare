@@ -1,0 +1,69 @@
+{
+  "@@locale": "de",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Systemeinstellungen öffnen",
+  "noDevices": "Keine Geräte gefunden",
+  "connect": "Verbinden",
+  "connecting": "Verbinden",
+  "disconnect": "Trennen",
+  "autoConnectLastDevice": "Automatisch mit dem zuletzt verwendeten Gerät verbinden",
+  "language": "Sprache",
+  "followSystem": "Systemeinstellungen folgen",
+  "noLanguageMatch": "Keine passende Sprache",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Aufnahmeberechtigung erforderlich",
+  "recordingPermissionDescription": "Öffne in den Systemeinstellungen Datenschutz & Sicherheit > Bildschirm- und Systemaudioaufnahme und erlaube AudioShare. macOS verlangt einen Neustart der App, damit die neue Berechtigung wirksam wird. Beende AudioShare, öffne es erneut und stelle anschließend die Verbindung noch einmal her.",
+  "connectionFailedTitle": "Verbindung fehlgeschlagen",
+  "captureInitializationFailed": "Die Systemaudioaufnahme konnte nicht initialisiert werden.",
+  "captureStopped": "Die Systemaudioaufnahme wurde beendet.",
+  "captureStartFailed": "Die Systemaudioaufnahme konnte nicht gestartet werden.",
+  "listenerStartFailed": "Der lokale Audio-Streamingdienst konnte nicht gestartet werden.",
+  "noAvailablePort": "Es ist kein lokaler Listening-Port verfügbar.",
+  "connectAndroidDeviceFailed": "Beim Verbinden mit dem Android-Gerät ist ein Fehler aufgetreten.",
+  "connectDeviceFailed": "Beim Verbinden mit dem Gerät ist ein Fehler aufgetreten.",
+  "nativeErrorDetails": "Fehlercode: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Audioaufnahme konnte nicht initialisiert werden.",
+  "nativeError1001": "Diese macOS-Version unterstützt keine Systemaudioaufnahme.",
+  "nativeError1002": "Die Berechtigung für Bildschirm- und Systemaudioaufnahme ist nicht verfügbar.",
+  "nativeError1100": "Der lokale Audio-Listener konnte nicht gestartet werden.",
+  "nativeError1101": "Der lokale Listening-Socket konnte nicht erstellt werden.",
+  "nativeError1102": "Der lokale Listening-Socket konnte nicht gebunden werden.",
+  "nativeError1103": "Der lokale Listening-Socket konnte nicht mit dem Lauschen beginnen.",
+  "nativeError1104": "Der lokale Listener-Thread konnte nicht erstellt werden.",
+  "nativeError1105": "Zeitüberschreitung beim Starten des lokalen Listeners.",
+  "nativeError1106": "Die Verbindung des Android-Geräts konnte nicht angenommen werden.",
+  "nativeError1107": "Der Verbindungscode des Android-Geräts konnte nicht gelesen werden.",
+  "nativeError1200": "Die Systemaudioaufnahme konnte nicht gestartet werden.",
+  "nativeError1201": "Der Inhalt der Bildschirmfreigabe konnte nicht abgerufen werden.",
+  "nativeError1202": "Es ist kein Display für die Systemaudioaufnahme verfügbar.",
+  "nativeError1203": "Die ScreenCaptureKit-Audioausgabe konnte nicht konfiguriert werden.",
+  "nativeError1204": "Die ScreenCaptureKit-Audioaufnahme konnte nicht gestartet werden.",
+  "nativeError1205": "Die ScreenCaptureKit-Audioaufnahme wurde unerwartet beendet.",
+  "nativeError1206": "Zeitüberschreitung beim Starten der ScreenCaptureKit-Audioaufnahme.",
+  "nativeErrorUnknown": "Ein unbekannter Fehler bei der Systemaudioaufnahme ist aufgetreten.",
+  "exceptionDetails": "Diagnose: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

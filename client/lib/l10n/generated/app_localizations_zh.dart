@@ -36,10 +36,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get language => '语言';
 
   @override
-  String get languageEnglish => 'English';
+  String get followSystem => '跟随系统';
 
   @override
-  String get languageChinese => '简体中文';
+  String get noLanguageMatch => '没有匹配的语言';
 
   @override
   String deviceAndroidVersion(String version, String apiLevel) {
@@ -147,5 +147,151 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String exceptionDetails(String message) {
     return '诊断信息：$message';
+  }
+}
+
+/// The translations for Chinese, as used in Taiwan (`zh_TW`).
+class AppLocalizationsZhTw extends AppLocalizationsZh {
+  AppLocalizationsZhTw() : super('zh_TW');
+
+  @override
+  String get appTitle => 'AudioShare';
+
+  @override
+  String get ok => '確定';
+
+  @override
+  String get openSystemSettings => '打開系統設定';
+
+  @override
+  String get noDevices => '找不到裝置';
+
+  @override
+  String get connect => '連線';
+
+  @override
+  String get connecting => '連線中';
+
+  @override
+  String get disconnect => '中斷連線';
+
+  @override
+  String get autoConnectLastDevice => '自動連線到上次使用的裝置';
+
+  @override
+  String get language => '語言';
+
+  @override
+  String get followSystem => '跟隨系統';
+
+  @override
+  String get noLanguageMatch => '沒有符合的語言';
+
+  @override
+  String deviceAndroidVersion(String version, String apiLevel) {
+    return 'Android $version（API $apiLevel）';
+  }
+
+  @override
+  String deviceNetworkAddress(String ip, String port) {
+    return ' - $ip:$port';
+  }
+
+  @override
+  String get recordingPermissionTitle => '需要錄製權限';
+
+  @override
+  String get recordingPermissionDescription =>
+      '請在「系統設定 > 隱私權與安全性 > 螢幕與系統音訊錄製」中允許 AudioShare。macOS 需要重新啟動應用程式才能讓新權限生效；請結束 AudioShare，重新開啟後再連線一次。';
+
+  @override
+  String get connectionFailedTitle => '連線失敗';
+
+  @override
+  String get captureInitializationFailed => '無法初始化系統音訊擷取。';
+
+  @override
+  String get captureStopped => '系統音訊擷取已停止。';
+
+  @override
+  String get captureStartFailed => '無法開始擷取系統音訊。';
+
+  @override
+  String get listenerStartFailed => '無法啟動本機音訊串流服務。';
+
+  @override
+  String get noAvailablePort => '沒有可用的本機監聽連接埠。';
+
+  @override
+  String get connectAndroidDeviceFailed => '連線 Android 裝置時發生錯誤。';
+
+  @override
+  String get connectDeviceFailed => '連線裝置時發生錯誤。';
+
+  @override
+  String nativeErrorDetails(String code) {
+    return '錯誤碼：$code';
+  }
+
+  @override
+  String get nativeError1000 => '系統音訊擷取初始化失敗。';
+
+  @override
+  String get nativeError1001 => '目前的 macOS 版本不支援系統音訊擷取。';
+
+  @override
+  String get nativeError1002 => '螢幕與系統音訊錄製權限無法使用。';
+
+  @override
+  String get nativeError1100 => '本機音訊監聽服務無法啟動。';
+
+  @override
+  String get nativeError1101 => '無法建立本機監聽通訊端。';
+
+  @override
+  String get nativeError1102 => '無法繫結本機監聽通訊端。';
+
+  @override
+  String get nativeError1103 => '本機監聽通訊端無法開始監聽。';
+
+  @override
+  String get nativeError1104 => '無法建立本機監聽執行緒。';
+
+  @override
+  String get nativeError1105 => '啟動本機監聽服務逾時。';
+
+  @override
+  String get nativeError1106 => '無法接受 Android 裝置連線。';
+
+  @override
+  String get nativeError1107 => '無法讀取 Android 裝置連線碼。';
+
+  @override
+  String get nativeError1200 => '無法開始擷取系統音訊。';
+
+  @override
+  String get nativeError1201 => '無法取得螢幕分享內容。';
+
+  @override
+  String get nativeError1202 => '沒有可用於系統音訊擷取的顯示器。';
+
+  @override
+  String get nativeError1203 => '無法設定 ScreenCaptureKit 音訊輸出。';
+
+  @override
+  String get nativeError1204 => '無法啟動 ScreenCaptureKit 音訊擷取。';
+
+  @override
+  String get nativeError1205 => 'ScreenCaptureKit 音訊擷取意外停止。';
+
+  @override
+  String get nativeError1206 => '啟動 ScreenCaptureKit 音訊擷取逾時。';
+
+  @override
+  String get nativeErrorUnknown => '發生未知的系統音訊擷取錯誤。';
+
+  @override
+  String exceptionDetails(String message) {
+    return '診斷資訊：$message';
   }
 }

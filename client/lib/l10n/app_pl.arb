@@ -1,0 +1,69 @@
+{
+  "@@locale": "pl",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Otwórz Ustawienia systemowe",
+  "noDevices": "Nie znaleziono urządzeń",
+  "connect": "Połącz",
+  "connecting": "Łączenie",
+  "disconnect": "Odłącz",
+  "autoConnectLastDevice": "Automatycznie łącz z ostatnio używanym urządzeniem",
+  "language": "Język",
+  "followSystem": "Zgodnie z systemem",
+  "noLanguageMatch": "Brak pasującego języka",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Wymagane uprawnienia do nagrywania",
+  "recordingPermissionDescription": "W Ustawieniach systemowych przejdź do Prywatności i bezpieczeństwa > Nagrywanie ekranu i dźwięku systemowego i zezwól na AudioShare. macOS wymaga ponownego uruchomienia aplikacji, aby nowe uprawnienie zaczęło obowiązywać; zamknij AudioShare, otwórz go ponownie, a następnie połącz się jeszcze raz.",
+  "connectionFailedTitle": "Połączenie nieudane",
+  "captureInitializationFailed": "Nie udało się zainicjalizować przechwytywania dźwięku systemowego.",
+  "captureStopped": "Przechwytywanie dźwięku systemowego zostało zatrzymane.",
+  "captureStartFailed": "Nie udało się rozpocząć przechwytywania dźwięku systemowego.",
+  "listenerStartFailed": "Nie udało się uruchomić lokalnej usługi strumieniowania dźwięku.",
+  "noAvailablePort": "Brak dostępnych lokalnych portów nasłuchu.",
+  "connectAndroidDeviceFailed": "Podczas łączenia z urządzeniem z systemem Android wystąpił błąd.",
+  "connectDeviceFailed": "Podczas łączenia z urządzeniem wystąpił błąd.",
+  "nativeErrorDetails": "Kod błędu: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Nie udało się zainicjalizować przechwytywania dźwięku.",
+  "nativeError1001": "Ta wersja systemu macOS nie obsługuje przechwytywania dźwięku systemowego.",
+  "nativeError1002": "Uprawnienie do nagrywania ekranu i dźwięku systemowego jest niedostępne.",
+  "nativeError1100": "Nie udało się uruchomić lokalnego nasłuchu dźwięku.",
+  "nativeError1101": "Nie udało się utworzyć lokalnego gniazda nasłuchowego.",
+  "nativeError1102": "Nie udało się powiązać lokalnego gniazda nasłuchowego.",
+  "nativeError1103": "Lokalne gniazdo nasłuchowe nie mogło rozpocząć nasłuchu.",
+  "nativeError1104": "Nie udało się utworzyć wątku nasłuchu lokalnego.",
+  "nativeError1105": "Uruchamianie nasłuchu lokalnego przekroczyło limit czasu.",
+  "nativeError1106": "Nie udało się przyjąć połączenia z urządzenia z systemem Android.",
+  "nativeError1107": "Nie udało się odczytać kodu połączenia urządzenia z systemem Android.",
+  "nativeError1200": "Nie udało się rozpocząć przechwytywania dźwięku systemowego.",
+  "nativeError1201": "Nie udało się pobrać zawartości udostępniania ekranu.",
+  "nativeError1202": "Brak wyświetlaczy dostępnych do przechwytywania dźwięku systemowego.",
+  "nativeError1203": "Nie udało się skonfigurować wyjścia audio ScreenCaptureKit.",
+  "nativeError1204": "Nie udało się rozpocząć przechwytywania dźwięku w ScreenCaptureKit.",
+  "nativeError1205": "Przechwytywanie dźwięku w ScreenCaptureKit zakończyło się niespodziewanie.",
+  "nativeError1206": "Uruchamianie przechwytywania dźwięku w ScreenCaptureKit przekroczyło limit czasu.",
+  "nativeErrorUnknown": "Wystąpił nieznany błąd przechwytywania dźwięku systemowego.",
+  "exceptionDetails": "Diagnostyka: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

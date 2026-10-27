@@ -1,0 +1,69 @@
+{
+  "@@locale": "sv",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Öppna systeminställningar",
+  "noDevices": "Inga enheter hittades",
+  "connect": "Anslut",
+  "connecting": "Ansluter",
+  "disconnect": "Koppla ner",
+  "autoConnectLastDevice": "Anslut automatiskt till den senast använda enheten",
+  "language": "Språk",
+  "followSystem": "Följ systemet",
+  "noLanguageMatch": "Inget matchande språk hittades",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Inspelningsbehörighet krävs",
+  "recordingPermissionDescription": "I Systeminställningar går du till Säkerhet och sekretess > Skärminspelning och systemljud och tillåter AudioShare. macOS kräver att appen startas om för att den nya behörigheten ska gälla: avsluta AudioShare, öppna det igen och anslut sedan på nytt.",
+  "connectionFailedTitle": "Anslutningen misslyckades",
+  "captureInitializationFailed": "Det gick inte att initiera upptagningen av systemljud.",
+  "captureStopped": "Upptagningen av systemljud har stoppats.",
+  "captureStartFailed": "Det gick inte att starta upptagningen av systemljud.",
+  "listenerStartFailed": "Det gick inte att starta den lokala ljudströmmingstjänsten.",
+  "noAvailablePort": "Ingen lokal lyssningsport är tillgänglig.",
+  "connectAndroidDeviceFailed": "Ett fel uppstod vid anslutning till Android-enheten.",
+  "connectDeviceFailed": "Ett fel uppstod vid anslutning till enheten.",
+  "nativeErrorDetails": "Felkod: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Det gick inte att initiera ljudupptagningen.",
+  "nativeError1001": "Den här versionen av macOS stöder inte upptagning av systemljud.",
+  "nativeError1002": "Behörigheten för skärminspelning och systemljud är inte tillgänglig.",
+  "nativeError1100": "Det gick inte att starta den lokala ljudlyssnaren.",
+  "nativeError1101": "Det gick inte att skapa den lokala lyssningssocketen.",
+  "nativeError1102": "Det gick inte att binda den lokala lyssningssocketen.",
+  "nativeError1103": "Den lokala lyssningssocketen kunde inte börja lyssna.",
+  "nativeError1104": "Det gick inte att skapa den lokala lyssningstråden.",
+  "nativeError1105": "Tidsgränsen för att starta den lokala lyssnaren överskreds.",
+  "nativeError1106": "Det gick inte att acceptera anslutningen från Android-enheten.",
+  "nativeError1107": "Det gick inte att läsa Android-enhetens anslutningskod.",
+  "nativeError1200": "Det gick inte att starta upptagningen av systemljud.",
+  "nativeError1201": "Det gick inte att hämta innehållet i skärmdelningen.",
+  "nativeError1202": "Ingen skärm är tillgänglig för upptagning av systemljud.",
+  "nativeError1203": "Det gick inte att konfigurera ljudutgången för ScreenCaptureKit.",
+  "nativeError1204": "Det gick inte att starta ljudupptagningen i ScreenCaptureKit.",
+  "nativeError1205": "Ljudupptagningen i ScreenCaptureKit stoppades oväntat.",
+  "nativeError1206": "Tidsgränsen för att starta ljudupptagningen i ScreenCaptureKit överskreds.",
+  "nativeErrorUnknown": "Ett okänt fel uppstod vid upptagning av systemljud.",
+  "exceptionDetails": "Diagnostik: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

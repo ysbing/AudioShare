@@ -1,0 +1,69 @@
+{
+  "@@locale": "tr",
+  "appTitle": "AudioShare",
+  "ok": "Tamam",
+  "openSystemSettings": "Sistem Ayarları'nı Aç",
+  "noDevices": "Cihaz bulunamadı",
+  "connect": "Bağlan",
+  "connecting": "Bağlanıyor",
+  "disconnect": "Bağlantıyı Kes",
+  "autoConnectLastDevice": "En son kullanılan cihaza otomatik olarak bağlan",
+  "language": "Dil",
+  "followSystem": "Sistemi izle",
+  "noLanguageMatch": "Eşleşen dil yok",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Kayıt izni gerekli",
+  "recordingPermissionDescription": "Sistem Ayarları'nda Gizlilik ve Güvenlik > Ekran ve Sistem Sesi Kaydı yolunu izleyin ve AudioShare'e izin verin. Yeni izin etkin olabilmesi için macOS uygulamanın yeniden başlatılmasını gerektirir; AudioShare'den çıkıp yeniden açın, ardından yeniden bağlanın.",
+  "connectionFailedTitle": "Bağlantı başarısız oldu",
+  "captureInitializationFailed": "Sistem sesi yakalama başlatılamadı.",
+  "captureStopped": "Sistem sesi yakalama durdu.",
+  "captureStartFailed": "Sistem sesi yakalama başlatılamadı.",
+  "listenerStartFailed": "Yerel ses akışı hizmeti başlatılamadı.",
+  "noAvailablePort": "Kullanılabilir yerel dinleme bağlantı noktası yok.",
+  "connectAndroidDeviceFailed": "Android cihazına bağlanırken bir hata oluştu.",
+  "connectDeviceFailed": "Cihaza bağlanırken bir hata oluştu.",
+  "nativeErrorDetails": "Hata kodu: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Ses yakalama başlatılamadı.",
+  "nativeError1001": "Bu macOS sürümü sistem sesi yakalamayı desteklemiyor.",
+  "nativeError1002": "Ekran ve sistem sesi kaydı izni kullanılamıyor.",
+  "nativeError1100": "Yerel ses dinleyici başlatılamadı.",
+  "nativeError1101": "Yerel dinleme yuvası oluşturulamadı.",
+  "nativeError1102": "Yerel dinleme yuvası bağlanamadı.",
+  "nativeError1103": "Yerel dinleme yuvası dinlemeye başlayamadı.",
+  "nativeError1104": "Yerel dinleyici iş parçacığı oluşturulamadı.",
+  "nativeError1105": "Yerel dinleyici başlatılırken zaman aşımına uğradı.",
+  "nativeError1106": "Android cihazının bağlantısı kabul edilemedi.",
+  "nativeError1107": "Android cihazının bağlantı kodu okunamadı.",
+  "nativeError1200": "Sistem sesi yakalama başlatılamadı.",
+  "nativeError1201": "Ekran paylaşımı içeriği alınamadı.",
+  "nativeError1202": "Sistem sesi yakalama için kullanılabilir ekran yok.",
+  "nativeError1203": "ScreenCaptureKit ses çıkışı yapılandırılamadı.",
+  "nativeError1204": "ScreenCaptureKit ses yakalama başlatılamadı.",
+  "nativeError1205": "ScreenCaptureKit ses yakalama beklenmedik şekilde durdu.",
+  "nativeError1206": "ScreenCaptureKit ses yakalama başlatılırken zaman aşımına uğradı.",
+  "nativeErrorUnknown": "Bilinmeyen bir sistem sesi yakalama hatası oluştu.",
+  "exceptionDetails": "Tanılama: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

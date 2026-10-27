@@ -1,0 +1,69 @@
+{
+  "@@locale": "fi",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Avaa järjestelmäasetukset",
+  "noDevices": "Laitteita ei löytynyt",
+  "connect": "Yhdistä",
+  "connecting": "Yhdistetään",
+  "disconnect": "Katkaise yhteys",
+  "autoConnectLastDevice": "Yhdistä automaattisesti viimeksi käytettyyn laitteeseen",
+  "language": "Kieli",
+  "followSystem": "Järjestelmän mukaan",
+  "noLanguageMatch": "Vastaavaa kieltä ei löytynyt",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Tallennuslupa vaaditaan",
+  "recordingPermissionDescription": "Siirry Järjestelmäasetuksissa kohtaan Tietosuoja ja turvallisuus > Näytön ja järjestelmän äänen tallennus ja salli AudioShare. macOS vaatii, että sovellus käynnistetään uudelleen, jotta uusi lupa tulee voimaan: sulje AudioShare, avaa se uudelleen ja yhdistä sitten uudelleen.",
+  "connectionFailedTitle": "Yhdistäminen epäonnistui",
+  "captureInitializationFailed": "Järjestelmän äänen tallennusta ei voitu alustaa.",
+  "captureStopped": "Järjestelmän äänen tallennus pysäytettiin.",
+  "captureStartFailed": "Järjestelmän äänen tallennusta ei voitu aloittaa.",
+  "listenerStartFailed": "Paikallista äänen suoratoistopalvelua ei voitu käynnistää.",
+  "noAvailablePort": "Paikallista kuuntelporttia ei ole käytettävissä.",
+  "connectAndroidDeviceFailed": "Android-laitteeseen yhdistettäessä tapahtui virhe.",
+  "connectDeviceFailed": "Laitteeseen yhdistettäessä tapahtui virhe.",
+  "nativeErrorDetails": "Virhekoodi: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Äänentallennuksen alustaminen epäonnistui.",
+  "nativeError1001": "Tämä macOS-versio ei tue järjestelmän äänen tallennusta.",
+  "nativeError1002": "Näytön ja järjestelmän äänen tallennuslupa ei ole käytettävissä.",
+  "nativeError1100": "Paikallista äänikuuntelijaa ei voitu käynnistää.",
+  "nativeError1101": "Paikallista kuuntelusokkia ei voitu luoda.",
+  "nativeError1102": "Paikallista kuuntelusokkia ei voitu sitoa.",
+  "nativeError1103": "Paikallinen kuuntelusokki ei voinut alkaa kuunnella.",
+  "nativeError1104": "Paikallista kuuntelusäiettä ei voitu luoda.",
+  "nativeError1105": "Paikallisen kuuntelijan käynnistys aikakatkaistiin.",
+  "nativeError1106": "Android-laitteen yhteyttä ei voitu hyväksyä.",
+  "nativeError1107": "Android-laitteen yhteyskoodia ei voitu lukea.",
+  "nativeError1200": "Järjestelmän äänen tallennusta ei voitu aloittaa.",
+  "nativeError1201": "Näytön jakamisen sisältöä ei voitu hakea.",
+  "nativeError1202": "Järjestelmän äänen tallennukseen ei ole käytettävissä näyttöä.",
+  "nativeError1203": "ScreenCaptureKitin äänilähtöä ei voitu määrittää.",
+  "nativeError1204": "ScreenCaptureKitin äänentallennusta ei voitu aloittaa.",
+  "nativeError1205": "ScreenCaptureKitin äänentallennus pysähtyi odottamatta.",
+  "nativeError1206": "ScreenCaptureKitin äänentallennuksen aloitus aikakatkaistiin.",
+  "nativeErrorUnknown": "Järjestelmän äänen tallennuksessa tapahtui tuntematon virhe.",
+  "exceptionDetails": "Vianmääritys: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

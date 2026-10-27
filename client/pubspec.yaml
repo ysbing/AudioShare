@@ -34,5 +34,5 @@ msix_config:
   identity_name: ysbing.AudioShare
   publisher: CN=928CDDD4-FB48-4610-8DFF-FD7336ABEB2F
   logo_path: ../tools/logo.png
-  languages: en-us, zh-cn
+  languages: en-us, zh-cn, zh-tw, es-es, pt-br, ru-ru, ja-jp, ko-kr, de-de, fr-fr, it-it, hi-in, ar-sa, tr-tr, vi-vn, id-id, pl-pl, th-th, nl-nl, sv-se, cs-cz, he-il, uk-ua, ro-ro, hu-hu, da-dk, fi-fi, el-gr
   store: true

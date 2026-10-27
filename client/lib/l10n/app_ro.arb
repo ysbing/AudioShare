@@ -1,0 +1,69 @@
+{
+  "@@locale": "ro",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Deschide setările sistemului",
+  "noDevices": "Nu s-a găsit niciun dispozitiv",
+  "connect": "Conectare",
+  "connecting": "Se conectează",
+  "disconnect": "Deconectare",
+  "autoConnectLastDevice": "Conectare automată la ultimul dispozitiv folosit",
+  "language": "Limbă",
+  "followSystem": "Ca în sistem",
+  "noLanguageMatch": "Nicio limbă corespunzătoare nu a fost găsită",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Este necesară permisiunea de înregistrare",
+  "recordingPermissionDescription": "În Setările sistemului, mergeți la Confidențialitate și securitate > Înregistrarea ecranului și a sunetului sistemului și permiteți AudioShare. macOS necesită repornirea aplicației pentru ca noua permisiune să intre în vigoare; ieșiți din AudioShare, deschideți-l din nou și apoi reconectați-vă.",
+  "connectionFailedTitle": "Conectare nereușită",
+  "captureInitializationFailed": "Capturarea sunetului sistemului nu a putut fi inițializată.",
+  "captureStopped": "Capturarea sunetului sistemului s-a oprit.",
+  "captureStartFailed": "Capturarea sunetului sistemului nu a putut fi pornită.",
+  "listenerStartFailed": "Serviciul local de streaming audio nu a putut fi pornit.",
+  "noAvailablePort": "Nu există niciun port de ascultare local disponibil.",
+  "connectAndroidDeviceFailed": "A apărut o eroare la conectarea la dispozitivul Android.",
+  "connectDeviceFailed": "A apărut o eroare la conectarea la dispozitiv.",
+  "nativeErrorDetails": "Cod de eroare: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Inițializarea capturii audio a eșuat.",
+  "nativeError1001": "Această versiune de macOS nu acceptă capturarea sunetului sistemului.",
+  "nativeError1002": "Permisiunea de înregistrare a ecranului și a sunetului sistemului nu este disponibilă.",
+  "nativeError1100": "Ascultătorul local de audio nu a putut fi pornit.",
+  "nativeError1101": "Socketul local de ascultare nu a putut fi creat.",
+  "nativeError1102": "Socketul local de ascultare nu a putut fi asociat.",
+  "nativeError1103": "Socketul local de ascultare nu a putut începe să asculte.",
+  "nativeError1104": "Fireul local de ascultare nu a putut fi creat.",
+  "nativeError1105": "Pornirea ascultătorului local a expirat.",
+  "nativeError1106": "Conexiunea de la dispozitivul Android nu a putut fi acceptată.",
+  "nativeError1107": "Codul de conexiune al dispozitivului Android nu a putut fi citit.",
+  "nativeError1200": "Capturarea sunetului sistemului nu a putut fi pornită.",
+  "nativeError1201": "Conținutul partajării ecranului nu a putut fi obținut.",
+  "nativeError1202": "Nu există niciun afișaj disponibil pentru capturarea sunetului sistemului.",
+  "nativeError1203": "Ieșirea audio ScreenCaptureKit nu a putut fi configurată.",
+  "nativeError1204": "Captura audio ScreenCaptureKit nu a putut fi pornită.",
+  "nativeError1205": "Captura audio ScreenCaptureKit s-a oprit neașteptat.",
+  "nativeError1206": "Pornirea capturii audio ScreenCaptureKit a expirat.",
+  "nativeErrorUnknown": "A apărut o eroare necunoscută la capturarea sunetului sistemului.",
+  "exceptionDetails": "Diagnostic: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

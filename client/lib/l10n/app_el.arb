@@ -1,0 +1,69 @@
+{
+  "@@locale": "el",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Άνοιγμα ρυθμίσεων συστήματος",
+  "noDevices": "Δεν βρέθηκαν συσκευές",
+  "connect": "Σύνδεση",
+  "connecting": "Σύνδεση σε εξέλιξη",
+  "disconnect": "Αποσύνδεση",
+  "autoConnectLastDevice": "Αυτόματη σύνδεση στην τελευταία χρησιμοποιημένη συσκευή",
+  "language": "Γλώσσα",
+  "followSystem": "Ακολουθεί το σύστημα",
+  "noLanguageMatch": "Δεν βρέθηκε αντίστοιχη γλώσσα",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Απαιτείται άδεια εγγραφής",
+  "recordingPermissionDescription": "Στις Ρυθμίσεις συστήματος μεταβείτε στο Απόρρητο και ασφάλεια > Εγγραφή οθόνης και ήχου συστήματος και επιτρέψτε το AudioShare. Το macOS απαιτεί επανεκκίνηση της εφαρμογής για να ισχύσει η νέα άδεια: κλείστε το AudioShare, ανοίξτε το ξανά και συνδεθείτε ξανά.",
+  "connectionFailedTitle": "Η σύνδεση απέτυχε",
+  "captureInitializationFailed": "Δεν ήταν δυνατή η αρχικοποίηση της λήψης ήχου συστήματος.",
+  "captureStopped": "Η λήψη ήχου συστήματος διακόπηκε.",
+  "captureStartFailed": "Δεν ήταν δυνατη η έναρξη της λήψης ήχου συστήματος.",
+  "listenerStartFailed": "Δεν ήταν δυνατη η εκκίνηση της τοπικής υπηρεσίας ροής ήχου.",
+  "noAvailablePort": "Δεν υπάρχει διαθέσιμη τοπική θύρα ακρόασης.",
+  "connectAndroidDeviceFailed": "Παρουσιάστηκε σφάλμα κατά τη σύνδεση στη συσκευή Android.",
+  "connectDeviceFailed": "Παρουσιάστηκε σφάλμα κατά τη σύνδεση στη συσκευή.",
+  "nativeErrorDetails": "Κωδικός σφάλματος: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Η αρχικοποίηση της λήψης ήχου απέτυχε.",
+  "nativeError1001": "Αυτή η έκδοση του macOS δεν υποστηρίζει τη λήψη ήχου συστήματος.",
+  "nativeError1002": "Η άδεια εγγραφής οθόνης και ήχου συστήματος δεν είναι διαθέσιμη.",
+  "nativeError1100": "Δεν ήταν δυνατη η εκκίνηση του τοπικού ακροατή ήχου.",
+  "nativeError1101": "Δεν ήταν δυνατη η δημιουργία της τοπικής υποδοχής ακρόασης.",
+  "nativeError1102": "Δεν ήταν δυνατη η σύνδεση της τοπικής υποδοχής ακρόασης.",
+  "nativeError1103": "Η τοπική υποδοχή ακρόασης δεν μπόρεσε να αρχίσει να ακούει.",
+  "nativeError1104": "Δεν ήταν δυνατη η δημιουργία του νήματος τοπικής ακρόασης.",
+  "nativeError1105": "Η εκκίνηση του τοπικού ακροατή έληξε με timeout.",
+  "nativeError1106": "Δεν ήταν δυνατη η αποδοχή της σύνδεσης από τη συσκευή Android.",
+  "nativeError1107": "Δεν ήταν δυνατη η ανάγνωση του κωδικού σύνδεσης της συσκευής Android.",
+  "nativeError1200": "Δεν ήταν δυνατη η έναρξη της λήψης ήχου συστήματος.",
+  "nativeError1201": "Δεν ήταν δυνατη η λήψη του περιεχομένου της κοινής χρήσης οθόνης.",
+  "nativeError1202": "Δεν υπάρχει διαθέσιμη οθόνη για τη λήψη ήχου συστήματος.",
+  "nativeError1203": "Δεν ήταν δυνατη η ρύθμιση της εξόδου ήχου του ScreenCaptureKit.",
+  "nativeError1204": "Δεν ήταν δυνατη η έναρξη της λήψης ήχου του ScreenCaptureKit.",
+  "nativeError1205": "Η λήψη ήχου του ScreenCaptureKit διακόπηκε απροσδόκητα.",
+  "nativeError1206": "Η έναρξη της λήψης ήχου του ScreenCaptureKit έληξε με timeout.",
+  "nativeErrorUnknown": "Παρουσιάστηκε άγνωστο σφάλμα λήψης ήχου συστήματος.",
+  "exceptionDetails": "Διαγνωστικά: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

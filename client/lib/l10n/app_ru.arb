@@ -1,0 +1,69 @@
+{
+  "@@locale": "ru",
+  "appTitle": "AudioShare",
+  "ok": "ОК",
+  "openSystemSettings": "Открыть системные настройки",
+  "noDevices": "Устройства не найдены",
+  "connect": "Подключить",
+  "connecting": "Подключение",
+  "disconnect": "Отключить",
+  "autoConnectLastDevice": "Автоматически подключаться к последнему использованному устройству",
+  "language": "Язык",
+  "followSystem": "Как в системе",
+  "noLanguageMatch": "Нет подходящего языка",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Требуется разрешение на запись",
+  "recordingPermissionDescription": "В «Системных настройках» откройте «Конфиденциальность и безопасность» > «Запись экрана и системного звука» и разрешите AudioShare. Для применения нового разрешения macOS требует перезапуска приложения: закройте AudioShare, откройте его снова и повторите подключение.",
+  "connectionFailedTitle": "Не удалось подключиться",
+  "captureInitializationFailed": "Не удалось инициализировать захват системного звука.",
+  "captureStopped": "Захват системного звука остановлен.",
+  "captureStartFailed": "Не удалось начать захват системного звука.",
+  "listenerStartFailed": "Не удалось запустить локальную службу потоковой передачи звука.",
+  "noAvailablePort": "Нет доступных локальных портов прослушивания.",
+  "connectAndroidDeviceFailed": "Произошла ошибка при подключении к устройству Android.",
+  "connectDeviceFailed": "Произошла ошибка при подключении к устройству.",
+  "nativeErrorDetails": "Код ошибки: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Не удалось инициализировать захват звука.",
+  "nativeError1001": "Эта версия macOS не поддерживает захват системного звука.",
+  "nativeError1002": "Недоступно разрешение на запись экрана и системного звука.",
+  "nativeError1100": "Не удалось запустить локальный прослушиватель звука.",
+  "nativeError1101": "Не удалось создать локальный сокет прослушивания.",
+  "nativeError1102": "Не удалось привязать локальный сокет прослушивания.",
+  "nativeError1103": "Локальный сокет прослушивания не смог начать прослушивание.",
+  "nativeError1104": "Не удалось создать поток локального прослушивания.",
+  "nativeError1105": "Истекло время ожидания запуска локального прослушивателя.",
+  "nativeError1106": "Не удалось принять подключение от устройства Android.",
+  "nativeError1107": "Не удалось прочитать код подключения устройства Android.",
+  "nativeError1200": "Не удалось начать захват системного звука.",
+  "nativeError1201": "Не удалось получить содержимое общего доступа к экрану.",
+  "nativeError1202": "Нет доступных дисплеев для захвата системного звука.",
+  "nativeError1203": "Не удалось настроить аудиовыход ScreenCaptureKit.",
+  "nativeError1204": "Не удалось запустить захват звука ScreenCaptureKit.",
+  "nativeError1205": "Захват звука ScreenCaptureKit неожиданно остановился.",
+  "nativeError1206": "Истекло время ожидания запуска захвата звука ScreenCaptureKit.",
+  "nativeErrorUnknown": "Произошла неизвестная ошибка захвата системного звука.",
+  "exceptionDetails": "Диагностика: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

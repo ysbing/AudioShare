@@ -37,10 +37,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
-  String get languageEnglish => 'English';
+  String get followSystem => 'Follow system';
 
   @override
-  String get languageChinese => 'Chinese (Simplified)';
+  String get noLanguageMatch => 'No matching language';
 
   @override
   String deviceAndroidVersion(String version, String apiLevel) {

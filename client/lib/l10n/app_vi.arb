@@ -1,0 +1,69 @@
+{
+  "@@locale": "vi",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "Mở Cài đặt hệ thống",
+  "noDevices": "Không tìm thấy thiết bị nào",
+  "connect": "Kết nối",
+  "connecting": "Đang kết nối",
+  "disconnect": "Ngắt kết nối",
+  "autoConnectLastDevice": "Tự động kết nối với thiết bị đã dùng gần nhất",
+  "language": "Ngôn ngữ",
+  "followSystem": "Theo hệ thống",
+  "noLanguageMatch": "Không có ngôn ngữ phù hợp",
+  "deviceAndroidVersion": "Android {version} (API {apiLevel})",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "Cần quyền ghi hình",
+  "recordingPermissionDescription": "Trong Cài đặt hệ thống, vào Quyền riêng tư & Bảo mật > Ghi hình màn hình và âm thanh hệ thống, rồi cho phép AudioShare. macOS cần khởi động lại ứng dụng để quyền mới có hiệu lực; hãy thoát AudioShare, mở lại rồi kết nối lại lần nữa.",
+  "connectionFailedTitle": "Kết nối thất bại",
+  "captureInitializationFailed": "Không thể khởi tạo việc thu âm thanh hệ thống.",
+  "captureStopped": "Việc thu âm thanh hệ thống đã dừng.",
+  "captureStartFailed": "Không thể bắt đầu thu âm thanh hệ thống.",
+  "listenerStartFailed": "Không thể khởi động dịch vụ truyền âm thanh cục bộ.",
+  "noAvailablePort": "Không có cổng lắng nghe cục bộ nào khả dụng.",
+  "connectAndroidDeviceFailed": "Đã xảy ra lỗi khi kết nối với thiết bị Android.",
+  "connectDeviceFailed": "Đã xảy ra lỗi khi kết nối với thiết bị.",
+  "nativeErrorDetails": "Mã lỗi: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "Khởi tạo thu âm thanh thất bại.",
+  "nativeError1001": "Phiên bản macOS này không hỗ trợ thu âm thanh hệ thống.",
+  "nativeError1002": "Không có quyền ghi hình màn hình và âm thanh hệ thống.",
+  "nativeError1100": "Không thể khởi động bộ lắng nghe âm thanh cục bộ.",
+  "nativeError1101": "Không thể tạo socket lắng nghe cục bộ.",
+  "nativeError1102": "Không thể liên kết socket lắng nghe cục bộ.",
+  "nativeError1103": "Socket lắng nghe cục bộ không thể bắt đầu lắng nghe.",
+  "nativeError1104": "Không thể tạo luồng lắng nghe cục bộ.",
+  "nativeError1105": "Khởi động bộ lắng nghe cục bộ đã hết thời gian chờ.",
+  "nativeError1106": "Không thể chấp nhận kết nối từ thiết bị Android.",
+  "nativeError1107": "Không thể đọc mã kết nối của thiết bị Android.",
+  "nativeError1200": "Không thể bắt đầu thu âm thanh hệ thống.",
+  "nativeError1201": "Không thể lấy nội dung chia sẻ màn hình.",
+  "nativeError1202": "Không có màn hình nào khả dụng để thu âm thanh hệ thống.",
+  "nativeError1203": "Không thể cấu hình âm thanh đầu ra của ScreenCaptureKit.",
+  "nativeError1204": "Không thể bắt đầu thu âm thanh của ScreenCaptureKit.",
+  "nativeError1205": "Việc thu âm thanh của ScreenCaptureKit đã dừng đột ngột.",
+  "nativeError1206": "Bắt đầu thu âm thanh của ScreenCaptureKit đã hết thời gian chờ.",
+  "nativeErrorUnknown": "Đã xảy ra lỗi thu âm thanh hệ thống không xác định.",
+  "exceptionDetails": "Chẩn đoán: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

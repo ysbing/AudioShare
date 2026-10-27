@@ -1,0 +1,69 @@
+{
+  "@@locale": "ja",
+  "appTitle": "AudioShare",
+  "ok": "OK",
+  "openSystemSettings": "システム設定を開く",
+  "noDevices": "デバイスが見つかりません",
+  "connect": "接続",
+  "connecting": "接続中",
+  "disconnect": "切断",
+  "autoConnectLastDevice": "前回使用したデバイスに自動的に接続する",
+  "language": "言語",
+  "followSystem": "システムに従う",
+  "noLanguageMatch": "一致する言語がありません",
+  "deviceAndroidVersion": "Android {version}（API {apiLevel}）",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "version": {"type": "String"},
+      "apiLevel": {"type": "String"}
+    }
+  },
+  "deviceNetworkAddress": " - {ip}:{port}",
+  "@deviceNetworkAddress": {
+    "placeholders": {
+      "ip": {"type": "String"},
+      "port": {"type": "String"}
+    }
+  },
+  "recordingPermissionTitle": "録画の許可が必要です",
+  "recordingPermissionDescription": "「システム設定」の「プライバシーとセキュリティ」>「スクリーンとシステムオーディオの記録」を開き、AudioShareを許可してください。macOSでは新しい許可を反映するためにアプリを再起動する必要があります。AudioShareを終了して開き直し、もう一度接続してください。",
+  "connectionFailedTitle": "接続に失敗しました",
+  "captureInitializationFailed": "システムオーディオのキャプチャを初期化できませんでした。",
+  "captureStopped": "システムオーディオのキャプチャが停止しました。",
+  "captureStartFailed": "システムオーディオのキャプチャを開始できませんでした。",
+  "listenerStartFailed": "ローカルの音声ストリーミングサービスを開始できませんでした。",
+  "noAvailablePort": "利用できるローカルリスニングポートがありません。",
+  "connectAndroidDeviceFailed": "Androidデバイスへの接続中にエラーが発生しました。",
+  "connectDeviceFailed": "デバイスへの接続中にエラーが発生しました。",
+  "nativeErrorDetails": "エラーコード: {code}",
+  "@nativeErrorDetails": {
+    "placeholders": {
+      "code": {"type": "String"}
+    }
+  },
+  "nativeError1000": "オーディオキャプチャの初期化に失敗しました。",
+  "nativeError1001": "このバージョンのmacOSはシステムオーディオのキャプチャに対応していません。",
+  "nativeError1002": "スクリーンとシステムオーディオの記録の許可が利用できません。",
+  "nativeError1100": "ローカル音声リスナーを開始できませんでした。",
+  "nativeError1101": "ローカルリスニングソケットを作成できませんでした。",
+  "nativeError1102": "ローカルリスニングソケットをバインドできませんでした。",
+  "nativeError1103": "ローカルリスニングソケットの待受けを開始できませんでした。",
+  "nativeError1104": "ローカルリスナースレッドを作成できませんでした。",
+  "nativeError1105": "ローカルリスナーの起動がタイムアウトしました。",
+  "nativeError1106": "Androidデバイスからの接続を受け付けられませんでした。",
+  "nativeError1107": "Androidデバイスの接続コードを読み取れませんでした。",
+  "nativeError1200": "システムオーディオのキャプチャを開始できませんでした。",
+  "nativeError1201": "画面共有のコンテンツを取得できませんでした。",
+  "nativeError1202": "システムオーディオのキャプチャに使えるディスプレイがありません。",
+  "nativeError1203": "ScreenCaptureKitのオーディオ出力を構成できませんでした。",
+  "nativeError1204": "ScreenCaptureKitのオーディオキャプチャを開始できませんでした。",
+  "nativeError1205": "ScreenCaptureKitのオーディオキャプチャが予期せず停止しました。",
+  "nativeError1206": "ScreenCaptureKitのオーディオキャプチャの起動がタイムアウトしました。",
+  "nativeErrorUnknown": "不明なシステムオーディオキャプチャエラーが発生しました。",
+  "exceptionDetails": "診断情報: {message}",
+  "@exceptionDetails": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  }
+}

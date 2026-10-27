@@ -30,7 +30,7 @@ On first use on macOS, allow **Screen & System Audio Recording** when prompted. 
 | macOS | macOS 13+ | Flutter 3.x and Xcode 14+ |
 | Android device | USB debugging enabled, or paired ADB over Wi-Fi | Android Studio or JDK, only when building the server |
 
-Use the language menu in the upper-right corner to choose English or Simplified Chinese. Enable the option at the bottom of the window to reconnect automatically on future launches.
+Use the language menu in the upper-right corner to change the language of the interface. The first entry follows the language the operating system reports. The app ships translations for English, Simplified Chinese, Traditional Chinese, Spanish, Portuguese, Russian, Japanese, Korean, German, French, Italian, Hindi, Arabic, Turkish, Vietnamese, Indonesian, Polish, Thai, Dutch, Swedish, Czech, Hebrew, Ukrainian, Romanian, Greek, Hungarian, Danish and Finnish. Enable the option at the bottom of the window to reconnect automatically on future launches.
 
 ## Build from Source
 
