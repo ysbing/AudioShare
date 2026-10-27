@@ -2,7 +2,7 @@ name: audioshare
 description: Stream system audio (Windows/macOS) to Android via ADB.
 publish_to: none
 
-version: 2.2.2+1
+version: 2.3.0+1
 
 environment:
   sdk: ^3.6.2
