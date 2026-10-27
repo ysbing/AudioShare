@@ -3,15 +3,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart' show ScreenUtilInit;
 
 import 'data_source.dart';
 import 'l10n/app_localizations_extensions.dart';
 import 'l10n/generated/app_localizations.dart';
 import 'l10n/language_dialog.dart';
 import 'l10n/supported_languages.dart';
-import 'utils/design.dart';
 import 'utils/prefs.dart';
+import 'utils/size.dart';
 
 const _languagePreferenceKey = 'locale';
 

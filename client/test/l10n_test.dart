@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:audioshare/l10n/generated/app_localizations.dart';
 import 'package:audioshare/l10n/language_dialog.dart';
 import 'package:audioshare/l10n/supported_languages.dart';
-import 'package:audioshare/utils/design.dart';
+import 'package:audioshare/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart' show ScreenUtilInit;
 import 'package:flutter_test/flutter_test.dart';
 
 Map<String, dynamic> _readArb(String path) =>
