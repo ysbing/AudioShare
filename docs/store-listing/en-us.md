@@ -39,3 +39,13 @@ AudioShare speaks 28 languages: English, Simplified Chinese, Traditional Chinese
 • The language picker is now searchable, and it can follow the language your system reports.
 • The layout now scales with the window instead of assuming a fixed size.
 ```
+
+## Features
+
+```
+• System audio capture through WASAPI loopback
+• USB and ADB over Wi-Fi connections
+• Automatic reconnection to the last used device
+• No companion app to install on the phone
+• Interface available in 28 languages
+```

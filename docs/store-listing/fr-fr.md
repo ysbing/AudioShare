@@ -39,3 +39,13 @@ AudioShare est disponible en 28 langues : anglais, chinois simplifié, chinois t
 • Le sélecteur de langue peut désormais être recherché et suivre la langue signalée par le système.
 • La mise en page s'adapte à la fenêtre au lieu de supposer une taille fixe.
 ```
+
+## Fonctionnalités
+
+```
+• Capture du son système via la boucle WASAPI
+• Connexion USB ou ADB via Wi-Fi
+• Reconnexion automatique au dernier appareil utilisé
+• Aucune application à installer sur le téléphone
+• Interface disponible en 28 langues
+```

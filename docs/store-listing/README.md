@@ -4,11 +4,14 @@ Copy for the AudioShare listing in Partner Center, product
 [9MX0W331FVWF](https://partner.microsoft.com/zh-cn/dashboard/products/9MX0W331FVWF/overview).
 
 One file per listing language, named after the locale Partner Center uses.
-Each file holds the three fields the listing form asks for:
+Each file holds the fields the listing form asks for:
 
 - **Display name** — max 50 characters.
 - **Description** — max 3000 characters.
 - **What's new** — max 3000 characters.
+- **Features** — the five bullet points shown under 产品功能. Only the five
+  published locales have this section; the other 23 files carry the three
+  text fields only.
 
 ## Which languages ship
 
@@ -53,4 +56,5 @@ matching file here and upload its screenshots.
 
 These descriptions were written by Claude, like the app translations they
 describe. They are accurate to the code, but a native speaker should read them
-before they go live.
+before they go live. The feature bullets for French, Japanese and Spanish were
+written the same way and have had no reader at all.
