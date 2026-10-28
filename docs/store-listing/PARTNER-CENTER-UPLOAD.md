@@ -49,7 +49,7 @@ powershell -ExecutionPolicy Bypass -File tools/package_store.ps1
 
 **3. 商店列表文案已写好**
 
-`docs/store-listing/` 下每个语言一个文件，文件名就是 Partner Center 用的 locale：
+`docs/store-listing/` 下每个语言一个文件，文件名就是 Partner Center 用的 locale，28 个都有：
 
 ```
 en-us.md  zh-cn.md  zh-tw.md  es-es.md  pt-br.md  ru-ru.md  ja-jp.md
@@ -64,7 +64,12 @@ he-il.md  uk-ua.md  ro-ro.md  el-gr.md  hu-hu.md  da-dk.md  fi-fi.md
 - **Description**（描述，上限 3000 字符）—— 约 1100 字符，含快速上手、功能要点、运行要求、28 种语言说明
 - **What's new**（更新说明，上限 3000 字符）—— 2.3.0 的三条
 
-这 28 个 locale 和 MSIX 包里的资源语言表**逐项一致**（已用 diff 校验过）。
+**但这次只发布 5 个语言**：`en-us`、`zh-cn`、`fr-fr`、`ja-jp`、`es-es`。
+其余市场在没有自己的列表时回落显示英文列表，所以另外 23 个文件这次不填。
+文案文件留着不删，以后加语言是复制粘贴的活，不用重写。
+
+注意这只是**商店列表**的语言数量，和包无关：MSIX 里仍然带着 App 自己的全部 28 种界面翻译。
+
 
 **4. 商店营销截图**
 
@@ -88,8 +93,11 @@ zh-01-connect.png   zh-02-playing.png
 ### 第二步：填商店列表
 
 1. 进 **商店列表**（Store listing）页面
-2. 每个语言：先在 **添加语言**（Add language）里选 locale，然后从 `docs/store-listing/<locale>.md` 里把三段内容分别粘进对应字段
-3. **截图**：拉丁字母系语言用 `en-01-connect.png` + `en-02-playing.png`；`zh-cn` 和 `zh-tw` 用 `zh-01-connect.png` + `zh-02-playing.png`。图上的说明文字是烧进图片里的英文/中文，其他语言沿用英文那两张是可接受的
+2. 这次只填 5 个语言：`en-us`、`zh-cn`、`fr-fr`、`ja-jp`、`es-es`。
+   先在 **添加语言**（Add language）里选 locale，然后从 `docs/store-listing/<locale>.md` 里把三段内容分别粘进对应字段
+3. **截图**：`zh-cn` 用 `zh-01-connect.png` + `zh-02-playing.png`；
+   `en-us`、`fr-fr`、`ja-jp`、`es-es` 用 `en-01-connect.png` + `en-02-playing.png`。
+   图上的说明文字是烧进图片里的英文/中文，法语/日语/西班牙语沿用英文那两张是可接受的
 4. **隐私政策 URL 不要动**。现在的地址已经覆盖"2.2.2 及后续版本"，2.3.0 自动包含在内
 
 ### 第三步：停在这里
@@ -107,7 +115,7 @@ zh-01-connect.png   zh-02-playing.png
 ## 完成后的自检
 
 - 包在 **包** 页面显示为 2.3.0.0，状态是"待发布"（pending），没有校验错误
-- 商店列表里能看到新描述，且 28 个语言都加上了
+- 商店列表里能看到新描述，且上面说的 5 个语言都加上了
 - **没有**点提交认证
 
 ## 如果需要重跑 App 验证
