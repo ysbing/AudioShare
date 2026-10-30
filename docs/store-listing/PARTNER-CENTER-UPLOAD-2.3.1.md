@@ -71,7 +71,7 @@ powershell -ExecutionPolicy Bypass -File tools/package_store.ps1
 
 ### 第二步（可选）：更新各语言的 What's new
 
-在现有 5 个语言的商店列表里把"更新说明 / What's new"替换为：
+在现有 5 个语言的商店列表里把"更新说明 / What's new"替换为下面的译稿。
 
 **zh-cn**
 
@@ -89,7 +89,37 @@ powershell -ExecutionPolicy Bypass -File tools/package_store.ps1
 • Fixed an error that could appear right after startup.
 ```
 
-`fr-fr`、`ja-jp`、`es-es` 可以沿用上面的英文（与截图的做法一致，可接受），不改也不算错误。
+**fr-fr**
+
+```
+• La fenêtre est désormais dessinée par l'application elle-même : une barre de titre sans bordure, avec l'icône de l'application, le sélecteur de langue et les boutons Réduire et Fermer intégrés.
+• La fenêtre a désormais une taille fixe : les bords de redimensionnement et la maximisation ont disparu. L'interface reste cohérente, quelle que soit l'échelle d'affichage.
+• Correction d'une erreur qui pouvait apparaître juste après le démarrage.
+```
+
+**ja-jp**
+
+```
+• ウィンドウをアプリ自身で描画するようにしました。枠なしのタイトルバーに、アプリのアイコン、言語切り替えボタン、最小化・閉じるボタンが並びます。
+• ウィンドウサイズを固定しました。サイズ変更や最大化はできない代わりに、どの画面の拡大率でも表示は常に一定です。
+• 起動直後にエラーが表示されることがある問題を修正しました。
+```
+
+**es-es**
+
+```
+• La ventana ahora la dibuja la propia aplicación: una barra de título sin bordes, con el icono de la aplicación, el selector de idioma y los botones integrados de minimizar y cerrar.
+• La ventana tiene ahora un tamaño fijo: sin bordes de redimensionado ni maximización. La interfaz se mantiene coherente en cualquier escala de pantalla.
+• Corregido un error que podía aparecer justo después del inicio.
+```
+
+**zh-tw**（目前不在已发布的 5 个列表语言里；若决定把繁体中文加入列表，可直接粘贴这份，列表正文用已备好的 `docs/store-listing/zh-tw.md`）
+
+```
+• 視窗徹底翻新：採無邊框設計，標題列由應用程式繪製，包含應用程式圖示、語言切換按鈕，以及最小化與關閉按鈕。
+• 視窗大小固定：取消邊緣調整與最大化，介面在任何螢幕縮放下都保持一致。
+• 修正啟動初期的錯誤。
+```
 
 ### 第三步：停在这里
 
