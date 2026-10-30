@@ -71,54 +71,42 @@ powershell -ExecutionPolicy Bypass -File tools/package_store.ps1
 
 ### 第二步（可选）：更新各语言的 What's new
 
-在现有 5 个语言的商店列表里把"更新说明 / What's new"替换为下面的译稿。
+在现有 5 个语言的商店列表里把"更新说明 / What's new"替换为下面的一句译稿。
 
 **zh-cn**
 
 ```
-• 窗口全面重做：无边框设计，标题栏由应用绘制，带有应用图标、语言切换按钮和最小化、关闭按钮。
-• 窗口大小固定：去掉拉伸边缘和最大化，界面在任意屏幕缩放下保持一致。
-• 修复启动初期的报错。
+优化了一些问题。
+```
+
+**zh-tw**（不在已发布的 5 个列表语言里；若加入繁中列表可直接粘贴）
+
+```
+修正了一些問題。
 ```
 
 **en-us**
 
 ```
-• The window is now drawn by the app itself: a borderless title bar carrying the app icon, the language switcher and built-in minimize and close buttons.
-• The window now has a fixed size: no more drag-to-resize edges or maximize. The layout stays consistent at any display scaling.
-• Fixed an error that could appear right after startup.
+Fixed some issues.
 ```
 
 **fr-fr**
 
 ```
-• La fenêtre est désormais dessinée par l'application elle-même : une barre de titre sans bordure, avec l'icône de l'application, le sélecteur de langue et les boutons Réduire et Fermer intégrés.
-• La fenêtre a désormais une taille fixe : les bords de redimensionnement et la maximisation ont disparu. L'interface reste cohérente, quelle que soit l'échelle d'affichage.
-• Correction d'une erreur qui pouvait apparaître juste après le démarrage.
-```
-
-**ja-jp**
-
-```
-• ウィンドウをアプリ自身で描画するようにしました。枠なしのタイトルバーに、アプリのアイコン、言語切り替えボタン、最小化・閉じるボタンが並びます。
-• ウィンドウサイズを固定しました。サイズ変更や最大化はできない代わりに、どの画面の拡大率でも表示は常に一定です。
-• 起動直後にエラーが表示されることがある問題を修正しました。
+Correction de quelques problèmes.
 ```
 
 **es-es**
 
 ```
-• La ventana ahora la dibuja la propia aplicación: una barra de título sin bordes, con el icono de la aplicación, el selector de idioma y los botones integrados de minimizar y cerrar.
-• La ventana tiene ahora un tamaño fijo: sin bordes de redimensionado ni maximización. La interfaz se mantiene coherente en cualquier escala de pantalla.
-• Corregido un error que podía aparecer justo después del inicio.
+Se corrigieron algunos problemas.
 ```
 
-**zh-tw**（目前不在已发布的 5 个列表语言里；若决定把繁体中文加入列表，可直接粘贴这份，列表正文用已备好的 `docs/store-listing/zh-tw.md`）
+**ja-jp**
 
 ```
-• 視窗徹底翻新：採無邊框設計，標題列由應用程式繪製，包含應用程式圖示、語言切換按鈕，以及最小化與關閉按鈕。
-• 視窗大小固定：取消邊緣調整與最大化，介面在任何螢幕縮放下都保持一致。
-• 修正啟動初期的錯誤。
+いくつかの問題を修正しました。
 ```
 
 ### 第三步：停在这里
