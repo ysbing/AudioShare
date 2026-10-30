@@ -154,4 +154,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'אבחון: $message';
   }
+
+  @override
+  String get winMinimize => 'מזער';
+
+  @override
+  String get winClose => 'סגור';
 }

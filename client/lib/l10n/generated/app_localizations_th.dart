@@ -159,4 +159,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'การวินิจฉัย: $message';
   }
+
+  @override
+  String get winMinimize => 'ย่อ';
+
+  @override
+  String get winClose => 'ปิด';
 }

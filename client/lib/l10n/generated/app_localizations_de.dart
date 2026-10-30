@@ -173,4 +173,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Diagnose: $message';
   }
+
+  @override
+  String get winMinimize => 'Minimieren';
+
+  @override
+  String get winClose => 'Schließen';
 }

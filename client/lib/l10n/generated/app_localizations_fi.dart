@@ -167,4 +167,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Vianmääritys: $message';
   }
+
+  @override
+  String get winMinimize => 'Pienennä';
+
+  @override
+  String get winClose => 'Sulje';
 }

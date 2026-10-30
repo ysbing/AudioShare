@@ -170,4 +170,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Диагностика: $message';
   }
+
+  @override
+  String get winMinimize => 'Свернуть';
+
+  @override
+  String get winClose => 'Закрыть';
 }

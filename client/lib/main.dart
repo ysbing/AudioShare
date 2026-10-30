@@ -12,16 +12,29 @@ import 'l10n/language_dialog.dart';
 import 'l10n/supported_languages.dart';
 import 'utils/prefs.dart';
 import 'utils/size.dart';
+import 'window/window_chrome.dart';
+import 'window/window_configuration.dart';
 
 const _languagePreferenceKey = 'locale';
 
 void main() {
-  Prefs.load();
   runZonedGuarded(
-    () => runApp(const ScreenUtilInit(
-      designSize: designSize,
-      child: AudioShareApp(),
-    )),
+    () async {
+      // The binding must be created and runApp called inside this same
+      // zone: the framework raises a zone mismatch when the lifecycle is
+      // split between zones.
+      WidgetsFlutterBinding.ensureInitialized();
+      Prefs.load();
+      // Apply the borderless window style before anything is drawn: the
+      // runner shows the window on Flutter's first frame, so configuring it
+      // any later would briefly flash the native title bar.
+      await configureDesktopWindow();
+
+      runApp(const ScreenUtilInit(
+        designSize: designSize,
+        child: AudioShareApp(),
+      ));
+    },
     (error, stack) {
       debugPrint('Uncaught error: $error\n$stack');
     },
@@ -89,10 +102,12 @@ class _AudioShareAppState extends State<AudioShareApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: AudioShareHomePage(
-        onLanguageChanged: _setLanguage,
-        currentLanguageId: _currentLanguageId,
-        deviceLanguage: _deviceLanguage,
+      home: DesktopWindowFrame(
+        child: AudioShareHomePage(
+          onLanguageChanged: _setLanguage,
+          currentLanguageId: _currentLanguageId,
+          deviceLanguage: _deviceLanguage,
+        ),
       ),
     );
   }
@@ -235,27 +250,27 @@ class _AudioShareHomePageState extends State<AudioShareHomePage>
     super.dispose();
   }
 
+  /// Opens the language dialog; its result goes back to [AudioShareApp].
+  ///
+  /// Lives outside the title bar so [TitleBar] stays stateless, and outside
+  /// the button callbacks so every caller shares the mounted handling.
+  Future<void> _openLanguageDialog() async {
+    final selected = await LanguageDialog.show(
+      context,
+      currentId: widget.currentLanguageId,
+      deviceLanguage: widget.deviceLanguage,
+    );
+    if (!mounted || selected == null) return;
+    widget.onLanguageChanged(selected);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.appTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.language),
-            tooltip: l10n.language,
-            onPressed: () async {
-              final selected = await LanguageDialog.show(
-                context,
-                currentId: widget.currentLanguageId,
-                deviceLanguage: widget.deviceLanguage,
-              );
-              if (selected != null) widget.onLanguageChanged(selected);
-            },
-          ),
-        ],
-      ),
+      // The borderless window draws its own caption row (title, languages,
+      // minimize/maximize/close) instead of the system AppBar.
+      appBar: TitleBar(onLanguagePressed: _openLanguageDialog),
       body: SizedBox(
         width: designSize.width.w,
         height: designSize.height.h,

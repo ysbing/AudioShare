@@ -148,4 +148,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String exceptionDetails(String message) {
     return '진단 정보: $message';
   }
+
+  @override
+  String get winMinimize => '최소화';
+
+  @override
+  String get winClose => '닫기';
 }

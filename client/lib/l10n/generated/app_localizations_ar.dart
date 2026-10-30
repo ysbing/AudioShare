@@ -151,4 +151,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'التشخيص: $message';
   }
+
+  @override
+  String get winMinimize => 'تصغير';
+
+  @override
+  String get winClose => 'إغلاق';
 }

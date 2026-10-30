@@ -65,5 +65,7 @@
     "placeholders": {
       "message": {"type": "String"}
     }
-  }
+  },
+  "winMinimize": "Simge durumuna küçült",
+  "winClose": "Kapat"
 }

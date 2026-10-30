@@ -172,4 +172,10 @@ class AppLocalizationsEl extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Διαγνωστικά: $message';
   }
+
+  @override
+  String get winMinimize => 'Ελαχιστοποίηση';
+
+  @override
+  String get winClose => 'Κλείσιμο';
 }

@@ -65,5 +65,7 @@
     "placeholders": {
       "message": {"type": "String"}
     }
-  }
+  },
+  "winMinimize": "Kis méret",
+  "winClose": "Bezárás"
 }

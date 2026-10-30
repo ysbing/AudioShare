@@ -173,4 +173,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Діагностика: $message';
   }
+
+  @override
+  String get winMinimize => 'Згорнути';
+
+  @override
+  String get winClose => 'Закрити';
 }

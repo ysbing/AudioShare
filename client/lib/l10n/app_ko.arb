@@ -65,5 +65,7 @@
     "placeholders": {
       "message": {"type": "String"}
     }
-  }
+  },
+  "winMinimize": "최소화",
+  "winClose": "닫기"
 }

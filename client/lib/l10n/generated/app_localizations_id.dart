@@ -166,4 +166,10 @@ class AppLocalizationsId extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Diagnosis: $message';
   }
+
+  @override
+  String get winMinimize => 'Perkecil';
+
+  @override
+  String get winClose => 'Tutup';
 }

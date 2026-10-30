@@ -169,4 +169,10 @@ class AppLocalizationsCs extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Diagnostika: $message';
   }
+
+  @override
+  String get winMinimize => 'Minimalizovat';
+
+  @override
+  String get winClose => 'Zavřít';
 }

@@ -38,15 +38,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   }
   window.SetQuitOnClose(true);
 
-  // Make window non-resizable.
-  HWND hwnd = window.GetHandle();
-  LONG style = GetWindowLong(hwnd, GWL_STYLE);
-  style &= ~WS_THICKFRAME;
-  style &= ~WS_MAXIMIZEBOX;
-  SetWindowLong(hwnd, GWL_STYLE, style);
-  SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
-    SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-
   ::MSG msg;
   while (::GetMessage(&msg, nullptr, 0, 0)) {
     ::TranslateMessage(&msg);

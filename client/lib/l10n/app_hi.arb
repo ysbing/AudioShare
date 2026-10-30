@@ -65,5 +65,7 @@
     "placeholders": {
       "message": {"type": "String"}
     }
-  }
+  },
+  "winMinimize": "छोटा करें",
+  "winClose": "बंद करें"
 }

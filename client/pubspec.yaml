@@ -2,7 +2,7 @@ name: audioshare
 description: Stream system audio (Windows/macOS) to Android via ADB.
 publish_to: none
 
-version: 2.3.0+1
+version: 2.3.1+1
 
 environment:
   sdk: ^3.6.2
@@ -15,6 +15,7 @@ dependencies:
   ffi: ^2.1.0
   flutter_screenutil: ^5.9.3
   intl: ^0.20.2
+  window_manager: ^0.5.1
 
 dev_dependencies:
   flutter_test:
@@ -23,8 +24,13 @@ dev_dependencies:
   msix: ^3.18.0
 
 flutter:
+  # The title bar's logo mark (tools/generate_icons.py output, same source
+  # as the desktop icon: rounded corners, transparent corners).
   generate: true
   uses-material-design: true
+
+  assets:
+    - assets/images/app_logo.png
 
 # Microsoft Store packaging (tools/package_store.ps1). identity_name and
 # publisher must match the values on the product's Identity page in Partner

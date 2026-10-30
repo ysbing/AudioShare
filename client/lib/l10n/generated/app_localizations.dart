@@ -412,6 +412,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Diagnostic: {message}'**
   String exceptionDetails(String message);
+
+  /// No description provided for @winMinimize.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimize'**
+  String get winMinimize;
+
+  /// No description provided for @winClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get winClose;
 }
 
 class _AppLocalizationsDelegate

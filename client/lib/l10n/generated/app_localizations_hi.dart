@@ -164,4 +164,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'निदान: $message';
   }
+
+  @override
+  String get winMinimize => 'छोटा करें';
+
+  @override
+  String get winClose => 'बंद करें';
 }

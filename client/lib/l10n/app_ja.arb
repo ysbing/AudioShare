@@ -65,5 +65,7 @@
     "placeholders": {
       "message": {"type": "String"}
     }
-  }
+  },
+  "winMinimize": "最小化",
+  "winClose": "閉じる"
 }

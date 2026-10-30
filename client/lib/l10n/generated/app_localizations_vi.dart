@@ -165,4 +165,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Chẩn đoán: $message';
   }
+
+  @override
+  String get winMinimize => 'Thu nhỏ';
+
+  @override
+  String get winClose => 'Đóng';
 }

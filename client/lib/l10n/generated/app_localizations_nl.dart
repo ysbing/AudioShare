@@ -171,4 +171,10 @@ class AppLocalizationsNl extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Diagnose: $message';
   }
+
+  @override
+  String get winMinimize => 'Minimaliseren';
+
+  @override
+  String get winClose => 'Sluiten';
 }

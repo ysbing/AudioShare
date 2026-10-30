@@ -160,4 +160,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Tanılama: $message';
   }
+
+  @override
+  String get winMinimize => 'Simge durumuna küçült';
+
+  @override
+  String get winClose => 'Kapat';
 }

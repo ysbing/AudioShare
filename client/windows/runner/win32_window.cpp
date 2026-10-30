@@ -136,7 +136,11 @@ bool Win32Window::Create(const std::wstring& title,
 
   HWND window = CreateWindow(
       window_class, title.c_str(),
-      WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
+      // Keep the full overlapped-window style even though the system title
+      // bar is hidden: window_manager strips the chrome visually but relies
+      // on WS_CAPTION/WS_THICKFRAME/WS_MAXIMIZEBOX so the window can still
+      // resize, snap, and maximize into the work area (taskbar stays clear).
+      WS_OVERLAPPEDWINDOW,
       Scale(origin.x, scale_factor), Scale(origin.y, scale_factor),
       Scale(size.width, scale_factor), Scale(size.height, scale_factor),
       nullptr, nullptr, GetModuleHandle(nullptr), this);

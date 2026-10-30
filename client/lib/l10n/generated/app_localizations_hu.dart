@@ -165,4 +165,10 @@ class AppLocalizationsHu extends AppLocalizations {
   String exceptionDetails(String message) {
     return 'Diagnosztika: $message';
   }
+
+  @override
+  String get winMinimize => 'Kis méret';
+
+  @override
+  String get winClose => 'Bezárás';
 }
